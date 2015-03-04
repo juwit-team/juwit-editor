@@ -32,29 +32,28 @@
 
   <div ng-controller="wysiwygeditor" class="container app">
   
-  <!-- Verankerte Toolbar
-  <div text-angular-toolbar name="statictoolbar" class="statictoolbar"></div> -->
-  <!-- Standart Toolbar
-  <p><button type="button" ng-click="changetesth1()">Test Change H1 Text</button><button type="button" ng-click="changeallh2()">All Change H2 Text</button><button type="button" ng-click="changeallh()">All H* Text</button><button type="button" ng-click="iconsallh()">Change H* Icons</button><button type="button" ng-click="resettoolbar()">Reset All Toolbar Buttons</button></p>
-   <div text-angular-toolbar name="test"></div> -->
-  
-  <h1>Textangular-Editor</h1> <!-- wysiwyg-Editor mit gewünschter Toolbar -->  
-  <div text-angular ng-model="data.htmlcontent3" ta-disabled='disabled' placeholder='TryMe!Smooth...' ta-toolbar="[['h1','p'],['ol','ul', 'redo','undo']]">
-  </div>
-  
-   <!-- wysiwyg-Editor mit Standart Toolbar
-   <button ng-click="disabled = !disabled" unselectable>Disable text-angular Toggle</button> 
+    <!-- Verankerte Toolbar
+    <div text-angular-toolbar name="statictoolbar" class="statictoolbar"></div> -->
+    <!-- Standart Toolbar
+    <p><button type="button" ng-click="changetesth1()">Test Change H1 Text</button><button type="button" ng-click="changeallh2()">All Change H2 Text</button><button type="button" ng-click="changeallh()">All H* Text</button><button type="button" ng-click="iconsallh()">Change H* Icons</button><button type="button" ng-click="resettoolbar()">Reset All Toolbar Buttons</button></p>
+     <div text-angular-toolbar name="test"></div> -->
+    
+    <h1>Textangular-Editor</h1> <!-- wysiwyg-Editor mit gewünschter Toolbar -->  
+    <div text-angular ng-model="data.htmlcontent3" ta-disabled='disabled' placeholder='TryMe!Smooth...' ta-toolbar="[['h1','p'],['ol','ul', 'redo','undo']]">
+    </div>
+    
+     <!-- wysiwyg-Editor mit Standart Toolbar
+     <button ng-click="disabled = !disabled" unselectable>Disable text-angular Toggle</button> 
 
-  <div text-angular-toolbar name="htmlcontenttools"></div> 
-    <div ng-if="true"> 
-   <div text-angular="text-angular" name="htmlcontent" ng-model="data.htmlcontent3" ta-disabled='disabled' placeholder='Placeholder Text One' ta-target-toolbars='htmlcontenttools,statictoolbar'></div> -->
-   
-  <textarea ng-model="data.htmlcontent3" style="width: 100%"></textarea> <!-- html-Code Display -->
-  
-  </div>
-
-  <div ng-controller="ButtonController as buttonCtrl">
-    <input type="button" name="downloadButton" value="Download" ng-click="buttonCtrl.popup()">
+    <div text-angular-toolbar name="htmlcontenttools"></div> 
+      <div ng-if="true"> 
+     <div text-angular="text-angular" name="htmlcontent" ng-model="data.htmlcontent3" ta-disabled='disabled' placeholder='Placeholder Text One' ta-target-toolbars='htmlcontenttools,statictoolbar'></div> -->
+     
+    <textarea ng-model="data.htmlcontent3" style="width: 100%"></textarea> <!-- html-Code Display -->
+    
+    <div ng-controller="ButtonController as buttonCtrl">
+      <input type="button" name="downloadButton" value="Download" ng-click="buttonCtrl.popup(data.htmlcontent3)">
+    </div>  
   </div>
 
 </body>
