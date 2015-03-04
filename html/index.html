@@ -24,6 +24,7 @@
   <script src='/src/textAngularTest.js'></script>
   <script src='/src/textAngularTestConfig.js'></script>
   <script src='/src/textAngularTestController.js'></script>
+  <script src='/src/buttonController.js'></script>
 
 </head>
 
@@ -36,7 +37,7 @@
    <div text-angular-toolbar name="test"></div> -->
    
   <h1>Editor</h1>
-  <div text-angular ng-model="htmlContent" ta-toolbar="[['h1','p'],['ol','ul', 'redo','undo']]"></text-angular></div>
+  <div text-angular ta-toolbar="[['h1','p'],['ol','ul', 'redo','undo']]"></text-angular></div>
    <!-- <button ng-click="disabled = !disabled" unselectable>Disable text-angular Toggle</button> 
   <div text-angular-toolbar name="htmlcontenttools"></div> 
     <div ng-if="true">
@@ -44,7 +45,10 @@
     <textarea ng-model="data.htmlcontent3" style="width: 100%"></textarea>
   </div> -->
   </div>
-  <input type="button" name="downloadButton" value="Download" onclick="test()">
+
+  <div ng-controller="ButtonController as buttonCtrl">
+    <input type="button" name="downloadButton" value="Download" ng-click="buttonCtrl.popup()">
+  </div>
 
 </body>
 
