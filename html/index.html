@@ -39,7 +39,7 @@
      <div text-angular-toolbar name="test"></div> -->
     
     <h1>Textangular-Editor</h1> <!-- wysiwyg-Editor mit gewünschter Toolbar -->  
-    <div text-angular ng-model="data.htmlcontent3" ta-disabled='disabled' placeholder='TryMe!Smooth...' ta-toolbar="[['h1','p'],['ol','ul', 'redo','undo']]">
+    <div text-angular ng-model="data.htmlcontent3" ta-disabled='disabled' placeholder='TryMe!Smooth...' ta-toolbar="[['h1','p'],['ol','ul', 'redo','undo']]"><h1>Freunde</h1><p>Zu Gast beim Weltmeister</p><ul><li>Schland</li><li>Brazihl</li></ul>
     </div>
     
      <!-- wysiwyg-Editor mit Standart Toolbar
@@ -49,7 +49,8 @@
       <div ng-if="true"> 
      <div text-angular="text-angular" name="htmlcontent" ng-model="data.htmlcontent3" ta-disabled='disabled' placeholder='Placeholder Text One' ta-target-toolbars='htmlcontenttools,statictoolbar'></div> -->
      
-    <textarea ng-model="data.htmlcontent3" style="width: 100%"></textarea> <!-- html-Code Display -->
+    <textarea ng-model="data.htmlcontent3" style="width: 100%">
+    </textarea> <!-- html-Code Display -->
     
     <div ng-controller="ButtonController as buttonCtrl">
       <input type="button" name="downloadButton" value="Download" ng-click="buttonCtrl.download(data.htmlcontent3)">

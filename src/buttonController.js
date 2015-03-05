@@ -1,9 +1,9 @@
 'use strict';
-angular.module("textAngularTest").controller('ButtonController', function() {
+angular.module("textAngularTest").controller('ButtonController', ['$http',  function($http) {
   /**
    * @return {string} A LaTeX command.
    */    
-  var parseTag = function (match, tag) {
+  this.parseTag = function (match, tag) {
       switch (tag) {
         case 'h1':
           return ' \\section*{';
@@ -57,7 +57,7 @@ angular.module("textAngularTest").controller('ButtonController', function() {
   * @param {string} htmlString The HTML string to parse.
   * @return {string} The corresponding LaTeX string.
   */
-  var tokenize = function (htmlString) {
+  this.tokenize = function (htmlString) {
     /**
      * '(\/?\w+)' is the first argument of tagsParse (the tag). A tag may begin
      * with '/' followed by a word.
@@ -65,7 +65,7 @@ angular.module("textAngularTest").controller('ButtonController', function() {
      * example 'style="color: blue;"'.
      */
     var regularExpression = /<(\/?\w+)(?:\s+([^<]*))?>/g;
-    return htmlString.replace(regularExpression, parseTag);
+    return htmlString.replace(regularExpression, this.parseTag);
   };
 
   /**
@@ -74,8 +74,33 @@ angular.module("textAngularTest").controller('ButtonController', function() {
   * @param {string} htmlString String to generate pdf from HTML.
   */
   this.download = function(htmlString) {
-    var latexString = tokenize(htmlString);
+    var latexString = this.tokenize(htmlString);
     //TODO: Request to server
-    alert(latexString);
+    // alert(latexString);
+    // $.ajax({
+    //   url: 'localhost:1338/compile',
+    //   type: 'POST',
+    //   data: {latexCode: latexString},
+    //   dataType: 'json',
+    //   success: function(data, textStatus, jqXHR) {
+    //     // alert(data.redirect);
+    //     if (typeof data.redirect === 'string') {
+    //       window.open(data.redirect, '_new', 'toolbar=yes, location=yes, status=yes, menubar=yes, scrollbars=yes');
+    //     }                            
+    //   }
+    // });
+    //alert('häh');
+    $http.post("/compile", {latexCode: latexString})
+    .success(function(data, status, headers, config) {
+      //alert(status);
+      if (typeof data.redirect === 'string') {
+        //alert(data.redirect);
+        window.open(data.redirect, '_new', 'toolbar=yes, location=yes, status=yes, menubar=yes, scrollbars=yes');
+      } 
+      //$scope.data = data;
+    }).error(function(data, status, headers, config) {
+      //(status);
+        //$scope.status = status;
+    })
   };
-});
+}]);
