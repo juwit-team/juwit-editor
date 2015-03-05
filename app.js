@@ -6,17 +6,17 @@ var pdflatex = require('./pdflatex');
 
 var app = express();
 
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json({ extended: false }));
 
 app.get('/',function(request,response){
   response.sendFile(__dirname + "/html/index.html");
 });
 
 app.post('/compile', function(request, response){
-  console.log('wtw');
+  //console.log('wtw');
   var filename = 'template.tex';
   var fileInDirectory = __dirname + '/temp/' + filename;
-  console.log(request.body.latexCode);
+  //console.log(request.body.latexCode);
   fs.writeFile(fileInDirectory, request.body.latexCode, function(err){
     if(err){
       console.log(err);
