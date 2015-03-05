@@ -49,11 +49,11 @@
       <div ng-if="true"> 
      <div text-angular="text-angular" name="htmlcontent" ng-model="data.htmlcontent3" ta-disabled='disabled' placeholder='Placeholder Text One' ta-target-toolbars='htmlcontenttools,statictoolbar'></div> -->
      
-    <textarea ng-model="data.htmlcontent3" style="width: 100%">
+    <textarea ng-model="data.htmlcontent3" style="width: 100%; background: #d3d3d3; color: gray; margin: 0.5em 0;" disabled="disabled">
     </textarea> <!-- html-Code Display -->
     
     <div ng-controller="ButtonController as buttonCtrl">
-      <input type="button" name="downloadButton" value="Download" ng-click="buttonCtrl.download(data.htmlcontent3)">
+      <input class="btn btn-primary" type="button" name="downloadButton" value="Download" ng-click="buttonCtrl.download(data.htmlcontent3)">
     </div>  
   </div>
 
