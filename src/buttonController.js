@@ -60,9 +60,14 @@ angular.module("textAngularTest").controller('ButtonController', ['$http',  func
   */
   this.tokenize = function (htmlString) {
     /**
-     * '([/a-zA-Z0-9]+)' is the first argument of tagsParse (the tag). A tag
+     * General regular expressions in java script are a quite different, see:
+     *   https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions?redirectlocale=en-US&redirectslug=JavaScript%2FGuide%2FRegular_Expressions
+     * string.replace is explained here: 
+     *   https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/String/replace
+     *
+     * '([/a-zA-Z0-9]+)' is the second argument of tagsParse (the tag). A tag
      * may include '/' or word letters.
-     * '([^<]*)' might be the second argument of tagsParse. This is for
+     * '([^<]*)' might be the third argument of tagsParse. This is for
      * example 'style="color: blue;"'.
      */
     var regularExpression = /<([/a-zA-Z0-9]+)(?:\s+([^<]*))?>/g;
