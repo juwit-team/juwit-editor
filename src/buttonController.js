@@ -3,7 +3,7 @@ angular.module("textAngularTest").controller('ButtonController', ['$http',  func
   /**
    * @return {string} A LaTeX command.
    */    
-  this.parseTag = function (match, tag) {
+  this.parseTag = function (match, tag, args) {
       switch (tag) {
         case 'h1':
           return ' \\section*{';
@@ -13,9 +13,8 @@ angular.module("textAngularTest").controller('ButtonController', ['$http',  func
           return ' \\subsection*{';
         case '/h2':
           return '} ';
-        // can't use
         case 'p':
-          return ' ';
+          return ' \\par\\addvspace{\\medskipamount}\\noindent ';
         case '/p':
           return ' ';
         case 'ul':
@@ -46,6 +45,8 @@ angular.module("textAngularTest").controller('ButtonController', ['$http',  func
           return '\\sout{';
         case '/strike':
           return '}';
+        case 'br/':
+          return ' ';
         default:
           return '<' + tag + '>';
       }
@@ -69,7 +70,7 @@ angular.module("textAngularTest").controller('ButtonController', ['$http',  func
      * '([^<]*)' might be the third argument of tagsParse. This is for
      * example 'style="color: blue;"'.
      */
-    var regularExpression = /<(\/?\w+)(?:\s+([^<]*))?>/g;
+    var regularExpression = /<([/a-zA-Z0-9]+)(?:\s+([^<]*))?>/g;
     return htmlString.replace(regularExpression, this.parseTag);
   };
 
