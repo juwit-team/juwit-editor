@@ -48,7 +48,7 @@ angular.module("textAngularTest").controller('ButtonController', ['$http',  func
         case 'br/':
           return ' ';
         default:
-          return '<' + tag + '>';
+          return ' '/*'<' + tag + '>'*/;
       }
   };
 
