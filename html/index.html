@@ -5,7 +5,7 @@
 
   <meta charset="UTF-8">
 
-  <title>textAngular 1.3.0 Demo</title>
+  <title>JUWIT Editor</title>
 
   <meta name="robots" content="noindex">
  
@@ -38,8 +38,48 @@
     <p><button type="button" ng-click="changetesth1()">Test Change H1 Text</button><button type="button" ng-click="changeallh2()">All Change H2 Text</button><button type="button" ng-click="changeallh()">All H* Text</button><button type="button" ng-click="iconsallh()">Change H* Icons</button><button type="button" ng-click="resettoolbar()">Reset All Toolbar Buttons</button></p>
      <div text-angular-toolbar name="test"></div> -->
     
-    <h1>Textangular-Editor</h1> <!-- wysiwyg-Editor mit gewünschter Toolbar -->  
-    <div text-angular ng-model="data.htmlcontent3" ta-disabled='disabled' placeholder='TryMe!Smooth...' ta-toolbar="[['h1','p'],['ol','ul', 'redo','undo']]"><h1>Freunde</h1><p>Zu Gast beim Weltmeister</p><ul><li>Schland</li><li>Brazihl</li></ul>
+    <h1>WYSIWYG Editor für LaTeX</h1> <!-- wysiwyg-Editor mit gewünschter Toolbar -->  
+    <div text-angular ng-model="data.htmlcontent3" ta-disabled='disabled' placeholder='TryMe!Smooth...' ta-toolbar="[['h1','p'],['ol','ul', 'redo','undo']]"><h1>h1. This is a very large header.</h1>
+      <h2>h2. This is a large header.</h2>
+
+      <h2>Paragraphs are nice</h2>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      </p>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+      quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+      consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+      cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+      proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+      <h2>Un-ordered lists are great for making quick outlines bulleted.</h2>
+      <ul>
+        <li>List item with a much longer description or more content.</li>
+        <li>List item</li>
+        <li>List item
+          <ul>
+            <li>Nested List Item</li>
+            <li>Nested List Item</li>
+            <li>Nested List Item</li>
+          </ul>
+        </li>
+        <li>List item</li>
+        <li>List item</li>
+        <li>List item</li>
+      </ul>
+
+      <h2>Ordered lists are great for lists that need order, duh.</h2>
+      <ol>
+        <li>List Item 1</li>
+        <li>List Item 2</li>
+        <li>List Item 3</li>
+      </ol>
     </div>
     
      <!-- wysiwyg-Editor mit Standart Toolbar
@@ -49,11 +89,11 @@
       <div ng-if="true"> 
      <div text-angular="text-angular" name="htmlcontent" ng-model="data.htmlcontent3" ta-disabled='disabled' placeholder='Placeholder Text One' ta-target-toolbars='htmlcontenttools,statictoolbar'></div> -->
      
-    <textarea ng-model="data.htmlcontent3" style="width: 100%">
+    <textarea ng-model="data.htmlcontent3" style="width: 100%; background: #d3d3d3; color: gray; margin: 0.5em 0;" disabled="disabled">
     </textarea> <!-- html-Code Display -->
     
     <div ng-controller="ButtonController as buttonCtrl">
-      <input type="button" name="downloadButton" value="Download" ng-click="buttonCtrl.download(data.htmlcontent3)">
+      <input class="btn btn-primary" type="button" name="downloadButton" value="Download" ng-click="buttonCtrl.download(data.htmlcontent3)">
     </div>  
   </div>
 
