@@ -4,51 +4,92 @@ angular.module("textAngularTest").controller('ButtonController', ['$http',  func
    * @return {string} A LaTeX command.
    */    
   this.parseTag = function (match, tag, args) {
+      result = '';
       switch (tag) {
         case 'h1':
-          return ' \\section*{';
+          result += ' \\section*{';
+          break;
         case '/h1':
-          return '} ';
+          result += '} ';
+          break;
         case 'h2':
-          return ' \\subsection*{';
+          result += ' \\subsection*{';
+          break;
         case '/h2':
-          return '} ';
+          result += '} ';
+          break;
         case 'p':
-          return ' \\par\\addvspace{\\medskipamount}\\noindent ';
+          result += ' \\par\\addvspace{\\medskipamount}\\noindent ';
+          break;
         case '/p':
-          return ' ';
+          result += ' ';
+          break;
         case 'ul':
-          return ' \\begin{itemize} ';
+          result += ' \\begin{itemize} ';
+          break;
         case '/ul':
-          return ' \\end{itemize} ';
+          result += ' \\end{itemize} ';
+          break;
         case 'ol':
-          return ' \\begin{enumerate} ';
+          result += ' \\begin{enumerate} ';
+          break;
         case '/ol':
-          return ' \\end{enumerate} ';
+          result += ' \\end{enumerate} ';
+          break;
         case 'li':
-          return ' \\item ';
+          result += ' \\item ';
+          break;
         case '/li':
-          return ' ';
+          result += ' ';
+          break;
         case 'b':
-          return '\\textbf{';
+          result += '\\textbf{';
+          break;
         case '/b':
-          return '}';
+          result += '}';
+          break;
         case 'i':
-          return '\\textit{';
+          result += '\\textit{';
+          break;
         case '/i':
-          return '}';
+          result += '}';
+          break;
         case 'u':
-          return '\\underline{';
+          result += '\\underline{';
+          break;
         case '/u':
-          return '}';
+          result += '}';
+          break;
         case 'strike':
-          return '\\sout{';
+          result += '\\sout{';
+          break;
         case '/strike':
-          return '}';
+          result += '}';
+          break;
         case 'br/':
-          return ' ';
+          result += ' ';
+          break;
         default:
-          return '<' + tag + '>';
+          result += '<' + tag + '>';
+          break;
+      }
+      if (args) {
+        // FIXME: this is a very quick and dirty way to process only
+        // text-align arguments in the way as texAngulur produces them.
+        var stylePart = /style="([^"]*)"/.exec(args);
+        if (stylePart != null) {
+          switch (stylePart[1]) {
+            case 'text-align: center;':
+              result += ' \\raggedleft{} ';
+              break;
+            case 'text-align: left;':
+              result += '';
+              break;
+            case 'text-align: right;':
+              result += '';
+              break;
+          }
+        }
       }
   };
 
