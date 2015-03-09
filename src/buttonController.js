@@ -80,17 +80,18 @@ angular.module("textAngularTest").controller('ButtonController', ['$http',  func
         if (stylePart != null) {
           switch (stylePart[1]) {
             case 'text-align: center;':
-              result += ' \\raggedleft{} ';
+              result += ' text-align ';
               break;
             case 'text-align: left;':
-              result += '';
+              result += ' text-align ';
               break;
             case 'text-align: right;':
-              result += '';
+              result += ' text-align ';
               break;
           }
         }
       }
+      return result;
   };
 
   /**
