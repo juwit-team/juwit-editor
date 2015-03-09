@@ -1,0 +1,12 @@
+burndown.m ist ein einfaches octave script um simple burndown charts als png-dateien zu plotten.
+starte octave im selben verzeichnis wie das burndown.m script und gib das kommando
+
+burndown("sprint-data/sprint<NR>","sprint<NR>-chart")
+
+ein um einen chart zu plotten.
+
+das script ist sehr einfach gehalten und nimmt an das die sprint dateien im sprint-data ordner folgendes format haben:
+
+<Tag der fertigstellung des Tasks> <Tabulatoren> <Veranschlagte Zeit für Task> <Tabulatoren> <Beschreibung>
+
+Die <Tag der fertigstellung des Tasks> spalte ist in aufsteigender reihenfolge anzugeben.
