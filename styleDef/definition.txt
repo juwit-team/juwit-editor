@@ -1,0 +1,7 @@
+
+
+Paper Format: DIN A4 (210 mm width, 297 mm height)
+Frame: top: 25, left: 25, buttom: 20, right: 25
+Letterhead size: 
+Letterfoot size: 
+
