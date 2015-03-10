@@ -135,13 +135,15 @@ angular.module("textAngularTest").controller('ButtonController', ['$http',  func
   */
   this.download = function(htmlString) {
     var latexString = this.html2latex(htmlString);
-    $http.post("/compile", {"latexCode": latexString})
+    $http.post("/compile/template.tex", {"latexCode": latexString})
     .success(function(data, status, headers, config) {
+      console.log(data.redirect);
       if (typeof data.redirect === 'string') {
         window.open(data.redirect, '_new', 'toolbar=yes, location=yes, status=yes, menubar=yes, scrollbars=yes');
       } 
     }).error(function(data, status, headers, config) {
       //TODO: Error Handling
+      console.log('nope');
     })
   };
 }]);

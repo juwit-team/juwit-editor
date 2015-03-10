@@ -13,7 +13,7 @@ var exec = require('child_process').exec;
 // constructor
 function PDFlatex(inputPath) {
   // default settings
-  this.outputDirectory = __dirname + '/temp/';
+  this.outputDirectory = __server + '_texFiles';
   this.inputPath = inputPath;
   this.filename = inputPath.split('/').pop().split('.')[0];
   //console.log(this.filename);
@@ -32,7 +32,7 @@ PDFlatex.prototype.compile = function() {
       if (err) throw err;
     });
 
-    return (__dirname + '/temp/'+ this.filename +'.pdf');
+    return (__server + '_texFiles/' + this.filename +'.pdf');
   }
 };
 
