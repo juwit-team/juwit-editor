@@ -4,7 +4,7 @@ angular.module("textAngularTest").controller('ButtonController', ['$http',  func
    * @return {string} A LaTeX command.
    */    
   this.parseTag = function (match, tag, args) {
-      result = '';
+      var result = '';
       switch (tag) {
         case 'h1':
           result += ' \\section*{';
