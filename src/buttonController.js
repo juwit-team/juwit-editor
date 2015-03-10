@@ -69,9 +69,30 @@ angular.module("textAngularTest").controller('ButtonController', ['$http',  func
       case 'br/':
         result += ' ';
         break;
+      // FIXME
+      case 'div':
+      case '/div':
       default:
         result += '<' + tag + '>';
         break;
+    }
+    if (args) {
+      // FIXME: this is a very quick and dirty way to process only
+      // text-align arguments in the way as texAngulur produces them.
+      var stylePart = /style="([^"]*)"/.exec(args);
+      if (stylePart != null) {
+        switch (stylePart[1]) {
+          case 'text-align: center;':
+            result += ' \\centering ';
+            break;
+          case 'text-align: left;':
+            result += ' \\flushleft ';
+            break;
+          case 'text-align: right;':
+            result += ' \\flushright ';
+            break;
+        }
+      }
     }
     return result;
   };
