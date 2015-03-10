@@ -4,52 +4,76 @@ angular.module("textAngularTest").controller('ButtonController', ['$http',  func
    * @return {string} A LaTeX command.
    */    
   this.parseTag = function (match, tag, args) {
-      switch (tag) {
-        case 'h1':
-          return ' \\section*{';
-        case '/h1':
-          return '} ';
-        case 'h2':
-          return ' \\subsection*{';
-        case '/h2':
-          return '} ';
-        case 'p':
-          return ' \\par\\addvspace{\\medskipamount}\\noindent ';
-        case '/p':
-          return ' ';
-        case 'ul':
-          return ' \\begin{itemize} ';
-        case '/ul':
-          return ' \\end{itemize} ';
-        case 'ol':
-          return ' \\begin{enumerate} ';
-        case '/ol':
-          return ' \\end{enumerate} ';
-        case 'li':
-          return ' \\item ';
-        case '/li':
-          return ' ';
-        case 'b':
-          return '\\textbf{';
-        case '/b':
-          return '}';
-        case 'i':
-          return '\\textit{';
-        case '/i':
-          return '}';
-        case 'u':
-          return '\\underline{';
-        case '/u':
-          return '}';
-        case 'strike':
-          return '\\sout{';
-        case '/strike':
-          return '}';
-        case 'br/':
-          return ' ';
-        default:
-          return ' <' + tag + '> ';
-      }
+    var result = '';
+    switch (tag) {
+      case 'h1':
+        result += ' \\section*{';
+        break;
+      case '/h1':
+        result += '} ';
+        break;
+      case 'h2':
+        result += ' \\subsection*{';
+        break;
+      case '/h2':
+        result += '} ';
+        break;
+      case 'p':
+        result += ' \\par\\addvspace{\\medskipamount}\\noindent ';
+        break;
+      case '/p':
+        result += ' ';
+        break;
+      case 'ul':
+        result += ' \\begin{itemize} ';
+        break;
+      case '/ul':
+        result += ' \\end{itemize} ';
+        break;
+      case 'ol':
+        result += ' \\begin{enumerate} ';
+        break;
+      case '/ol':
+        result += ' \\end{enumerate} ';
+        break;
+      case 'li':
+        result += ' \\item ';
+        break;
+      case '/li':
+        result += ' ';
+        break;
+      case 'b':
+        result += '\\textbf{';
+        break;
+      case '/b':
+        result += '}';
+        break;
+      case 'i':
+        result += '\\textit{';
+        break;
+      case '/i':
+        result += '}';
+        break;
+      case 'u':
+        result += '\\underline{';
+        break;
+      case '/u':
+        result += '}';
+        break;
+      case 'strike':
+        result += '\\sout{';
+        break;
+      case '/strike':
+        result += '}';
+        break;
+      case 'br/':
+        result += ' ';
+        break;
+      default:
+        result += '<' + tag + '>';
+        break;
+    }
+    return result;
   };
 
   /**
