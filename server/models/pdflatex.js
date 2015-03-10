@@ -24,15 +24,18 @@ PDFlatex.prototype.outputDir = function(path) {
   return this;
 };
 
-PDFlatex.prototype.compile = function() {
+PDFlatex.prototype.compile = function(_callback) {
   if (this.inputPath && this.inputPath.length > 0) {
     var command = "pdflatex -output-directory " + this.outputDirectory + " '" + this.inputPath + "'";
+    var parent = this;
     //util.puts(command);
     exec(command, function(err) {
-      if (err) throw err;
+      if (err) {
+        throw err;
+      } else {
+        _callback(__server + '_texFiles/' + parent.filename +'.pdf');
+      }
     });
-
-    return (__server + '_texFiles/' + this.filename +'.pdf');
   }
 };
 

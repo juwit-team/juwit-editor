@@ -3,7 +3,7 @@ var pdflatex = require('./pdflatex');
 var fs = require('fs');
 
 module.exports = {
-  compile: function(filename, latexCode) {
+  compile: function(filename, latexCode, _callback) {
     var fileInDirectory = __server + '_texFiles/' + filename + '.tex';
     fs.writeFile(fileInDirectory, latexCode, function(err){
       console.log('hallo2');
@@ -13,10 +13,11 @@ module.exports = {
       } else {
         console.log("The file was saved!");
         var tex = new pdflatex(fileInDirectory);
-        var texFile = tex.compile();
-        //setTimeout(function() {}, 5000);
-        console.log("Look at " + texFile);
-        return { "redirect": '/dl/' + texFile.split('/').pop() };
+        
+        tex.compile(function (texFile) {
+          console.log("Look at " + texFile);
+          _callback({ "redirect": '/dl/' + texFile.split('/').pop() });
+        });
       }
     });
     console.log('hallo');
