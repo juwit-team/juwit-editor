@@ -6,7 +6,6 @@ module.exports = {
   compile: function(filename, latexCode, _callback) {
     var fileInDirectory = __server + '_texFiles/' + filename + '.tex';
     fs.writeFile(fileInDirectory, latexCode, function(err){
-      console.log('hallo2');
       if(err){
         console.log(err);
         return {};
@@ -20,6 +19,5 @@ module.exports = {
         });
       }
     });
-    console.log('hallo');
   }
 }
