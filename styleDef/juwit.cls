@@ -2,7 +2,7 @@
 % Author : Sebastian Faase                                          %
 % Licence: The MIT License (MIT) http://opensource.org/licenses/MIT %
 % About  : template for juwit editor                                %
-% Version: 0.1                                                      %
+% Version: 0.4                                                      %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -15,7 +15,7 @@
 
 % INIT
 \defaultFontSize{11pt}		% 10pt-12pt
-\topSpace{25mm}
+\topSpace{40mm}
 \buttomSpace{20mm}
 \leftBoarderSpace{25mm}
 \rightBoarderSpace{25mm}
@@ -30,8 +30,14 @@
 % based on article styled class with \normalsize \defaultFontSize
 \LoadClass[\@defaultFontSize]{article}
 
+% Better Sections
+\RequirePackage{sectsty}
+
+% Linespacing
+\RequirePackage{leading}
+
 % page setup
-\RequirePackage[left = \@leftBoarderSpace, right = \@rightBoarderSpace, top = \@topSpace, bottom = \@buttomSpace]{geometry}
+\RequirePackage[left = \@leftBoarderSpace, right = \@rightBoarderSpace, top = \@topSpace, bottom = \@buttomSpace, headheight=40mm, headsep = 10mm]{geometry}
 
 % use encoding utf8
 \RequirePackage[utf8]{inputenc}
@@ -39,9 +45,21 @@
 % amsmath for better looking formulas
 \RequirePackage{amsmath}
 
+% more symbols
+%\RequirePackage{amsfonts}
+
 % replace default font with Latin Modern
 \RequirePackage{lmodern}
 \RequirePackage[T1]{fontenc}
+
+% better lists
+\RequirePackage{enumitem}
+
+% support pictures
+\RequirePackage{graphicx}
+\RequirePackage{xcolor}
+\RequirePackage{color}
+\RequirePackage{pifont}
 
 % blindtext for testing
 \RequirePackage{lipsum}
@@ -49,26 +67,32 @@
 % header/footer
 \RequirePackage{fancyhdr}
 \pagestyle{fancy}
-\lhead{LOGO}
-\rhead{NAME}
+
+% Header/Footer
+%\setlength\headheight{26pt}
+\lhead{\includegraphics[width=80mm]{logo1.png}}
+\rhead{NAME\\adress}
 \cfoot{Page \thepage}
-\renewcommand{\headrulewidth}{0.4pt}
-\renewcommand{\footrulewidth}{0.4pt}
+\lfoot{left}
+\rfoot{right}
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\footrulewidth}{0.5pt}
 
-% change ordered list behaviour
-\let\oldenumerate\enumerate
-\renewcommand{\enumerate}{
-  \oldenumerate
-  \setlength{\itemsep}{1mm}
-  \setlength{\parskip}{0mm}
-  \setlength{\parsep}{0mm}
-}
+% customized itemize
+\setlist[]{parsep=0pt, itemsep=0pt, partopsep=0pt, topsep=0pt}
+\setlist[itemize,1]{label=\textbullet}
+\setlist[itemize,2]{label=\textendash}
+\setlist[itemize,3]{label=\guillemotright} %\guilsinglright
 
-% change unordered list behaviour
-\let\olditemize\itemize
-\renewcommand{\itemize}{
-  \olditemize
-  \setlength{\itemsep}{1mm}
-  \setlength{\parskip}{0mm}
-  \setlength{\parsep}{0mm}
-}
+% customized enumerate
+\setlist[enumerate,1]{{label=\arabic*.}}
+\setlist[enumerate,2]{{label=\roman*.}}
+\setlist[enumerate,3]{{label=\emph{\alph*}.}}
+
+% Linespacing
+\leading{13.5pt}
+
+% Sections
+%\sectionfont{\nohang}
+\sectionfont{\fontsize{14.4pt}{1em}\selectfont}
+\subsectionfont{\fontsize{12pt}{1em}\selectfont}

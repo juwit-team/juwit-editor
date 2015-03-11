@@ -1,5 +1,5 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~ This   : juwit.
+~ This   : juwit.txt                             ~
 ~ Author : Sebastian Faase                       ~
 ~ About  : Standard for the juwit document       ~
 ~ Version: 0.2                                   ~
