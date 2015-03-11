@@ -1,27 +1,56 @@
 'use strict';
 angular.module("textAngularTest").controller('ButtonController', ['$http',  function($http) {
+
+
   /**
    * @return {string} A LaTeX command.
    */    
-  this.parseTag = function (match, tag, args) {
+  this.parseTag = function (match, tag, arg) {
+    function parseBeginAlign (arg) {
+      if (arg) {
+        // FIXME: this is a very quick and dirty way to process only
+        // text-align arguments in the way as texAngulur produces them.
+        var stylePart = /style="([^"]*)"/.exec(arg);
+        if (stylePart != null) {
+          switch (stylePart[1]) {
+            case 'text-align: center;':
+              return '\\centering{';
+            case 'text-align: left;':
+              return '\\raggedright{';
+            case 'text-align: right;':
+              return '\\raggedleft{';
+          }
+        }
+      }
+      return '\\raggedright{';
+    }
+    var endAlign = '}';
+
     var result = '';
     switch (tag) {
+      // FIXME: Do we need all white spaces?
       case 'h1':
         result += ' \\section*{';
+        result += parseBeginAlign (arg);
         break;
       case '/h1':
+        result += endAlign;
         result += '} ';
         break;
       case 'h2':
         result += ' \\subsection*{';
+        result += parseBeginAlign (arg);
         break;
       case '/h2':
+        result += endAlign;
         result += '} ';
         break;
       case 'p':
         result += ' \\par\\addvspace{\\medskipamount}\\noindent ';
+        result += parseBeginAlign (arg);
         break;
       case '/p':
+        result += endAlign;
         result += ' ';
         break;
       case 'ul':
@@ -71,29 +100,16 @@ angular.module("textAngularTest").controller('ButtonController', ['$http',  func
         break;
       // FIXME
       case 'div':
+        result += parseBeginAlign (arg);
+        break;
       case '/div':
+        result += endAlign;
+        break;
       default:
         result += '<' + tag + '>';
         break;
     }
-    if (args) {
-      // FIXME: this is a very quick and dirty way to process only
-      // text-align arguments in the way as texAngulur produces them.
-      var stylePart = /style="([^"]*)"/.exec(args);
-      if (stylePart != null) {
-        switch (stylePart[1]) {
-          case 'text-align: center;':
-            result += ' \\centering ';
-            break;
-          case 'text-align: left;':
-            result += ' \\flushleft ';
-            break;
-          case 'text-align: right;':
-            result += ' \\flushright ';
-            break;
-        }
-      }
-    }
+
     return result;
   };
 
@@ -104,6 +120,7 @@ angular.module("textAngularTest").controller('ButtonController', ['$http',  func
   * @return {string} The corresponding LaTeX string.
   */
   this.tokenize = function (htmlString) {
+    // FIXME: escape LaTeX keywords, backslash etc.
     /**
      * General regular expressions in java script are a quite different, see:
      *   https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions?redirectlocale=en-US&redirectslug=JavaScript%2FGuide%2FRegular_Expressions
