@@ -26,14 +26,15 @@ PDFlatex.prototype.outputDir = function(path) {
 
 PDFlatex.prototype.compile = function(_callback) {
   if (this.inputPath && this.inputPath.length > 0) {
-    var command = "pdflatex -output-directory " + this.outputDirectory + " '" + this.inputPath + "'";
+    var command = "pdflatex -interaction nonstopmode -output-directory " + this.outputDirectory + " '" + this.inputPath + "'";
+    //console.log(command);
     var parent = this;
     //util.puts(command);
-    exec(command, function(err) {
-      if (err) {
-        throw err;
+    exec(command, function(error, stdout, stderr) {
+      if (error !== null) {
+        _callback({error: 'Could not create ' + parent.filename + '.pdf'});
       } else {
-        _callback(__server + '_texFiles/' + parent.filename +'.pdf');
+        _callback({filePath: __server + '_texFiles/' + parent.filename +'.pdf'});
       }
     });
   }

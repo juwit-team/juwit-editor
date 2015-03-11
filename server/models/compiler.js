@@ -13,9 +13,14 @@ module.exports = {
         console.log("The file was saved!");
         var tex = new pdflatex(fileInDirectory);
         
-        tex.compile(function (texFile) {
-          console.log("Look at " + texFile);
-          _callback({ "redirect": '/dl/' + texFile.split('/').pop() });
+        tex.compile(function (jsonResponse) {
+          if(jsonResponse.error) {
+            console.log(jsonResponse.error);
+            _callback({error: jsonResponse.error});
+          } else {
+            console.log("Look at " + jsonResponse.filePath);
+            _callback({redirect: '/dl/' + jsonResponse.filePath.split('/').pop() });
+          };
         });
       }
     });
