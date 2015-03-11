@@ -1,5 +1,5 @@
 .ta-editor, .ta-editor > .ta-bind {
-  height: 450px;
+  height: 28.4cm;
   margin-bottom: 50px;
 }
 
@@ -15,13 +15,11 @@
 
 page[size="A4"] /* a4 preview style */
 { 
-  margin-top: 20px;
+  margin-top: 35px;
   background: white;
   width: 21cm;
   height: 29.7cm;
-  display: block;
-  margin: 0 auto;
-  margin-bottom: 0.5cm;
+  display: block;  
   box-shadow: 0 0 0.5cm rgba(0,0,0,0.5);
   padding-top: 2.5cm;
   padding-bottom: 2cm;
