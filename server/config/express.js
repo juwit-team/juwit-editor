@@ -9,7 +9,7 @@ module.exports = function(app, express) {
   app.use('/js', express.static(__client + 'js'));
 
   // Serve templates
-  app.use('/templates/pages', express.static(__client + 'templates/pages'));
+  app.use('/templates', express.static(__client + 'templates'));
 
 
   // Serve static assets from the app folder. This enables things like javascript

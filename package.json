@@ -12,7 +12,6 @@
   },
   "scripts": {
     "postinstall": "bower install",
-
     "prestart": "npm install",
     "start": "node app.js"
   }
