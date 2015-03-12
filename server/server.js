@@ -11,7 +11,7 @@ require(__server + 'config/express')(app, express);
 
 // Root route
 app.get('/', function(req, res){
-  res.sendFile('index.html', {root: __client + 'template'});
+  res.sendFile('index.html', {root: __client + 'templates'});
 });
 
 // Load routes
