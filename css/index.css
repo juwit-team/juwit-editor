@@ -15,7 +15,7 @@
 
 page[size="A4"] /* a4 preview style */
 { 
-  margin-top: 35px;
+  margin-top: 1px;
   background: white;
   width: 21cm;
   height: 29.7cm;
