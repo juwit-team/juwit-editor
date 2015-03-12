@@ -3,95 +3,112 @@ angular.module("LatexEditor").controller('EditorButtonController', ['$http',  fu
   /**
    * @return {string} A LaTeX command.
    */    
-  this.parseTag = function (match, tag, args) {
-      var result = '';
-      switch (tag) {
-        case 'h1':
-          result += ' \\section*{';
-          break;
-        case '/h1':
-          result += '} ';
-          break;
-        case 'h2':
-          result += ' \\subsection*{';
-          break;
-        case '/h2':
-          result += '} ';
-          break;
-        case 'p':
-          result += ' \\par\\addvspace{\\medskipamount}\\noindent ';
-          break;
-        case '/p':
-          result += ' ';
-          break;
-        case 'ul':
-          result += ' \\begin{itemize} ';
-          break;
-        case '/ul':
-          result += ' \\end{itemize} ';
-          break;
-        case 'ol':
-          result += ' \\begin{enumerate} ';
-          break;
-        case '/ol':
-          result += ' \\end{enumerate} ';
-          break;
-        case 'li':
-          result += ' \\item ';
-          break;
-        case '/li':
-          result += ' ';
-          break;
-        case 'b':
-          result += '\\textbf{';
-          break;
-        case '/b':
-          result += '}';
-          break;
-        case 'i':
-          result += '\\textit{';
-          break;
-        case '/i':
-          result += '}';
-          break;
-        case 'u':
-          result += '\\underline{';
-          break;
-        case '/u':
-          result += '}';
-          break;
-        case 'strike':
-          result += '\\sout{';
-          break;
-        case '/strike':
-          result += '}';
-          break;
-        case 'br/':
-          result += ' ';
-          break;
-        default:
-          result += '<' + tag + '>';
-          break;
-      }
-      if (args) {
+  this.parseTag = function (match, tag, arg) {
+    function parseBeginAlign (arg) {
+      if (arg) {
         // FIXME: this is a very quick and dirty way to process only
         // text-align arguments in the way as texAngulur produces them.
-        var stylePart = /style="([^"]*)"/.exec(args);
+        var stylePart = /style="([^"]*)"/.exec(arg);
         if (stylePart != null) {
           switch (stylePart[1]) {
             case 'text-align: center;':
-              result += ' text-align ';
-              break;
+              return '\\centering{';
             case 'text-align: left;':
-              result += ' text-align ';
-              break;
+              return '\\raggedright{';
             case 'text-align: right;':
-              result += ' text-align ';
-              break;
+              return '\\raggedleft{';
           }
         }
       }
-      return result;
+      return '\\raggedright{';
+    }
+    var endAlign = '}';
+
+    var result = '';
+    switch (tag) {
+      // FIXME: Do we need all white spaces?
+      case 'h1':
+        result += ' \\section*{';
+        result += parseBeginAlign (arg);
+        break;
+      case '/h1':
+        result += endAlign;
+        result += '} ';
+        break;
+      case 'h2':
+        result += ' \\subsection*{';
+        result += parseBeginAlign (arg);
+        break;
+      case '/h2':
+        result += endAlign;
+        result += '} ';
+        break;
+      case 'p':
+        result += ' \\par\\addvspace{\\medskipamount}\\noindent ';
+        result += parseBeginAlign (arg);
+        break;
+      case '/p':
+        result += endAlign;
+        result += ' ';
+        break;
+      case 'ul':
+        result += ' \\begin{itemize} ';
+        break;
+      case '/ul':
+        result += ' \\end{itemize} ';
+        break;
+      case 'ol':
+        result += ' \\begin{enumerate} ';
+        break;
+      case '/ol':
+        result += ' \\end{enumerate} ';
+        break;
+      case 'li':
+        result += ' \\item ';
+        break;
+      case '/li':
+        result += ' ';
+        break;
+      case 'b':
+        result += '\\textbf{';
+        break;
+      case '/b':
+        result += '}';
+        break;
+      case 'i':
+        result += '\\textit{';
+        break;
+      case '/i':
+        result += '}';
+        break;
+      case 'u':
+        result += '\\underline{';
+        break;
+      case '/u':
+        result += '}';
+        break;
+      case 'strike':
+        result += '\\sout{';
+        break;
+      case '/strike':
+        result += '}';
+        break;
+      case 'br/':
+        result += ' ';
+        break;
+      // FIXME
+      case 'div':
+        result += parseBeginAlign (arg);
+        break;
+      case '/div':
+        result += endAlign;
+        break;
+      default:
+        result += '<' + tag + '>';
+        break;
+    }
+
+    return result;
   };
 
   /**
