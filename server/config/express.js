@@ -8,6 +8,9 @@ module.exports = function(app, express) {
   app.use('/bower_components', express.static('bower_components'));
   app.use('/js', express.static(__client + 'js'));
 
+  // Serve templates
+  app.use('/templates/pages', express.static(__client + 'templates/pages'));
+
 
   // Serve static assets from the app folder. This enables things like javascript
   // and stylesheets to be loaded as expected. You would normally use something like

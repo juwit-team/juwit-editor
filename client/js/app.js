@@ -3,4 +3,4 @@
 *
 * Description
 */
-angular.module('LatexEditor', ['textAngular']);
+angular.module('LatexEditor', ['ngRoute', 'textAngular']);
