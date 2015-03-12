@@ -92,8 +92,8 @@
 
 % enumerate
 \setlist[enumerate,1]{{label=\arabic*.}}	% < customized enumerate
-\setlist[enumerate,2]{{label=\roman*.}}		%   -
-\setlist[enumerate,3]{{label=				%   -
+\setlist[enumerate,2]{{label=\roman*.}}		% -
+\setlist[enumerate,3]{{label=				% -
                        \emph{\alph*}.}}		% >
 
 % header
