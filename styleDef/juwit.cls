@@ -16,6 +16,8 @@
 \def\rightBoarderSpace#1{\def\@rightBoarderSpace{#1}}
 \def\corporateLogo#1{\def\@corporateLogo{#1}}
 \def\corporateLogoSize#1{\def\@corporateLogoSize{#1}}
+\newif\if@hasCorporateLogo
+
 
 
 % INITIATE DEFINITIONS
@@ -27,7 +29,7 @@
 \rightBoarderSpace{25mm}
 \corporateLogo{logo.png}
 \corporateLogoSize{60mm}
-
+\@hasCorporateLogotrue
 
 
 % LaTeX - VERSION
@@ -65,17 +67,6 @@
 \RequirePackage{xcolor}						% support color
 \RequirePackage{fancyhdr}					% header/footer
 \RequirePackage{lipsum}						% blindtext for testing
-\RequirePackage{ifthen}
-
-
-% VARIABLES
-%-------------------------------------------------------------------------------
-%\newboolean{long}
-
-
-% INITIATE DEFINITIONS
-%-------------------------------------------------------------------------------
-%\setboolean{long}{false}
 
 
 % GLOBAL SETTINGS
@@ -107,10 +98,10 @@
 
 % header
 % \setlength\headheight{26pt}				% unused
-%\iftrue\long
-%\lhead{\includegraphics[width=				% < show corporate logo
-%  \@corporateLogoSize]{\@corporateLogo}}	% >
-%\fi
+\if@hasCorporateLogo
+\lhead{\includegraphics[width=				% < show corporate logo
+  \@corporateLogoSize]{\@corporateLogo}}	% >
+\fi
 \rhead{NAME\\adress}						% show Author credentials
 \renewcommand{\headrulewidth}{0.5pt}		% draw header lineseperator
 
