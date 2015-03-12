@@ -1,28 +1,66 @@
-.ta-editor, .ta-editor > .ta-bind {
+/* Font Latin Modern */
+@font-face {
+  font-family: 'latin_modern_roman';
+  src: url('fonts/latinModern/lmroman10-regular-webfont.eot');
+  src: url('fonts/latinModern/lmroman10-regular-webfont.eot?#iefix') format('embedded-opentype'), url('fonts/latinModern/lmroman10-regular-webfont.woff2') format('woff2'), url('fonts/latinModern/lmroman10-regular-webfont.woff') format('woff'), url('fonts/latinModern/lmroman10-regular-webfont.ttf') format('truetype'), url('fonts/latinModern/lmroman10-regular-webfont.svg#latin_modern_roman10_regular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+.ta-editor,
+.ta-editor > .ta-bind {
   height: 28.4cm;
   margin-bottom: 50px;
 }
-
-.red {
-  color: red;
+.container {
+  padding: 0;
+  width: 100%;
 }
-
-.statictoolbar {
-  position: fixed;
-  top: 12px;
-  z-index: 200;
+/*******************************************************************************
+* This   : juwit.css                                                           *
+* Author : many                                                                *
+* About  : .css file for the juwit Editor                                      *
+* Version: 0.0.2                                                               *
+*******************************************************************************/
+/*   Page Setup
+*******************************************************************************/
+.scale {
+  -ms-transform: scale(0.6);
+  /* IE 9 */
+  -ms-transform-origin: 0% 0%;
+  /* IE 9 */
+  -webkit-transform: scale(0.6);
+  /* Chrome, Safari, Opera */
+  -webkit-transform-origin: 0% 0%;
+  /* Chrome, Safari, Opera */
+  transform: scale(0.6);
+  transform-origin: 0% 0%;
 }
-
-page[size="A4"] /* a4 preview style */
-{ 
+/* Paper Format, Frame and Shadow */
+page[size="A4"] {
   margin-top: 35px;
   background: white;
   width: 21cm;
   height: 29.7cm;
-  display: block;  
-  box-shadow: 0 0 0.5cm rgba(0,0,0,0.5);
-  padding-top: 2.5cm;
+  display: block;
+  box-shadow: 0 0 0.5cm rgba(0, 0, 0, 0.5);
+  padding-top: 4cm;
   padding-bottom: 2cm;
   padding-right: 2.5cm;
   padding-left: 2.5cm;
+}
+page[size="A4"] p,
+page[size="A4"] h1,
+page[size="A4"] h2,
+page[size="A4"] li {
+  font-family: 'latin_modern_roman';
+}
+page[size="A4"] p,
+page[size="A4"] li {
+  font-size: 11pt;
+}
+page[size="A4"] h1 {
+  font-size: 14.4pt;
+}
+page[size="A4"] h2 {
+  font-size: 12pt;
 }
