@@ -17,9 +17,9 @@
   <link rel='stylesheet' type='text/css' href='/css/index.css'>
 </head>
 
-<body ng-app="textAngularTest">
+<body ng-app="LatexEditor">
 
-  <div ng-controller="wysiwygeditor" class="container app">
+  <div ng-controller="EditorIndexController" class="container app">
     
     <h1>juwit - <b>ju</b>st <b>w</b>rite <b>it</b></h1> <!-- wysiwyg-Editor mit gewünschter Toolbar -->  
 
@@ -72,7 +72,7 @@
     <textarea ng-model="data.htmlContent" style="width: 100%; background: #d3d3d3; color: gray; margin: 0.5em 0;" disabled="disabled">
     </textarea> <!-- html-Code Display -->
     
-    <div ng-controller="ButtonController as buttonCtrl">
+    <div ng-controller="EditorButtonController as buttonCtrl">
       <input class="btn btn-primary" type="button" name="downloadButton" value="Download" ng-click="buttonCtrl.download(data.htmlContent)">
     </div>  
   </div>
@@ -88,10 +88,9 @@
 
 
   <!-- own -->
-  <script src='/src/textAngularTest.js'></script>
-  <script src='/src/textAngularTestConfig.js'></script>
-  <script src='/src/textAngularTestController.js'></script>
-  <script src='/src/buttonController.js'></script>
+  <script src='/js/app.js'></script>
+  <script src='/js/controllers/editor/index-controller.js'></script>
+  <script src='/js/controllers/editor/button-controller.js'></script>
 </body>
 
 </html>

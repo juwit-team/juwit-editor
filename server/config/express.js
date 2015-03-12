@@ -6,7 +6,7 @@ module.exports = function(app, express) {
   app.use('/css', express.static(__client + 'css'));
   app.use('/node_modules', express.static('node_modules'));
   app.use('/bower_components', express.static('bower_components'));
-  app.use('/src', express.static(__client + 'src'));
+  app.use('/js', express.static(__client + 'js'));
 
 
   // Serve static assets from the app folder. This enables things like javascript
