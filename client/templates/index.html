@@ -13,19 +13,8 @@
   <link rel='stylesheet prefetch' href='/bower_components/font-awesome/css/font-awesome.css'>
   <link rel='stylesheet prefetch' href='/node_modules/textangular/src/textAngular.css' media="screen">
 
-  <script src='/bower_components/angular/angular.js'></script>
-  <script src='/node_modules/textangular/dist/textAngular-rangy.min.js'></script>
-  <script src='/node_modules/textangular/src/textAngular-sanitize.js'></script>
-  <script src='/node_modules/textangular/src/textAngularSetup.js'></script>
-  <script src='/node_modules/textangular/src/textAngular.js'></script>
 
   <link rel='stylesheet' type='text/css' href='/css/index.css'>
-  
-  <script src='/src/textAngularTest.js'></script>
-  <script src='/src/textAngularTestConfig.js'></script>
-  <script src='/src/textAngularTestController.js'></script>
-  <script src='/src/buttonController.js'></script>
-
 </head>
 
 <body ng-app="textAngularTest">
@@ -34,7 +23,7 @@
     
     <h1>juwit - <b>ju</b>st <b>w</b>rite <b>it</b></h1> <!-- wysiwyg-Editor mit gewünschter Toolbar -->  
 
-    <div text-angular ng-model="data.htmlContent" ta-disabled='disabled' placeholder='TryMe!Smooth...' ta-toolbar="[['h1','h2','p'],['bold','italics','underline','ol','ul', 'redo','undo'],['indent','outdent']]">
+    <div text-angular ng-model="data.htmlContent" placeholder='TryMe!Smooth...' ta-toolbar="[['h1','h2','p'],['bold','italics','underline','ol','ul', 'redo','undo'],['indent','outdent']]">
 
       <h1>h1. This is a very large header.</h1>
 
@@ -88,6 +77,21 @@
     </div>  
   </div>
 
+  <!-- SCRIPTS -->
+
+  <!-- Libs -->
+  <script src='/bower_components/angular/angular.js'></script>
+  <script src='/node_modules/textangular/dist/textAngular-rangy.min.js'></script>
+  <script src='/node_modules/textangular/src/textAngular-sanitize.js'></script>
+  <script src='/node_modules/textangular/src/textAngularSetup.js'></script>
+  <script src='/node_modules/textangular/src/textAngular.js'></script>
+
+
+  <!-- own -->
+  <script src='/src/textAngularTest.js'></script>
+  <script src='/src/textAngularTestConfig.js'></script>
+  <script src='/src/textAngularTestController.js'></script>
+  <script src='/src/buttonController.js'></script>
 </body>
 
 </html>
