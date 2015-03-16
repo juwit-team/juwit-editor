@@ -9,7 +9,7 @@
     "bower": "^1.3.1",
     "express": "^4.12.1",
     "less": "^2.4.0",
-    "textangular": "^1.3.7"
+    "textangular": "git://github.com/juwit-team/textAngular.git#master"
   },
   "devDependencies": {
     "jasmine-core": "^2.2.0",
