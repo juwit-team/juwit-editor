@@ -81,6 +81,14 @@
 \subsectionfont{\fontsize{12pt}{1em}		% < define subsection font
                 \selectfont}				% >
 
+\DeclareRobustCommand{\juwit}
+  {
+    \Large{j\kern-.1em}%
+    \small{u\kern-.25em}%
+    \LARGE{w\kern-.08em}%
+    \small{i\kern-.08em}%
+    \Large{t\kern-.1em}%
+  }
 
 % ELEMENTS
 %-------------------------------------------------------------------------------
@@ -107,6 +115,7 @@
 
 % footer
 \cfoot{Page \thepage}						% show pagenumber centered
-\lfoot{}									% unused
+\lfoot{creadet with\juwit}									% unused
 \rfoot{}									% unused
 \renewcommand{\footrulewidth}{0.5pt}		% draw footer lineseperator
+
