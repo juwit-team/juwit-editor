@@ -28,8 +28,10 @@ build:
 
     - script:
         name: run tests
-        code: |
-          $(npm bin)/protractor tests/e2e/config.js --browser=firefox
+        code: |-
+          $(npm bin)/webdriver-manager start
+          npm start
+          $(npm bin)/protractor tests/e2e/config.js
 
     # A custom script step, name value is used in the UI
     # and the code value contains the command that get executed
