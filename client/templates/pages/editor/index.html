@@ -1,61 +1,70 @@
 <div class="app">
+  <!-- subnav here -->
+  <nav class="navbar subnav">
+    <div class="container">
+      <div class="row">
+        <div text-angular-toolbar name="statictoolbar" class="statictoolbar col-sm-11" ta-toolbar="[['h1','h2','p'],['bold','italics','underline','ol','ul', 'redo','undo'],['indent','outdent'],['justifyLeft','justifyCenter','justifyRight']]"></div>
 
-  <div ng-controller="EditorButtonController as buttonCtrl">
-    <input class="btn btn-primary" type="button" name="downloadButton" value="Download" ng-click="buttonCtrl.download(data.htmlContent)">
-  </div>
-  
-  <!-- wysiwyg-Editor mit gewünschter Toolbar -->  
-  <div class="row">
-  
-    <div class="col-sm-7">
-      <div text-angular ng-model="data.htmlContent" placeholder='TryMe!Smooth...' ta-toolbar="[['h1','h2','p'],['bold','italics','underline','ol','ul', 'redo','undo'],['indent','outdent'],['justifyLeft','justifyCenter','justifyRight']]">
+        <div class="col-sm-1" ng-controller="EditorButtonController as buttonCtrl" style="padding-right:0;">
+          <button type="button" class="btn btn-default pull-right" aria-label="Download PDF" ng-click="buttonCtrl.download(data.htmlContent)">
+            <i class="glyphicon glyphicon-download" aria-hidden="true"></i> PDF
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <!-- //subnav -->
 
-        <h1>h1. This is a very large header.</h1>
-
-        <h2>h2. This is a large header.</h2>
-
-        <h2>Paragraphs are nice</h2>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+  <div class="container">
+    
+    <!-- wysiwyg-Editor mit gewünschter Toolbar -->  
+    <div class="row">
+    
+      <div class="col-sm-7">
+        <div text-angular="text-angular" name="htmlcontent" ng-model="data.htmlContent" ta-target-toolbars='statictoolbar'>
+          <h1>h1. This is a very large header.</h1>
+          <h2>h2. This is a large header.</h2>
+          <h2>Paragraphs are nice</h2>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+            proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          </p>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
           tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
           quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
           consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
           cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-          proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-        </p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-
-        <h2>Un-ordered lists are great for making quick outlines bulleted.</h2>
-        <ul>
-          <li>List item with a much longer description or more content.</li>
-          <li>List item</li>
-          <li>List item
-            <ul>
-              <li>Nested List Item</li>
-              <li>Nested List Item</li>
-              <li>Nested List Item</li>
-            </ul>
-          </li>
-          <li>List item</li>
-          <li>List item</li>
-          <li>List item</li>
-        </ul>
-
-        <h2>Ordered lists are great for lists that need order, duh.</h2>
-        <ol>
-          <li>List Item 1</li>
-          <li>List Item 2</li>
-          <li>List Item 3</li>
-        </ol>
+          proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          <h2>Un-ordered lists are great for making quick outlines bulleted.</h2>
+          <ul>
+            <li>List item with a much longer description or more content.</li>
+            <li>List item</li>
+            <li>List item
+              <ul>
+                <li>Nested List Item</li>
+                <li>Nested List Item</li>
+                <li>Nested List Item</li>
+              </ul>
+            </li>
+            <li>List item</li>
+            <li>List item</li>
+            <li>List item</li>
+          </ul>
+          <h2>Ordered lists are great for lists that need order, duh.</h2>
+          <ol>
+            <li>List Item 1</li>
+            <li>List Item 2</li>
+            <li>List Item 3</li>
+          </ol>
+        </div>
       </div>
-    </div>
-    <div class="col-sm-5 scale" style="position: relative;-webkit-transform-origin: 0 0;">
-      <pdf-preview content="data.htmlContent"></pdf-preview>
-    </div>
-  </div>  
+      <div class="col-sm-5 scale" style="position: relative;-webkit-transform-origin: 0 0;">
+        <pdf-preview content="data.htmlContent"></pdf-preview>
+      </div>
+    </div>  
+  </div>
 </div>
