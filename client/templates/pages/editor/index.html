@@ -2,12 +2,14 @@
   <!-- subnav here -->
   <nav class="navbar subnav">
     <div class="container">
-      <div text-angular-toolbar name="statictoolbar" class="statictoolbar col-sm-9" ta-toolbar="[['h1','h2','p'],['bold','italics','underline','ol','ul', 'redo','undo'],['indent','outdent'],['justifyLeft','justifyCenter','justifyRight']]"></div>
+      <div class="row">
+        <div text-angular-toolbar name="statictoolbar" class="statictoolbar col-sm-11" ta-toolbar="[['h1','h2','p'],['bold','italics','underline','ol','ul', 'redo','undo'],['indent','outdent'],['justifyLeft','justifyCenter','justifyRight']]"></div>
 
-      <div class="col-sm-3" ng-controller="EditorButtonController as buttonCtrl">
-        <button type="button" class="btn btn-default pull-right" aria-label="Download PDF" ng-click="buttonCtrl.download(data.htmlContent)">
-          <i class="glyphicon glyphicon-download" aria-hidden="true"></i> PDF
-        </button>
+        <div class="col-sm-1" ng-controller="EditorButtonController as buttonCtrl" style="padding-right:0;">
+          <button type="button" class="btn btn-default pull-right" aria-label="Download PDF" ng-click="buttonCtrl.download(data.htmlContent)">
+            <i class="glyphicon glyphicon-download" aria-hidden="true"></i> PDF
+          </button>
+        </div>
       </div>
     </div>
   </nav>
