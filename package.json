@@ -22,5 +22,13 @@
     "prestart": "npm install",
     "start": "node app.js",
     "test": "./node_modules/karma/bin/karma start --single-run"
-  }
+  },
+  "contributors": [
+    "Aljoscha Pinz",
+    "Sebastian Faase",
+    "Chris Hofer",
+    "Thomas Repmann",
+    "Lukas",
+    "Max Stauss"
+  ]
 }
