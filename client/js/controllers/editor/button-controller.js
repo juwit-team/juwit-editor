@@ -1,5 +1,5 @@
 'use strict';
-angular.module("LatexEditor").controller('EditorButtonController', ['$http',  function($http) {
+angular.module('LatexEditor').controller('EditorButtonController', ['$http',  function($http) {
   /**
    * @return {string} A LaTeX command.
    */    
