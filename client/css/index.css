@@ -6,15 +6,6 @@
   font-weight: normal;
   font-style: normal;
 }
-.ta-editor,
-.ta-editor > .ta-bind {
-  height: 28.4cm;
-  margin-bottom: 50px;
-}
-.container {
-  padding: 0;
-  width: 100%;
-}
 /*******************************************************************************
 * This   : juwit.css                                                           *
 * Author : many                                                                *
@@ -63,4 +54,26 @@ page[size="A4"] h1 {
 }
 page[size="A4"] h2 {
   font-size: 12pt;
+}
+.ta-editor,
+.ta-editor > .ta-bind {
+  height: 28.4cm;
+  margin-bottom: 50px;
+}
+body {
+  padding-top: 120px;
+}
+/* bootstrap 3 helpers */
+.navbar {
+  margin-bottom: 0;
+  width: 100%;
+}
+.subnav {
+  position: fixed;
+  top: 50px;
+  z-index: 1020;
+  background-color: #f7f7f7;
+  border-bottom: 1px solid #E1E1E1;
+  border-radius: 0;
+  padding: 8px 0px 0px 0px;
 }

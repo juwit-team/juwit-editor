@@ -1,0 +1,54 @@
+/*******************************************************************************
+* This   : juwit.css                                                           *
+* Author : many                                                                *
+* About  : .css file for the juwit Editor                                      *
+* Version: 0.0.2                                                               *
+*******************************************************************************/
+
+
+
+/*   Page Setup
+*******************************************************************************/
+.scale {
+  -ms-transform: scale(0.6);; /* IE 9 */
+  -ms-transform-origin: 0% 0%; /* IE 9 */
+  -webkit-transform: scale(0.6);; /* Chrome, Safari, Opera */
+  -webkit-transform-origin: 0% 0%; /* Chrome, Safari, Opera */
+  transform: scale(0.6);
+  transform-origin: 0% 0%;
+}
+
+
+/* Paper Format, Frame and Shadow */
+page[size="A4"] { 
+
+  //transform: scale(0.5);
+
+  margin-top    : 35px;
+  background    : white;
+  width         : 21cm;
+  height        : 29.7cm;
+  display       : block;  
+  box-shadow    : 0 0 0.5cm rgba(0,0,0,0.5);
+  padding-top   : 4cm;
+  padding-bottom: 2cm;
+  padding-right : 2.5cm;
+  padding-left  : 2.5cm;
+
+
+  p, h1, h2, li {
+    font-family: 'latin_modern_roman';
+  }
+
+  p, li {
+    font-size: 11pt;
+  }
+
+  h1 {
+    font-size: 14.4pt;
+  }
+
+  h2 {
+    font-size: 12pt;
+  }
+}

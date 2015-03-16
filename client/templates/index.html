@@ -16,15 +16,23 @@
 
   <link rel='stylesheet' type='text/css' href='/css/index.css'>
 </head>
-
-<body ng-app="LatexEditor" class="container">
+<body ng-app="LatexEditor">
   
-  <div class="row">
-    <h1 class="col-sm-12">juwit - <b>ju</b>st <b>w</b>rite <b>it</b></h1>
-  </div>
+  <!-- Static navbar -->
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">juwit</a>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="#">Editor</a></li>
+        </ul>
+      </div><!--/.nav-collapse -->
+    </div>
+  </nav>
 
   <div ng-view></div>
-
   <!-- SCRIPTS -->
 
   <!-- Libs -->
