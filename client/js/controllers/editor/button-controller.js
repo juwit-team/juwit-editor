@@ -1,116 +1,98 @@
 'use strict';
-angular.module('LatexEditor').controller('EditorButtonController', ['$http',  function($http) {
+angular.module("LatexEditor").controller('EditorButtonController', ['$http',  function($http) {
+
   /**
    * @return {string} A LaTeX command.
    */    
-  this.parseTag = function (match, tag, arg) {
-    function parseBeginAlign (arg) {
-      if (arg) {
-        // FIXME: this is a very quick and dirty way to process only
-        // text-align arguments in the way as texAngulur produces them.
-        var stylePart = /style="([^"]*)"/.exec(arg);
-        if (stylePart != null) {
-          switch (stylePart[1]) {
-            case 'text-align: center;':
-              return '\\centering{';
-            case 'text-align: left;':
-              return '\\raggedright{';
-            case 'text-align: right;':
-              return '\\raggedleft{';
-          }
-        }
-      }
-      return '\\raggedright{';
-    }
+  this.replaceHtml2Tex = function (match, fullTag, toTex, fromHtml) {
+    var beginAlign = {
+      'text-align: center;': '\\centering{',
+      'text-align: left;'  : '\\raggedright{',
+      'text-align: right;' : '\\raggedleft{',
+    };
     var endAlign = '}';
 
-    var result = '';
-    switch (tag) {
+    var htmlTag2Latex = {
       // FIXME: Do we need all white spaces?
-      case 'h1':
-        result += ' \\section*{';
-        result += parseBeginAlign (arg);
-        break;
-      case '/h1':
-        result += endAlign;
-        result += '} ';
-        break;
-      case 'h2':
-        result += ' \\subsection*{';
-        result += parseBeginAlign (arg);
-        break;
-      case '/h2':
-        result += endAlign;
-        result += '} ';
-        break;
-      case 'p':
-        result += ' \\par\\addvspace{\\medskipamount}\\noindent ';
-        result += parseBeginAlign (arg);
-        break;
-      case '/p':
-        result += endAlign;
-        result += ' ';
-        break;
-      case 'ul':
-        result += ' \\begin{itemize} ';
-        break;
-      case '/ul':
-        result += ' \\end{itemize} ';
-        break;
-      case 'ol':
-        result += ' \\begin{enumerate} ';
-        break;
-      case '/ol':
-        result += ' \\end{enumerate} ';
-        break;
-      case 'li':
-        result += ' \\item ';
-        break;
-      case '/li':
-        result += ' ';
-        break;
-      case 'b':
-        result += '\\textbf{';
-        break;
-      case '/b':
-        result += '}';
-        break;
-      case 'i':
-        result += '\\textit{';
-        break;
-      case '/i':
-        result += '}';
-        break;
-      case 'u':
-        result += '\\underline{';
-        break;
-      case '/u':
-        result += '}';
-        break;
-      case 'strike':
-        result += '\\sout{';
-        break;
-      case '/strike':
-        result += '}';
-        break;
-      case 'br/':
-        result += ' ';
-        break;
+
+    // a is 0 for not alignable 
+    //      1 for begin alignment (as computed by parseBeginAlign)
+    //      2 for end alignment
+    // tag     : [a, replace with],
+      'h1'     : [1, ' \\section*{'],
+      '/h1'    : [2, '} '],
+      'h2'     : [1, ' \\subsection*{'],
+      '/h2'    : [2, '} '],
+      'p'      : [1, ' \\par\\addvspace{\\medskipamount}\\noindent '],
+      '/p'     : [2, ' '],
+      'ul'     : [0, ' \\begin{itemize} '],
+      '/ul'    : [0, ' \\end{itemize} '],
+      'ol'     : [0, ' \\begin{enumerate} '],
+      '/ol'    : [0, ' \\end{enumerate} '],
+      'li'     : [0, ' \\item '],
+      '/li'    : [0, ' '],
+      'b'      : [0, '\\textbf{'],
+      '/b'     : [0, '}'],
+      'i'      : [0, '\\textit{'],
+      '/i'     : [0, '}'],
+      'u'      : [0, '\\underline{'],
+      '/u'     : [0, '}'],
+      'strike' : [0, '\\sout{'],
+      '/strike': [0, '}'],
+      'br/'    : [0, ' '],
       // FIXME
-      case 'div':
-        result += parseBeginAlign (arg);
-        break;
-      case '/div':
+      'div'    : [0, ''],
+      '/div'   : [0, ''],
+    };
+    var escapedHtml = {
+      'amp' : '\\&',
+      'lt'  : '<',
+      'gt'  : '>',
+    };
+    var latexEscape = {
+      '#' : '\\#',
+      '$' : '\\$',
+      '%' : '\\%',
+      '&' : '\\&',
+      '~' : '\\~{}',
+      '_' : '\\_',
+      '^' : '\\^{}',
+      '\\': '\\textbackslash',
+      '{' : '\\{',
+      '}' : '\\}',
+    };
+    if (fullTag) {
+      var result = '';
+
+      var splits = /([/a-zA-Z0-9]+)(?: style="([^"]*)")?/.exec (fullTag);
+      if (splits == null)
+        throw 'HTML tag "' + fullTag + '" behaves unexpected.';
+
+      var tag = splits[1];
+      var stylePart = splits[2];
+      if (htmlTag2Latex[tag] == null)
+        throw 'HTML tag "' + tag + '" is not supported.';
+
+      if (htmlTag2Latex[tag][0] == 2)
         result += endAlign;
-        break;
-      default:
-        result += '<' + tag + '>';
-        break;
+
+      result += htmlTag2Latex[tag][1];
+
+      if (htmlTag2Latex[tag][0] == 1) {
+        if (stylePart != null)
+          result += beginAlign[stylePart];
+        else
+          result += beginAlign['text-align: left;'];
+      }
+      return result;
+    } else if (toTex) {
+      return latexEscape[toTex];
+    } else if (fromHtml) {
+      if (escapedHtml[fromHtml] != null)
+        return escapedHtml[fromHtml];
+      throw 'Could not escape ' + fromHtml;
     }
-
-    return result;
   };
-
   /**
   * Take an HTML string and replace its tags with LaTeX commands.
   *
@@ -120,17 +102,13 @@ angular.module('LatexEditor').controller('EditorButtonController', ['$http',  fu
   this.tokenize = function (htmlString) {
     /**
      * General regular expressions in java script are a quite different, see:
-     *   https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions?redirectlocale=en-US&redirectslug=JavaScript%2FGuide%2FRegular_Expressions
+     *   https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
      * string.replace is explained here: 
      *   https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/String/replace
      *
-     * '([/a-zA-Z0-9]+)' is the second argument of tagsParse (the tag). A tag
-     * may include '/' or word letters.
-     * '([^<]*)' might be the third argument of tagsParse. This is for
-     * example 'style="color: blue;"'.
      */
-    var regularExpression = /<([/a-zA-Z0-9]+)(?:\s+([^<]*))?>/g;
-    return htmlString.replace(regularExpression, this.parseTag);
+    var regularExpression = /(?:<([^>]*)>)|([%\$#_\{\}~\^\\])|(?:&([^;]*);)/g
+    return htmlString.replace(regularExpression, this.replaceHtml2Tex);
   };
 
   /**
