@@ -29,9 +29,9 @@ node_modules
 #tmp files
 *~
 
-*.tex
-*.pdf
-*.aux
+server/_texFiles/*.tex
+server/_texFiles/*.pdf
+server/_texFiles/*.aux
 
 # Bower
 component.json
