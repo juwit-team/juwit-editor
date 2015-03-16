@@ -20,6 +20,19 @@ build:
     - npm-install
     - npm-test
 
+    # https://github.com/motemen/pusheen-explorer/blob/master/wercker.yml
+    - script:
+        name: update webdriver
+        code: |
+          $(npm bin)/webdriver-manager update
+
+    - script:
+        name: run tests
+        code: |-
+          (($(npm bin)/webdriver-manager start &) &)
+          ((npm start &) &)
+          $(npm bin)/protractor tests/e2e/config.js
+
     # A custom script step, name value is used in the UI
     # and the code value contains the command that get executed
     - script:

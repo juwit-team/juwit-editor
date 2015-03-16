@@ -9,9 +9,10 @@ exports.config = {
   specs: ['juwit-spec.js'],
 
   multiCapabilities: [
-    {'browserName' : 'chrome'}, 
     {'browserName' : 'firefox'},
-    {'browserName' : 'safari'} 
+//    TODO: add more browsers to test
+//    {'browserName' : 'chrome'}, 
+//    {'browserName' : 'safari'} 
   ],
 
   jasmineNodeOpts: {
