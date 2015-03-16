@@ -18,7 +18,7 @@ module.exports = function(config) {
       'bower_components/angular/angular.js',
       'bower_components/angular-mocks/angular-mocks.js',
       'node_modules/textangular/dist/*.js',
-      'client/js/controllers/editor/juwit-module.js',
+      'client/js/controllers/app.js',
       'client/js/controllers/editor/index-controller.js',
       'client/js/controllers/editor/button-controller.js',
       'tests/unit/parser-test.js',
