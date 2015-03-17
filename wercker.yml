@@ -7,10 +7,10 @@ build:
     - bundle-install
 
     - script:
-       name: install texlive-base
+       name: install texlive-latex-base
        code: |-
           sudo apt-get update -qq
-          sudo apt-get install texlive-base
+          sudo apt-get install texlive-latex-base
 
     # http://blog.wercker.com/2013/11/28/django-selenium.html
     - script:

@@ -3,7 +3,7 @@ describe('juwit-editor', function() {
   var editorText = element(by.model('html'));
   var filename = 'server/_texFiles/template.pdf';
   var filesystem = require('fs');
-  var timeout = 10000; // timeout in ms
+  var TIMEOUT = 10000; // timeout in ms
 
   beforeEach(function() {
     browser.get('http://localhost:1338');
@@ -23,16 +23,11 @@ describe('juwit-editor', function() {
     /**
      * Wait until the file is created.
      * This call will time out after <timeout> seconds.
-     * TODO: Find out how to create file on wercker from js test.
      */
-    //browser.driver.wait(function() {
-    //  return filesystem.existsSync(filename);
-    //}, timeout).then(function() {
-      //TODO: Can't create a file on wercker ci server yet, so we need to make this check in order to pass the test on wercker.
-      //if(filesystem.existsSync(filename)) {
-      //  expect(filesystem.existsSync(filename)).toBeTruthy();
-      //}
-    //});
+    browser.driver.wait(function() {
+      return filesystem.existsSync(filename);
+    }, TIMEOUT).then(function() {
+      expect(filesystem.existsSync(filename)).toBeTruthy(); 
+    });
   });
-
 });
