@@ -7,14 +7,14 @@ build:
     - bundle-install
 
     - script:
-       name: install texlive-latex-base
+       name: install texlive-full
        code: |-
           sudo apt-get update -qq
           sudo apt-get install texlive-full
 
     # http://blog.wercker.com/2013/11/28/django-selenium.html
     - script:
-        name: Enable virtual display
+        name: enable virtual display
         code: |-
           # Start xvfb which gives the context an virtual display
           # which is required for tests that require an GUI
