@@ -67,6 +67,10 @@
 \RequirePackage{xcolor}						% support color
 \RequirePackage{fancyhdr}					% header/footer
 \RequirePackage{lipsum}						% blindtext for testing
+\RequirePackage[pscoord]{eso-pic}			% Draw where you want 0.0 is buttom left
+\RequirePackage[gen]{eurosym}
+
+
 
 
 % GLOBAL SETTINGS
@@ -89,6 +93,15 @@
     \small{i\kern-.08em}%
     \Large{t\kern-.1em}%
   }
+
+\newcommand{\placetextbox}[3]{% \placetextbox{<horizontal pos>}{<vertical pos>}{<stuff>}
+  \setbox0=\hbox{#3}% Put <stuff> in a box
+  \AddToShipoutPictureFG*{% Add <stuff> to current page foreground
+    \put(#1,#2){{#3}}%
+  }%
+}%
+
+\placetextbox{94}{75}{hallo}
 
 % ELEMENTS
 %-------------------------------------------------------------------------------
