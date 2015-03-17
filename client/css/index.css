@@ -63,6 +63,19 @@ page[size="A4"] h2 {
 body {
   padding-top: 120px;
 }
+.pdfStyle {
+  font-family: 'latin_modern_roman';
+}
+.pdfStyle p,
+.pdfStyle li {
+  font-size: 11pt;
+}
+.pdfStyle h1 {
+  font-size: 14.4pt;
+}
+.pdfStyle h2 {
+  font-size: 12pt;
+}
 /* bootstrap 3 helpers */
 .navbar {
   margin-bottom: 0;
