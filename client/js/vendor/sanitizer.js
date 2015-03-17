@@ -461,7 +461,6 @@ function encodeEntities(value) {
       // unsafe chars are: \u0000-\u001f \u007f-\u009f \u00ad \u0600-\u0604 \u070f \u17b4 \u17b5 \u200c-\u200f \u2028-\u202f \u2060-\u206f \ufeff \ufff0-\uffff from jslint.com/lint.html
       // decimal values are: 0-31, 127-159, 173, 1536-1540, 1807, 6068, 6069, 8204-8207, 8232-8239, 8288-8303, 65279, 65520-65535
       var c = value.charCodeAt(0);
-/*
       // if unsafe character encode
       if(c <= 159 ||
         c == 173 ||
@@ -475,8 +474,6 @@ function encodeEntities(value) {
         c == 65279 ||
         (c >= 65520 && c <= 65535)) return '&#' + c + ';';
       return value; // avoids multilingual issues
-*/
-      return '&#' + c + ';';
     }).
     replace(/</g, '&lt;').
     replace(/>/g, '&gt;');
