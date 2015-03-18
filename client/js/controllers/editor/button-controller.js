@@ -136,6 +136,17 @@ angular.module("LatexEditor").controller('EditorButtonController', ['$http',  fu
   * @param {string} htmlString String to generate pdf from HTML.
   */
   this.download = function(htmlString) {
+    var re = /<ul>\s*<ul>/g;
+    if(htmlString.search(re) != -1) {
+      alert('multiple unordered list found');
+      return;
+    }
+    var re = /<ol>\s*<ol>/g;
+    if(htmlString.search(re) != -1) {
+      alert('multiple ordered list found');
+      return;
+    }
+    
     var latexString = this.html2latex(htmlString);
     $http.post("/compile/template.tex", {"latexCode": latexString})
     .success(function(data, status, headers, config) {
