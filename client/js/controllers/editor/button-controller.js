@@ -45,9 +45,9 @@ angular.module("LatexEditor").controller('EditorButtonController', ['$http',  fu
       '/div'   : [0, ''],
     };
     var escapedHtml = {
-      'amp' : '\\&',
-      'lt'  : '<',
-      'gt'  : '>',
+      '&amp;' : '\\&',
+      '&lt;'  : '<',
+      '&gt;'  : '>',
     };
     var latexEscape = {
       '#' : '\\#',
@@ -90,7 +90,14 @@ angular.module("LatexEditor").controller('EditorButtonController', ['$http',  fu
     } else if (fromHtml) {
       if (escapedHtml[fromHtml] != null)
         return escapedHtml[fromHtml];
-      throw 'Could not escape ' + fromHtml;
+
+      var c = fromHtml.substring(2,fromHtml.length-1);
+      console.log('char code ' + c);
+      if ((c <= 0x20 && c < 0x7f) || c==0xa1 || c==0xa3 || c==0xa7 || c==0xa8 || c==0xab || c==0xad || c==0xaf || c==0xb4 || c==0xb8 || c==0xbb || ( 0xbf <= c && c <= 0xff && c!=0xd7 && c!=0xf7) || ( 0x102 <= c && c <= 0x107 ) || ( 0x10c <= c && c <= 0x10f ) || c==0x111 || ( 0x118 <= c && c <= 0x11b ) || c==0x11e || c==0x11f || ( 0x130 <= c && c <= 0x133 ) || c==0x139 || c==0x13a || c==0x13d || c==0x13e || ( 0x141 <= c && c <= 0x144 ) || ( 0x147 <= c && c <= 0x14b && c != 0x149 ) || ( 0x150 <= c && c <= 0x155 ) || ( 0x158 <= c && c <= 0x15b ) || ( 0x15e <= c && c <= 0x165 ) || ( 0x16e <= c && c <= 0x171 ) || ( 0x178 <= c && c <= 0x17e ) || c==0x237 || c==0x2c6 || c==0x2c7 || ( c==0x2d8 <= c && c <= 0x2dd ) || c==0x200b || c==0x2013 || c==0x2014 || ( 0x2018 <= c && c <= 0x201e && c != 0x201b ) || c==0x2039 || c==0x203a )
+        return String.fromCharCode(c);
+
+      console.log( 'Could not escape ' + fromHtml);
+      return '';
     }
   };
   /**
@@ -107,7 +114,7 @@ angular.module("LatexEditor").controller('EditorButtonController', ['$http',  fu
      *   https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/String/replace
      *
      */
-    var regularExpression = /(?:<([^>]*)>)|([%\$#_\{\}~\^\\])|(?:&([^;]*);)/g
+    var regularExpression = /(?:<([^>]*)>)|([%\$#_\{\}~\^\\])|(&[^;]*;)/g
     return htmlString.replace(regularExpression, this.replaceHtml2Tex);
   };
 
@@ -129,6 +136,17 @@ angular.module("LatexEditor").controller('EditorButtonController', ['$http',  fu
   * @param {string} htmlString String to generate pdf from HTML.
   */
   this.download = function(htmlString) {
+    var re = /<ul>\s*<ul>/g;
+    if(htmlString.search(re) != -1) {
+      alert('multiple unordered list found');
+      return;
+    }
+    var re = /<ol>\s*<ol>/g;
+    if(htmlString.search(re) != -1) {
+      alert('multiple ordered list found');
+      return;
+    }
+    
     var latexString = this.html2latex(htmlString);
     $http.post("/compile/template.tex", {"latexCode": latexString})
     .success(function(data, status, headers, config) {
