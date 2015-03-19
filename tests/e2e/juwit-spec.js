@@ -5,6 +5,8 @@ describe(':::JUWIT-EDITOR TEST SUITE:::', function() {
     var boldButton = element(by.name('bold'));
     var italicButton = element(by.name('italics'));
     var underlineButton = element(by.name('underline'));
+    var orderedListButton = element(by.name('ol'));
+    var unorderedListButton = element(by.name('ul'));
     var editorText = element(by.model('html'));
 
     function applyTool(tool) {
@@ -16,34 +18,79 @@ describe(':::JUWIT-EDITOR TEST SUITE:::', function() {
       perform();
     };
 
+    function validateGeneratedHtml(validationString) {
+      editorText.getInnerHtml().then(function(innerHtml) {
+        expect(innerHtml).toContain(validationString);
+      });
+    };
+
     beforeEach(function() {
       editorText.clear();
+    });
+
+    it('Test: after clearing the editor there should be no tags inside.', function() {
+      editorText.clear();
+      validateGeneratedHtml(" "); // TODO: For some unkown reasons protractor adds a whitespace 
     });
 
     it('Test: bold button should make text bold.', function() {
       editorText.sendKeys('Bold text.');
       applyTool(boldButton);
-      editorText.getInnerHtml().then(function(innerHtml) {
-        expect(innerHtml).toMatch("<p><b>Bold text. </b></p>");
-      });
+      validateGeneratedHtml("<p><b>Bold text. </b></p>");
     });
 
     it('Test: italics button should make text italic.', function() {
       editorText.sendKeys("Italic text.");
       applyTool(italicButton);
-      editorText.getInnerHtml().then(function(text) {
-        expect(text).toContain("<p><i>Italic text. </i></p>");
-      });
+      validateGeneratedHtml("<p><i>Italic text. </i></p>");
     });
 
     it('Test: underlined button should make text underlined.', function() {
       editorText.sendKeys("Underlined text.");
       applyTool(underlineButton);
-      editorText.getInnerHtml().then(function(text) {
-        expect(text).toContain("<p><u>Underlined text. </u></p>");
-        console.log("\n\n\nD E B U G: " + text + "\n\n\n");
-      });
+      validateGeneratedHtml("<p><u>Underlined text. </u></p>");
     });
+
+    xit('Test: ordered list button should create ordered list.', function() {
+      editorText.sendKeys("List Item 1", protractor.Key.ENTER,
+        "List Item 2", protractor.Key.ENTER,
+        "List Item 3");
+        applyTool(orderedListButton);
+        validateGeneratedHtml("<p><ol><li>List Item 1</li><li>List Item 2</li><li>List Item 3</li></ol></p>");
+    });
+
+    xit('Test: unordered list button should create unordered list.', function() {
+      editorText.sendKeys("List Item 1", protractor.Key.ENTER,
+        "List Item 2", protractor.Key.ENTER,
+        "List Item 3");
+        applyTool(unorderedListButton);
+        validateGeneratedHtml("<p><ul><li>List Item 1</li><li>List Item 2</li><li>List Item 3</li></ul></p>");
+    });
+
+    it('Test: apply a format-button two times should revert the effect.', function() {
+      editorText.sendKeys("Test");
+
+      applyTool(boldButton);
+      applyTool(boldButton);
+      validateGeneratedHtml("<p>Test </p>");
+
+      applyTool(italicButton);
+      applyTool(italicButton);
+      validateGeneratedHtml("<p>Test </p>");
+
+      applyTool(underlineButton);
+      applyTool(underlineButton);
+      validateGeneratedHtml("<p>Test </p>");
+
+      applyTool(orderedListButton);
+      applyTool(orderedListButton);
+      validateGeneratedHtml("<p>Test </p>");
+
+      applyTool(unorderedListButton);
+      applyTool(unorderedListButton);
+      validateGeneratedHtml("<p>Test </p>");
+    });
+
   });
 
   describe('Sub-Suite: download pdf.', function() {
