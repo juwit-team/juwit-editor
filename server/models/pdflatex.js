@@ -26,7 +26,7 @@ PDFlatex.prototype.outputDir = function(path) {
 
 PDFlatex.prototype.compile = function(_callback) {
   if (this.inputPath && this.inputPath.length > 0) {
-    var command = "pdflatex -interaction nonstopmode -output-directory " + this.outputDirectory + " '" + this.inputPath + "'";
+    var command = "pdflatex -interaction nonstopmode -output-directory " + this.outputDirectory.replace(/\\/g, '/') + " " + this.inputPath.replace(/\\/g, '/') + "";
     //console.log(command);
     var parent = this;
     //util.puts(command);
