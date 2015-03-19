@@ -16,6 +16,51 @@
   h2 {
     font-size: 12pt;
   }
+
+  // List Styles from juwit.txt
+  
+  // Level 1
+  ul {
+    list-style-type: disc;
+  }
+
+  ol {
+    list-style-type: decimal;
+  }
+
+  // Level 2
+  ul, ol {
+    ol {
+      list-style-type: lower-roman;
+    }
+
+    ul {
+      list-style-type: none;   
+
+      > li:before {
+        content: "–";
+        position: absolute;
+        margin-left: -1.1em; 
+      }
+    }
+
+    // Level 3
+    ul, ol {
+      ol {
+        list-style-type: lower-latin;
+      }
+
+      ul {
+        list-style-type: none;   
+
+        > li:before {
+          content: '\00BB';
+          position: absolute;
+          margin-left: -1.1em; 
+        }
+      }
+    }
+  }
 }
 
 .ta-root.focussed > .ta-scroll-window.form-control {

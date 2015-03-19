@@ -96,6 +96,46 @@ page[size="A4"] h2 {
 .wysiwyg h2 {
   font-size: 12pt;
 }
+.wysiwyg ul {
+  list-style-type: disc;
+}
+.wysiwyg ol {
+  list-style-type: decimal;
+}
+.wysiwyg ul ol,
+.wysiwyg ol ol {
+  list-style-type: lower-roman;
+}
+.wysiwyg ul ul,
+.wysiwyg ol ul {
+  list-style-type: none;
+}
+.wysiwyg ul ul > li:before,
+.wysiwyg ol ul > li:before {
+  content: "–";
+  position: absolute;
+  margin-left: -1.1em;
+}
+.wysiwyg ul ul ol,
+.wysiwyg ol ul ol,
+.wysiwyg ul ol ol,
+.wysiwyg ol ol ol {
+  list-style-type: lower-latin;
+}
+.wysiwyg ul ul ul,
+.wysiwyg ol ul ul,
+.wysiwyg ul ol ul,
+.wysiwyg ol ol ul {
+  list-style-type: none;
+}
+.wysiwyg ul ul ul > li:before,
+.wysiwyg ol ul ul > li:before,
+.wysiwyg ul ol ul > li:before,
+.wysiwyg ol ol ul > li:before {
+  content: '\00BB';
+  position: absolute;
+  margin-left: -1.1em;
+}
 .ta-root.focussed > .ta-scroll-window.form-control {
   border-color: #ddd;
   outline: 1;
