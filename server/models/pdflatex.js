@@ -32,8 +32,10 @@ PDFlatex.prototype.compile = function(_callback) {
     //util.puts(command);
     exec(command, function(error, stdout, stderr) {
       if (error !== null) {
-	console.log(error);
-	console.log(stderr);
+        //!TODO better error logs
+        console.log(error);
+        console.log(stdout);
+        console.log(stderr);
         _callback({error: 'Could not create ' + parent.filename + '.pdf'});
       } else {
         _callback({filePath: __server + '_texFiles/' + parent.filename +'.pdf'});
