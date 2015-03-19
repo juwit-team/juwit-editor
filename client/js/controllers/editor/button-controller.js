@@ -1,5 +1,5 @@
 'use strict';
-angular.module("LatexEditor").controller('EditorButtonController', ['$http',  function($http) {
+angular.module("LatexEditor").controller('EditorButtonController', ['$http', 'pdfDelegate', function($http, pdfDelegate) {
 
   /**
    * @return {string} A LaTeX command.
@@ -136,7 +136,8 @@ angular.module("LatexEditor").controller('EditorButtonController', ['$http',  fu
         alert(data.error);
       };
       if (typeof data.redirect === 'string') {
-        window.open(data.redirect, '_new', 'toolbar=yes, location=yes, status=yes, menubar=yes, scrollbars=yes');
+        pdfDelegate.$getByHandle('pdf-preview').load(data.redirect);
+        //window.open(data.redirect, '_new', 'toolbar=yes, location=yes, status=yes, menubar=yes, scrollbars=yes');
       } 
     }).error(function(data, status, headers, config) {
       //TODO: Error Handling
