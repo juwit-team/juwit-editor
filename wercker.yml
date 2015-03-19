@@ -1,16 +1,12 @@
-box: wercker/ubuntu12.04-nodejs0.10
+box: cben/ubuntu14.04-latex@1.0.1
+services:
+    - wercker/nodejs
 packages:
     - firefox
 build:
   steps:
     # install dependencies and cache them to increase build speed
     - bundle-install
-
-    - script:
-       name: install texlive-full
-       code: |-
-          sudo apt-get update -qq
-          sudo apt-get install texlive-full
 
     # http://blog.wercker.com/2013/11/28/django-selenium.html
     - script:
@@ -43,11 +39,7 @@ build:
           sleep 10
           $(npm bin)/protractor tests/e2e/config.js
 
-    # A custom script step, name value is used in the UI
-    # and the code value contains the command that get executed
     - script:
         name: echo nodejs information
         code: |
           echo "node version $(node -v) running"
-          echo "npm version $(npm -v) running"
-
