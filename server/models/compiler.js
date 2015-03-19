@@ -19,7 +19,7 @@ module.exports = {
             _callback({error: jsonResponse.error});
           } else {
             console.log("Look at " + jsonResponse.filePath);
-            _callback({redirect: '/dl/' + jsonResponse.filePath.split('/').pop() });
+            _callback({redirect: '/dl/' + jsonResponse.filePath.split('/').pop() + '?v=' + Math.random() });
           };
         });
       }
