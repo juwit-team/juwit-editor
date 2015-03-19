@@ -2,10 +2,18 @@
 angular.module("LatexEditor").controller('EditorButtonController', ['$http',  function($http) {
 
   /**
-   * @return {string} A LaTeX command.
+   * @param {String} match The full match.
+   *
+   * Only one of the following params are given.
+   * @param {String} fullTag A html tag match.
+   * @param {String} toTex A special charecter in latex.
+   * @param {String} fromHtml A escape sequence in html.
+   *
+   * @return {String} A LaTeX command.
    */    
   this.replaceHtml2Tex = function (match, fullTag, toTex, fromHtml) {
     var beginAlign = {
+      // CSS-style         : latex command
       'text-align: center;': '\\centering{',
       'text-align: left;'  : '\\raggedright{',
       'text-align: right;' : '\\raggedleft{',
@@ -44,11 +52,15 @@ angular.module("LatexEditor").controller('EditorButtonController', ['$http',  fu
       'div'    : [0, ''],
       '/div'   : [0, ''],
     };
+
+    // special characters in html
     var escapedHtml = {
       '&amp;' : '\\&',
       '&lt;'  : '<',
       '&gt;'  : '>',
     };
+
+    // special characters in latex
     var latexEscape = {
       '#' : '\\#',
       '$' : '\\$',
@@ -65,46 +77,55 @@ angular.module("LatexEditor").controller('EditorButtonController', ['$http',  fu
       var result = '';
 
       var splits = /([/a-zA-Z0-9]+)(?: style="([^"]*)")?/.exec (fullTag);
-      if (splits == null)
+      if (splits == null) {
         throw 'HTML tag "' + fullTag + '" behaves unexpected.';
+      }
 
       var tag = splits[1];
       var stylePart = splits[2];
-      if (htmlTag2Latex[tag] == null)
+      if (htmlTag2Latex[tag] == null) {
         throw 'HTML tag "' + tag + '" is not supported.';
+      }
 
-      if (htmlTag2Latex[tag][0] == 2)
+      if (htmlTag2Latex[tag][0] == 2) {
         result += endAlign;
+      }
 
       result += htmlTag2Latex[tag][1];
 
       if (htmlTag2Latex[tag][0] == 1) {
-        if (stylePart != null)
+        if (stylePart != null) {
           result += beginAlign[stylePart];
-        else
+        } else {
+          // default behaviour
           result += beginAlign['text-align: left;'];
+        }
       }
       return result;
     } else if (toTex) {
       return latexEscape[toTex];
     } else if (fromHtml) {
-      if (escapedHtml[fromHtml] != null)
+      if (escapedHtml[fromHtml] != null) {
         return escapedHtml[fromHtml];
+      }
 
-      var c = fromHtml.substring(2,fromHtml.length-1);
-      console.log('char code ' + c);
-      if ((c <= 0x20 && c < 0x7f) || c==0xa1 || c==0xa3 || c==0xa7 || c==0xa8 || c==0xab || c==0xad || c==0xaf || c==0xb4 || c==0xb8 || c==0xbb || ( 0xbf <= c && c <= 0xff && c!=0xd7 && c!=0xf7) || ( 0x102 <= c && c <= 0x107 ) || ( 0x10c <= c && c <= 0x10f ) || c==0x111 || ( 0x118 <= c && c <= 0x11b ) || c==0x11e || c==0x11f || ( 0x130 <= c && c <= 0x133 ) || c==0x139 || c==0x13a || c==0x13d || c==0x13e || ( 0x141 <= c && c <= 0x144 ) || ( 0x147 <= c && c <= 0x14b && c != 0x149 ) || ( 0x150 <= c && c <= 0x155 ) || ( 0x158 <= c && c <= 0x15b ) || ( 0x15e <= c && c <= 0x165 ) || ( 0x16e <= c && c <= 0x171 ) || ( 0x178 <= c && c <= 0x17e ) || c==0x237 || c==0x2c6 || c==0x2c7 || ( c==0x2d8 <= c && c <= 0x2dd ) || c==0x200b || c==0x2013 || c==0x2014 || ( 0x2018 <= c && c <= 0x201e && c != 0x201b ) || c==0x2039 || c==0x203a )
-        return String.fromCharCode(c);
+      var escapeCode = fromHtml.substring(2,fromHtml.length-1);
+      var d = Number(escapeCode);
 
-      console.log( 'Could not escape ' + fromHtml);
-      return '';
+      // test if the character is one of 256 supported in T1
+      if ( d.isSafeInterger() && ((d <= 0x20 && d < 0x7f) || d==0xa1 || d==0xa3 || d==0xa7 || d==0xa8 || d==0xab || d==0xad || d==0xaf || d==0xb4 || d==0xb8 || d==0xbb || ( 0xbf <= d && d <= 0xff && d!=0xd7 && d!=0xf7) || ( 0x102 <= d && d <= 0x107 ) || ( 0x10d <= d && d <= 0x10f ) || d==0x111 || ( 0x118 <= d && d <= 0x11b ) || d==0x11e || d==0x11f || ( 0x130 <= d && d <= 0x133 ) || d==0x139 || d==0x13a || d==0x13d || d==0x13e || ( 0x141 <= d && d <= 0x144 ) || ( 0x147 <= d && d <= 0x14b && d != 0x149 ) || ( 0x150 <= d && d <= 0x155 ) || ( 0x158 <= d && d <= 0x15b ) || ( 0x15e <= d && d <= 0x165 ) || ( 0x16e <= d && d <= 0x171 ) || ( 0x178 <= d && d <= 0x17e ) || d==0x237 || d==0x2d6 || d==0x2d7 || ( d==0x2d8 <= d && d <= 0x2dd ) || d==0x200b || d==0x2013 || d==0x2014 || ( 0x2018 <= d && d <= 0x201e && d != 0x201b ) || d==0x2039 || d==0x203a ) ) {
+        return String.fromCharCode(d);
+      } else {
+        console.log( 'Could not convert to latex, ' + fromHtml + ' is not supported in T1');
+        return '';
+      }
     }
   };
   /**
   * Take an HTML string and replace its tags with LaTeX commands.
   *
-  * @param {string} htmlString The HTML string to parse.
-  * @return {string} The corresponding LaTeX string.
+  * @param {String} htmlString The HTML string to parse.
+  * @return {String} The corresponding LaTeX string.
   */
   this.tokenize = function (htmlString) {
     /**
@@ -114,14 +135,15 @@ angular.module("LatexEditor").controller('EditorButtonController', ['$http',  fu
      *   https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/String/replace
      *
      */
+    // params:                fullTag     |  toTex           |fromHtml 
     var regularExpression = /(?:<([^>]*)>)|([%\$#_\{\}~\^\\])|(&[^;]*;)/g
     return htmlString.replace(regularExpression, this.replaceHtml2Tex);
   };
 
   /**
    * Add header and footer for latex document and tokenize given HTML-code.
-   * @param  {string} html HTML-string generated by textAngular
-   * @return {latex} Corresponding LaTeX-Code
+   * @param  {String} html HTML-string generated by textAngular
+   * @return {String} Corresponding LaTeX-Code
    */
   this.html2latex = function(html){
     var texHead = '\\documentclass{juwit}\n \\begin{document}\n';
