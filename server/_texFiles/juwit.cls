@@ -3,7 +3,7 @@
 % Author : Sebastian Faase                                                     %
 % Licence: The MIT License (MIT) http://opensource.org/licenses/MIT            %
 % About  : template for juwit editor                                           %
-% Version: 0.4                                                                 %
+% Version: 0.5                                                                 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -16,20 +16,43 @@
 \def\rightBoarderSpace#1{\def\@rightBoarderSpace{#1}}
 \def\corporateLogo#1{\def\@corporateLogo{#1}}
 \def\corporateLogoSize#1{\def\@corporateLogoSize{#1}}
-\newif\if@hasCorporateLogo
+\def\headerSpace#1{\def\@headerSpace{#1}}
+\def\recipientName#1{\def\@recipientName{#1}}
+\def\recipientStreet#1{\def\@recipientStreet{#1}}
+\def\recipientCity#1{\def\@recipientCity{#1}}
+\def\senderName#1{\def\@senderName{#1}}
+\def\senderStreet#1{\def\@senderStreet{#1}}
+\def\senderCity#1{\def\@senderCity{#1}}
 
+
+% BOOLS
+%-------------------------------------------------------------------------------
+\newif\if@hasCorporateLogo
+\newif\if@isLetter
+
+
+% INITIATE BOOL
+%-------------------------------------------------------------------------------
+\@hasCorporateLogotrue
+\@isLettertrue
 
 
 % INITIATE DEFINITIONS
 %-------------------------------------------------------------------------------
 \defaultFontSize{11pt}		% 10pt-12pt
+\if@isLetter
+\topSpace{90mm}
+\headerSpace{60mm}
+\else
 \topSpace{40mm}
+\headerSpace{10mm}
+\fi
 \buttomSpace{20mm}
 \leftBoarderSpace{25mm}
 \rightBoarderSpace{25mm}
-\corporateLogo{logo.png}
+\corporateLogo{./server/_texFiles/logo.png}
 \corporateLogoSize{60mm}
-\@hasCorporateLogofalse
+
 
 
 % LaTeX - VERSION
@@ -56,7 +79,8 @@
                 top = \@topSpace, 			% -
                 bottom = \@buttomSpace, 	% -
                 headheight=40mm, 			% -
-                headsep = 10mm]{geometry}	% >
+                headsep = \@headerSpace]	%
+				{geometry}					% >
 \RequirePackage[utf8]{inputenc}				% use encoding utf8
 \RequirePackage{amsmath}					% amsmath for formulas
 \RequirePackage{amsfonts}					% more symbols
@@ -68,9 +92,8 @@
 \RequirePackage{fancyhdr}					% header/footer
 \RequirePackage{lipsum}						% blindtext for testing
 \RequirePackage[pscoord]{eso-pic}			% Draw where you want 0.0 is buttom left
-\RequirePackage[gen]{eurosym}
-
-
+\RequirePackage[gen]{eurosym}				% euro symbol
+\RequirePackage{currfile}
 
 
 % GLOBAL SETTINGS
@@ -85,23 +108,27 @@
 \subsectionfont{\fontsize{12pt}{1em}		% < define subsection font
                 \selectfont}				% >
 
-\DeclareRobustCommand{\juwit}
-  {
-    \Large{j\kern-.1em}%
-    \small{u\kern-.25em}%
-    \LARGE{w\kern-.08em}%
-    \small{i\kern-.08em}%
-    \Large{t\kern-.1em}%
-  }
 
-\newcommand{\placetextbox}[3]{% \placetextbox{<horizontal pos>}{<vertical pos>}{<stuff>}
-  \setbox0=\hbox{#3}% Put <stuff> in a box
-  \AddToShipoutPictureFG*{% Add <stuff> to current page foreground
+% NEW COMMANDS
+%-------------------------------------------------------------------------------
+\newcommand{\placetextbox}[3]{%
+  \setbox0=\hbox{#3}% 
+  \AddToShipoutPictureFG*{% 
     \put(#1,#2){{#3}}%
   }%
 }%
 
-\placetextbox{94}{75}{hallo}
+
+
+\DeclareRobustCommand{\juwit}				% < \juwit is juwit logo
+  {											%   -
+    \Large{j\kern-.1em}%					%   -
+    \small{u\kern-.25em}%					%   - 
+    \LARGE{w\kern-.08em}%					%   -
+    \small{i\kern-.08em}%					%   -
+    \Large{t\kern-.1em}%					%   -
+  }											% >
+
 
 % ELEMENTS
 %-------------------------------------------------------------------------------
@@ -132,3 +159,19 @@
 \rfoot{}									% unused
 \renewcommand{\footrulewidth}{0.5pt}		% draw footer lineseperator
 
+% recipient
+
+\if@isLetter
+\recipientName{Manfred Müstermann}
+\recipientStreet{Müsterstraße 90}
+\recipientCity{14193 Berlin}
+\placetextbox{\LenToUnit{26mm}}{\LenToUnit{226mm}}{\@recipientName}
+\placetextbox{\LenToUnit{26mm}}{\LenToUnit{221mm}}{\@recipientStreet}
+\placetextbox{\LenToUnit{26mm}}{\LenToUnit{216mm}}{\@recipientCity}
+\senderName{Manfred Müstermann}
+\senderStreet{Müsterstraße 90}
+\senderCity{14193 Berlin}
+\placetextbox{\LenToUnit{125mm}}{\LenToUnit{236mm}}{\@senderName}
+\placetextbox{\LenToUnit{125mm}}{\LenToUnit{231mm}}{\@senderStreet}
+\placetextbox{\LenToUnit{125mm}}{\LenToUnit{226mm}}{\@senderCity}
+\fi
