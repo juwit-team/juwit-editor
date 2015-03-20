@@ -18,21 +18,8 @@
   }
 
   // List Styles from juwit.txt
-  
-  // Level 1
   ul {
     list-style-type: disc;
-  }
-
-  ol {
-    list-style-type: decimal;
-  }
-
-  // Level 2
-  ul, ol {
-    ol {
-      list-style-type: lower-roman;
-    }
 
     ul {
       list-style-type: none;   
@@ -41,13 +28,6 @@
         content: "–";
         position: absolute;
         margin-left: -1.1em; 
-      }
-    }
-
-    // Level 3
-    ul, ol {
-      ol {
-        list-style-type: lower-latin;
       }
 
       ul {
@@ -58,6 +38,18 @@
           position: absolute;
           margin-left: -1.1em; 
         }
+      }
+    }
+  }
+
+  ol {
+    list-style-type: decimal;
+
+    ol {
+      list-style-type: lower-roman;
+
+      ol {
+        list-style-type: lower-latin;
       }
     }
   }
