@@ -1,6 +1,4 @@
-box: cben/ubuntu14.04-latex@1.0.1
-services:
-    - wercker/nodejs
+box: apinz/wercker-box-nodejs-latex@1.0.0
 packages:
     - firefox
 build:
