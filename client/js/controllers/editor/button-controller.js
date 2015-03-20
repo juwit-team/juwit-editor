@@ -78,13 +78,15 @@ angular.module("LatexEditor").controller('EditorButtonController', ['$http', 'pd
 
       var splits = /([/a-zA-Z0-9]+)(?: style="([^"]*)")?/.exec (fullTag);
       if (splits == null) {
-        throw 'HTML tag "' + fullTag + '" behaves unexpected.';
+        console.log ('HTML tag "' + fullTag + '" behaves unexpected.');
+        return '';
       }
 
       var tag = splits[1];
       var stylePart = splits[2];
       if (htmlTag2Latex[tag] == null) {
-        throw 'HTML tag "' + tag + '" is not supported.';
+        console.log ('HTML tag "' + tag + '" is not supported.');
+        return '';
       }
 
       if (htmlTag2Latex[tag][0] == 2) {
