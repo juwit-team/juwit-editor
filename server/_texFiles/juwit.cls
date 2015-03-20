@@ -93,7 +93,6 @@
 \RequirePackage{lipsum}						% blindtext for testing
 \RequirePackage[pscoord]{eso-pic}			% Draw where you want 0.0 is buttom left
 \RequirePackage[gen]{eurosym}				% euro symbol
-\RequirePackage{currfile}
 
 
 % GLOBAL SETTINGS
