@@ -4,6 +4,7 @@ angular.module("LatexEditor").controller('EditorButtonController', ['$http',  fu
   /**
    * @return {string} A LaTeX command.
    */    
+
   this.replaceHtml2Tex = function (match, fullTag, toTex, fromHtml) {
     var beginAlign = {
       'text-align: center;': '\\centering{',

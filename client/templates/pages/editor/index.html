@@ -7,14 +7,18 @@
   <nav class="navbar subnav">
     <div class="container">
       <div class="row">
-        <div text-angular-toolbar name="statictoolbar" class="statictoolbar col-sm-10" ta-toolbar="[['section','subsection','p'],['bold','italics','underline','ol','ul', 'redo','undo'],['indent','outdent'],['justifyLeft','justifyCenter','justifyRight'], ['colourRed']]"></div>        
-
-        <button type="button" class="btn btn-default col-sm-1" data-toggle="modal" data-target="#myModal">
-        <i class="glyphicon glyphicon-envelope" aria-hidden="true"></i> Letter</button> <!--Brief-Modal unten -->
-
-        <div ng-controller="EditorButtonController as buttonCtrl" style="padding-right:0;">                  
-          <button name="downloadButton" type="button" class="btn btn-default pull-right col-sm-1" aria-label="Download PDF" ng-click="buttonCtrl.download(data.htmlContent)"><i class="glyphicon glyphicon-download" aria-hidden="true"></i> PDF
-          </button>
+        <div text-angular-toolbar name="statictoolbar" class="statictoolbar col-sm-9" ta-toolbar="[['section','subsection','p'],['bold','italics','underline','ol','ul', 'redo','undo'],['indent','outdent'],['justifyLeft','justifyCenter','justifyRight'], ['colourRed']]"></div>  
+        <!-- Letter Button -->
+        <div class="col-sm-2">
+          <input type="checkbox" ng-model="checkboxModel.bool">
+          <button type="button" ng-class="{disabled: !checkboxModel.bool}" class="btn btn-default" data-toggle="modal" data-target="#letter">
+          <i class="glyphicon glyphicon-envelope" aria-hidden="true"></i> Letter</button> 
+        <!--Brief-Modal unten, runterscrollen! -->
+        </div>
+          <div ng-controller="EditorButtonController as buttonCtrl" style="padding-right:0;">           
+            <button name="downloadButton" type="button" class="btn btn-default col-sm-1" aria-label="Download PDF" ng-click="buttonCtrl.download(data.htmlContent)"><i class="glyphicon glyphicon-download" aria-hidden="true"></i> PDF
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -23,7 +27,6 @@
   <div class="container">  
     <div class="row">
       <div class="col-sm-7">
-        <!-- wysiwyg-Editor mit gewünschter Toolbar -->
 
         <div class="wysiwyg" text-angular="text-angular" name="htmlcontent" ng-model="data.htmlContent" ta-target-toolbars='statictoolbar'>
           <h1>h1. This is a very large header.</h1>
@@ -75,8 +78,8 @@
 <div id="includedContent"></div>
 </body>
 
-<!-- Modal -->
-       <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<!-- Brief-Modal -->
+       <div class="modal fade" id="letter" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
