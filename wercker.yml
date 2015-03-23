@@ -1,4 +1,4 @@
-box: apinz/wercker-box-nodejs-latex@1.0.0
+box: apinz/wercker-box-nodejs-latex@1.0.1
 packages:
     - firefox
 build:
