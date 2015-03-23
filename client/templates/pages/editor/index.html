@@ -7,21 +7,25 @@
   <nav class="navbar subnav">
     <div class="container">
       <div class="row">
+
         <div text-angular-toolbar name="statictoolbar" class="statictoolbar col-sm-9" ta-toolbar="[['section','subsection','p'],['bold','italics','underline','ol','ul', 'redo','undo'],['indent','outdent'],['justifyLeft','justifyCenter','justifyRight'], ['colourRed']]"></div>  
         <!-- Letter Button -->
+
         <div class="col-sm-2">
           <input type="checkbox" ng-model="checkboxModel.bool">
           <button type="button" ng-class="{disabled: !checkboxModel.bool}" class="btn btn-default" data-toggle="modal" data-target="#letter">
           <i class="glyphicon glyphicon-envelope" aria-hidden="true"></i> Letter</button> 
-        <!--Brief-Modal unten, runterscrollen! -->
+        </div><!--Brief-Modal unten, runterscrollen! -->
+        
+        <div class="col-sm-1" style="padding-right:0;">
+          <button name="downloadButton" type="button" class="btn btn-default pull-right" aria-label="Download PDF" ng-click="download(data.htmlContent)">
+            <i class="glyphicon glyphicon-download" aria-hidden="true"></i> PDF
+          </button>
         </div>
-          <div ng-controller="EditorButtonController as buttonCtrl" style="padding-right:0;">           
-            <button name="downloadButton" type="button" class="btn btn-default col-sm-1" aria-label="Download PDF" ng-click="buttonCtrl.download(data.htmlContent)"><i class="glyphicon glyphicon-download" aria-hidden="true"></i> PDF
-            </button>
-          </div>
-        </div>
+
       </div>
     </div>
+</div>
   </nav>
   <!-- //subnav -->
   <div class="container">  
