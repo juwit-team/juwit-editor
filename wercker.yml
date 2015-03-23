@@ -1,6 +1,4 @@
-box: apinz/wercker-box-nodejs-latex@1.0.1
-packages:
-    - firefox
+box: apinz/wercker-box-nodejs-latex@1.1.0
 build:
   steps:
     # install dependencies and cache them to increase build speed
@@ -16,9 +14,6 @@ build:
           start-stop-daemon --start --quiet --pidfile /tmp/xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -screen 0 1024x768x24 -ac +extension GLX +render -noreset
           # Give xvfb time to start. 3 seconds is the default for all xvfb-run commands.
           sleep 3
-
-    - install-packages:
-        packages: firefox
 
     - npm-install
     - npm-test
