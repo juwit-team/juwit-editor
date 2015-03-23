@@ -33,6 +33,8 @@ build:
           $(npm bin)/protractor tests/e2e/config.js
 
     - script:
-        name: echo nodejs information
-        code: |
+        name: echo version information
+        code: |-
           echo "node version $(node -v) running"
+          git --version
+          $(npm bin)/protractor --version
