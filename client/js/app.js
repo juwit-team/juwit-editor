@@ -4,4 +4,4 @@
 *
 * Description
 */
-angular.module('LatexEditor', ['ngRoute', 'textAngular']);
+angular.module('LatexEditor', ['ngRoute', 'textAngular', 'pdf', 'angularLatexParser']);

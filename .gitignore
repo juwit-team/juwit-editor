@@ -36,3 +36,7 @@ server/_texFiles/*.aux
 # Bower
 component.json
 bower_components
+
+# Auto generated debug log
+*debuglog.txt*
+*.log*
