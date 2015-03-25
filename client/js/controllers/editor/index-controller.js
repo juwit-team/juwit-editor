@@ -32,27 +32,17 @@ angular.module('LatexEditor').controller('EditorIndexController', ['$scope', 'te
     };
 
   //function for editing the selected modal
-
-  /*$scope.formEdit = 1; //boolean for form-edit
-  $scope.modalName=""; //var for choosing between modalforms
-  
-  $scope.setForm= function (name) {
-    $scope.formEdit=0;
-    $scope.modalName= "#" +name;
-      };*/
   $scope.styles = [
       {name:'Artikel', editable: false },
       {name:'Brief', editable: true, modaltarget:'#letter'},
       {name:'Serienbrief', editable: true, modaltarget:'#formletter'}
     ];
   $scope.myStyle = $scope.styles[0]; //Artikel is default selected
-  //$('#myModal').modal('toggle');
 
-  $scope.modal = function(){
+  $scope.modal = function(){  
     if ($scope.myStyle.editable) {
-
-      alert($scope.myStyle.name);
+      $($scope.myStyle.modaltarget).modal('toggle');
     };
-  }
+  };
 
 }]);

@@ -8,21 +8,13 @@
     <div class="container">
       <div class="row">
         <div text-angular-toolbar name="statictoolbar" class="statictoolbar col-sm-8" ta-toolbar="[['section','subsection','p'],['bold','italics','underline','ol','ul', 'redo','undo'],['indent','outdent'],['justifyLeft','justifyCenter','justifyRight']]"></div> 
+
         <div class="col-sm-2">
           <select class="form-control" ng-model="myStyle" data-toggle="modal" ng-options="style.name for style in styles" ng-change="modal()">
           </select> 
         </div>
-        <button name="editForm" type="button" class="btn btn-default" data-toggle="modal" data-target="{{myStyle.modaltarget}}" ng-class="{disabled: !myStyle.editable}" aria-label="Edit Formular"><i class="glyphicon glyphicon-edit" aria-hidden="true"></i> Bearbeiten</button>
-   <!--      <div class="col-sm-2">
-          <select class="form-control"> 
-            <option ng-value="false" ng-click="formEdit=1">Artikel</option>
-            <option data-toggle="modal" data-target="#letter" ng-click="setForm('letter')">Brief</option>
-            <option data-toggle="modal" data-target="#formletter" ng-click="setForm('formletter')">Serienbrief</option>
-          </select>  Modale unten, runterscrollen!
-        </div>
-        <div>
-          <button name="editForm" type="button" class="btn btn-default col-sm-1" data-toggle="modal" data-target="{{modalName}}" ng-class="{disabled: formEdit}" aria-label="Edit Formular" ><i class="glyphicon glyphicon-edit" aria-hidden="true"></i> Bearbeiten</button>   
-        </div> -->
+        <button name="editForm" type="button" class="btn btn-default col-sm-1" data-toggle="modal" data-target="{{myStyle.modaltarget}}" ng-class="{disabled: !myStyle.editable}" aria-label="Edit Formular"><i class="glyphicon glyphicon-edit" aria-hidden="true"></i> Bearbeiten</button>
+
         <div class="col-sm-1" style="padding-right:0;">
           <button name="downloadButton" type="button" class="btn btn-default pull-right" aria-label="Download PDF" ng-click="download(data.htmlContent)">
           <i class="glyphicon glyphicon-download" aria-hidden="true"></i> PDF
