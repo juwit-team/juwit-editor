@@ -9,7 +9,7 @@
       <div class="row">
         <div text-angular-toolbar name="statictoolbar" class="statictoolbar col-sm-8" ta-toolbar="[['section','subsection','p'],['bold','italics','underline','ol','ul', 'redo','undo'],['indent','outdent'],['justifyLeft','justifyCenter','justifyRight']]"></div> 
         <div class="col-sm-2">
-          <select class="form-control" ng-model="myStyle" ng-options="style.name for style in styles">
+          <select class="form-control" ng-model="myStyle" data-toggle="modal" ng-options="style.name for style in styles" ng-change="modal()">
           </select> 
         </div>
         <button name="editForm" type="button" class="btn btn-default" data-toggle="modal" data-target="{{myStyle.modaltarget}}" ng-class="{disabled: !myStyle.editable}" aria-label="Edit Formular"><i class="glyphicon glyphicon-edit" aria-hidden="true"></i> Bearbeiten</button>

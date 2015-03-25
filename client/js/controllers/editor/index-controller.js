@@ -1,5 +1,5 @@
 'use strict';
-angular.module('LatexEditor').controller('EditorIndexController', ['$scope', 'textAngularManager',  '$document', '$http', 'pdfDelegate', 'latexParser', function($scope, textAngularManager, $document, $http, pdfDelegate, latexParser) {
+angular.module('LatexEditor').controller('EditorIndexController', ['$scope', 'textAngularManager',  '$document', '$http', 'pdfDelegate', 'latexParser', '$modal', function($scope, textAngularManager, $document, $http, pdfDelegate, latexParser, $modal) {
     $scope.data = {orightml: ''};
     $scope.data.htmlcontent = $scope.data.orightml;
     $scope.disabled = false;
@@ -48,5 +48,11 @@ angular.module('LatexEditor').controller('EditorIndexController', ['$scope', 'te
   $scope.myStyle = $scope.styles[0]; //Artikel is default selected
   //$('#myModal').modal('toggle');
 
+  $scope.modal = function(){
+    if ($scope.myStyle.editable) {
+
+      alert($scope.myStyle.name);
+    };
+  }
 
 }]);
