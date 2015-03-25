@@ -7,25 +7,24 @@
   <nav class="navbar subnav">
     <div class="container">
       <div class="row">
-
-        <div text-angular-toolbar name="statictoolbar" class="statictoolbar col-sm-9" ta-toolbar="[['section','subsection','p'],['bold','italics','underline','ol','ul', 'redo','undo'],['indent','outdent'],['justifyLeft','justifyCenter','justifyRight'], ['colourRed']]"></div>  
-        <!-- Letter Button -->
-
+        <div text-angular-toolbar name="statictoolbar" class="statictoolbar col-sm-8" ta-toolbar="[['section','subsection','p'],['bold','italics','underline','ol','ul', 'redo','undo'],['indent','outdent'],['justifyLeft','justifyCenter','justifyRight']]"></div>  
         <div class="col-sm-2">
-          <input type="checkbox" ng-model="checkboxModel.bool">
-          <button type="button" ng-class="{disabled: !checkboxModel.bool}" class="btn btn-default" data-toggle="modal" data-target="#letter">
-          <i class="glyphicon glyphicon-envelope" aria-hidden="true"></i> Letter</button> 
-        </div><!--Brief-Modal unten, runterscrollen! -->
-        
+          <select class="form-control"> 
+            <option ng-value="false" ng-click="formEdit=1">Artikel</option>
+            <option data-toggle="modal" data-target="#letter" ng-click="setForm('letter')">Brief</option>
+            <option data-toggle="modal" data-target="#formletter" ng-click="setForm('formletter')">Serienbrief</option>
+          </select> <!--Modale unten, runterscrollen! -->
+        </div>
+        <div>
+          <button name="editForm" type="button" class="btn btn-default col-sm-1" data-toggle="modal" data-target="{{modalName}}" ng-class="{disabled: formEdit}" aria-label="Edit Formular" ><i class="glyphicon glyphicon-edit" aria-hidden="true"></i> Bearbeiten</button>  
+        </div>
         <div class="col-sm-1" style="padding-right:0;">
           <button name="downloadButton" type="button" class="btn btn-default pull-right" aria-label="Download PDF" ng-click="download(data.htmlContent)">
-            <i class="glyphicon glyphicon-download" aria-hidden="true"></i> PDF
+          <i class="glyphicon glyphicon-download" aria-hidden="true"></i> PDF
           </button>
         </div>
-
       </div>
     </div>
-</div>
   </nav>
   <!-- //subnav -->
   <div class="container">  
@@ -82,22 +81,53 @@
 </body>
 
 <!-- Brief-Modal -->
-       <div class="modal fade" id="letter" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Brief</h4>
-              </div>
-              <div class="modal-body">
-                Empfänger:<input type="text" name="recipient"></input>
-                <br>....
-                <br>....
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Verwerfen</button>
-                <button type="button" class="btn btn-primary">Einfügen</button>
-              </div>
-            </div>
+ <div class="modal fade" id="letter" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Brief</h4>
+        </div>
+        <div class="modal-body row">
+          <div class="col-sm-6">
+            <h4>Empfänger</h4>
+            Name Vorname:<br><input type="text"><br>
+            Straße Hausnummer:<input type="text"><br>
+            PLZ Wohnort:<p><input type="text"><p>
           </div>
-        </div> 
+          <div class="col-sm-6">
+            <h4>Sender</h4>
+            Name Vorname:<br><input type="text"><br>
+            Straße Hausnummer:<input type="text"><br>
+            PLZ Wohnort:<p><input type="text"></p>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Verwerfen</button>
+          <button type="button" class="btn btn-default">Einfügen</button>
+        </div>
+      </div>
+    </div>
+  </div> 
+
+  <!-- Serienbrief-Modal -->
+ <div class="modal fade" id="formletter" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Serienbrief</h4>
+        </div>
+        <div class="modal-body">
+          Upload ur CSV somehow! GL!
+          <br>....
+          <br>....
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Verwerfen</button>
+          <button type="button" class="btn btn-default">Einfügen</button>
+        </div>
+      </div>
+    </div>
+  </div> 
+

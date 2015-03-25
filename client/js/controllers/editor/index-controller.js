@@ -4,6 +4,7 @@ angular.module('LatexEditor').controller('EditorIndexController', ['$scope', 'te
     $scope.data.htmlcontent = $scope.data.orightml;
     $scope.disabled = false;
     $scope.canEdit = true;
+    
 
     /**
     * Make a request to the server in order to get a pdf file.
@@ -17,7 +18,7 @@ angular.module('LatexEditor').controller('EditorIndexController', ['$scope', 'te
       $http.post("/compile/template.tex", {"latexCode": latexString})
       .success(function(data, status, headers, config) {
         if (data.error) {
-          alert(data.error);
+          alert(data.error);scope
         };
         if (typeof data.redirect === 'string') {
           pdfDelegate.$getByHandle('pdf-preview').load(data.redirect);
@@ -29,4 +30,14 @@ angular.module('LatexEditor').controller('EditorIndexController', ['$scope', 'te
         //alert(data.error);
       })
     };
+
+  //function for editing the selected modal
+
+  $scope.formEdit = 1; //boolean for form-edit
+  $scope.modalName=""; //var for choosing between modalforms
+  
+  $scope.setForm= function (name) {
+    $scope.formEdit=0;
+    $scope.modalName= "#" +name;
+      };
 }]);
