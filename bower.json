@@ -11,7 +11,7 @@
     "jquery": "2.1.3",
     "font-awesome": "4.3.0",
     "angular-multi-pdf-viewer": "git://github.com/juwit-team/angular-pdf-viewer.git",
-    "angular-latex-parser": "git://github.com/juwit-team/angularLatexParser.git#b5c00fe557aa118e51cb86e112ecc174a60a271e"
+    "angular-latex-parser": "git@github.com:juwit-team/angularLatexParser.git"
   },
   "devDependencies": {
     "angular-mocks": "~1.3.14"
