@@ -3,14 +3,6 @@ build:
   steps:
     # install dependencies and cache them to increase build speed
     - bundle-install
-    
-    - script:
-        name: show information
-        code: |-
-          echo "node version $(node -v) running"
-          git --version
-          $(npm bin)/protractor --version
-          cat ~/.ssh/id_rsa.pub
 
     # http://blog.wercker.com/2013/11/28/django-selenium.html
     - script:
@@ -24,6 +16,15 @@ build:
           sleep 3
 
     - npm-install
+    
+    - script:
+        name: show information
+        code: |-
+          echo "node version $(node -v) running"
+          git --version
+          $(npm bin)/protractor --version
+          cat ~/.ssh/id_rsa.pub
+    
     - npm-test
 
     - script:
