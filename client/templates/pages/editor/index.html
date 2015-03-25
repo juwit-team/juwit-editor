@@ -10,10 +10,10 @@
         <div text-angular-toolbar name="statictoolbar" class="statictoolbar col-sm-8" ta-toolbar="[['section','subsection','p'],['bold','italics','underline','ol','ul', 'redo','undo'],['indent','outdent'],['justifyLeft','justifyCenter','justifyRight']]"></div> 
 
         <div class="col-sm-2">
-          <select class="form-control" ng-model="myStyle" data-toggle="modal" ng-options="style.name for style in styles" ng-change="modal()">
+          <select class="form-control" ng-model="selectedSheet" data-toggle="modal" ng-options="sheet.name for sheet in sheets" ng-change="modal()">
           </select> 
         </div>
-        <button name="editForm" type="button" class="btn btn-default col-sm-1" data-toggle="modal" data-target="{{myStyle.modaltarget}}" ng-class="{disabled: !myStyle.editable}" aria-label="Edit Formular"><i class="glyphicon glyphicon-edit" aria-hidden="true"></i> Bearbeiten</button>
+        <button name="editForm" type="button" class="btn btn-default col-sm-1" data-toggle="modal" data-target="{{selectedSheet.modaltarget}}" ng-class="{disabled: !selectedSheet.editable}" aria-label="Edit Formular"><i class="glyphicon glyphicon-edit" aria-hidden="true"></i> Bearbeiten</button>
 
         <div class="col-sm-1" style="padding-right:0;">
           <button name="downloadButton" type="button" class="btn btn-default pull-right" aria-label="Download PDF" ng-click="download(data.htmlContent)">
