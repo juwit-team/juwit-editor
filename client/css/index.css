@@ -146,3 +146,6 @@ body {
   border-radius: 0;
   padding: 8px 0px 0px 0px;
 }
+body.modal-open nav {
+  padding-right: 15px;
+}
