@@ -1,4 +1,4 @@
-box: apinz/wercker-box-nodejs-latex@1.1.0
+box: apinz/wercker-box-nodejs-latex@1.1.1
 build:
   steps:
     # install dependencies and cache them to increase build speed
@@ -16,6 +16,15 @@ build:
           sleep 3
 
     - npm-install
+    
+    - script:
+        name: show information
+        code: |-
+          echo "node version $(node -v) running"
+          git --version
+          $(npm bin)/protractor --version
+          cat ~/.ssh/id_rsa.pub
+    
     - npm-test
 
     - script:
@@ -31,10 +40,3 @@ build:
           #wait for app and webdriver session to start
           sleep 10
           $(npm bin)/protractor tests/e2e/config.js
-
-    - script:
-        name: echo version information
-        code: |-
-          echo "node version $(node -v) running"
-          git --version
-          $(npm bin)/protractor --version

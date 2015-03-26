@@ -93,6 +93,7 @@
 \RequirePackage{lipsum}                       % blindtext for testing
 \RequirePackage[pscoord]{eso-pic}             % Draw where you want
 \RequirePackage[gen]{eurosym}                 % euro symbol
+\RequirePackage{hyperref}                     % use hyperlinks
 \if@isLetter
 \RequirePackage{amsmath}                      % amsmath for formulas
 \fi
