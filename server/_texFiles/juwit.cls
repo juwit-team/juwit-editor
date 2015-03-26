@@ -34,7 +34,7 @@
 
 % INITIATE BOOL
 %-------------------------------------------------------------------------------
-\@hasCorporateLogotrue
+\@hasCorporateLogofalse
 \@isLettertrue
 \@expertModetrue
 
