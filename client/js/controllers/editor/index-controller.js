@@ -12,9 +12,9 @@ angular.module('LatexEditor').controller('EditorIndexController', ['$scope', 'te
     */
     $scope.download = function(htmlString) {
 
-      var latexString = latexParser.html2latex(htmlString);
+      //var latexString = latexParser.html2latex(htmlString);
 
-      $http.post("/compile/template.tex", {"latexCode": latexString})
+      $http.post("/compile/template.tex", {"latexCode": htmlString})
       .success(function(data, status, headers, config) {
         if (data.error) {
           alert(data.error);
