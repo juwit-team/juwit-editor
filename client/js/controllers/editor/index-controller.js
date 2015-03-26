@@ -1,9 +1,12 @@
 'use strict';
-angular.module('LatexEditor').controller('EditorIndexController', ['$scope', 'textAngularManager',  '$document', '$http', 'pdfDelegate', 'latexParser', function($scope, textAngularManager, $document, $http, pdfDelegate, latexParser) {
+angular.module('LatexEditor').controller('EditorIndexController', ['$scope', 'textAngularManager',  '$document', '$http', 'pdfDelegate', 'latexParser', '$modal', function($scope, textAngularManager, $document, $http, pdfDelegate, latexParser, $modal) {
     $scope.data = {orightml: ''};
     $scope.data.htmlcontent = $scope.data.orightml;
     $scope.disabled = false;
     $scope.canEdit = true;
+    
+    $scope.sender = {"name": '', "adress": '', "city": ''};
+
 
     /**
     * Make a request to the server in order to get a pdf file.
@@ -27,6 +30,37 @@ angular.module('LatexEditor').controller('EditorIndexController', ['$scope', 'te
         //TODO: Error Handling
         console.log('nope');
         //alert(data.error);
-      })
+      });
     };
+
+    $scope.submit = function() {
+      $http.post("/company/document/info", {"sender": $scope.sender, "recipient": $scope.recipient})
+      .success(function(data, status, headers, config)) {
+        if (data.error) {
+          console.log("wrong variballs!");
+        }
+      })
+      .error(function(data, status, headers, config) {
+        if (data.error) {
+          console.log("wrong variballs!");
+      })
+
+    }
+
+  //function for selecting a template
+  $scope.templates = [
+      {name: 'Artikel', editable: false},
+      {name: 'Brief', editable: true, modaltarget: '#letter'},
+      {name: 'Serienbrief', editable: true, modaltarget: '#formletter'}
+    ];
+
+  $scope.selectedTemplate = $scope.templates[0]; //Artikel is default selected
+
+  $scope.modal = function() {  
+    if ($scope.selectedTemplate.editable) {
+      $($scope.selectedTemplate.modaltarget).modal('toggle');
+    };
+  };
+
+
 }]);
