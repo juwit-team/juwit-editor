@@ -31,17 +31,18 @@ angular.module('LatexEditor').controller('EditorIndexController', ['$scope', 'te
       })
     };
 
-  //function for selecting a stylesheet for the document
-  $scope.sheets = [
+  //function for selecting a template
+  $scope.templates = [
       {name: 'Artikel', editable: false},
       {name: 'Brief', editable: true, modaltarget: '#letter'},
       {name: 'Serienbrief', editable: true, modaltarget: '#formletter'}
     ];
-  $scope.selectedSheet = $scope.sheets[0]; //Artikel is default selected
 
-  $scope.modal = function(){  
-    if ($scope.selectedSheet.editable) {
-      $($scope.selectedSheet.modaltarget).modal('toggle');
+  $scope.selectedTemplate = $scope.templates[0]; //Artikel is default selected
+
+  $scope.modal = function() {  
+    if ($scope.selectedTemplate.editable) {
+      $($scope.selectedTemplate.modaltarget).modal('toggle');
     };
   };
 
