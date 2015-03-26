@@ -1,24 +1,33 @@
+<html>
+<head>
+</head>
+<body>
 <div class="app">
   <!-- subnav here -->
   <nav class="navbar subnav">
     <div class="container">
       <div class="row">
-        <div text-angular-toolbar name="statictoolbar" class="statictoolbar col-sm-11" ta-toolbar="[['section','subsection','p'],['bold','italics','underline','ol','ul', 'redo','undo'],['indent','outdent'],['justifyLeft','justifyCenter','justifyRight'], ['colourRed']]"></div>
+        <div text-angular-toolbar name="statictoolbar" class="statictoolbar col-sm-8" ta-toolbar="[['section','subsection','p'],['bold','italics','underline','ol','ul', 'redo','undo'],['indent','outdent'],['justifyLeft','justifyCenter','justifyRight']]"></div> 
+
+        <div class="col-sm-2">
+          <select class="form-control" ng-model="selectedTemplate" data-toggle="modal" ng-options="template.name for template in templates" ng-change="modal()">
+          </select> 
+        </div>
+        <button name="editForm" type="button" class="btn btn-default col-sm-1" data-toggle="modal" data-target="{{selectedTemplate.modaltarget}}" ng-class="{disabled: !selectedTemplate.editable}" aria-label="Edit Formular"><i class="glyphicon glyphicon-edit" aria-hidden="true"></i> Bearbeiten</button>
 
         <div class="col-sm-1" style="padding-right:0;">
           <button name="downloadButton" type="button" class="btn btn-default pull-right" aria-label="Download PDF" ng-click="download(data.htmlContent)">
-            <i class="glyphicon glyphicon-download" aria-hidden="true"></i> PDF
+          <i class="glyphicon glyphicon-download" aria-hidden="true"></i> PDF
           </button>
         </div>
       </div>
     </div>
   </nav>
   <!-- //subnav -->
-
   <div class="container">  
     <div class="row">
       <div class="col-sm-7">
-        <!-- wysiwyg-Editor mit gewünschter Toolbar -->
+
         <div class="wysiwyg" text-angular="text-angular" name="htmlcontent" ng-model="data.htmlContent" ta-target-toolbars='statictoolbar'>
           <h1>h1. This is a very large header.</h1>
           <h2>h2. This is a large header.</h2>
@@ -65,3 +74,57 @@
     </div>  
   </div>
 </div>
+<div id="includedContent"></div>
+</body>
+
+<!-- Brief-Modal -->
+ <div class="modal fade" id="letter" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Brief</h4>
+        </div>
+        <div class="modal-body row">
+          <div class="col-sm-6">
+            <h4>Empfänger</h4>
+            Name Vorname:<br><input type="text"><br>
+            Straße Hausnummer:<input type="text"><br>
+            PLZ Wohnort:<p><input type="text"><p>
+          </div>
+          <div class="col-sm-6">
+            <h4>Sender</h4>
+            Name Vorname:<br><input type="text"><br>
+            Straße Hausnummer:<input type="text"><br>
+            PLZ Wohnort:<p><input type="text"></p>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Verwerfen</button>
+          <button type="button" class="btn btn-default">Einfügen</button>
+        </div>
+      </div>
+    </div>
+  </div> 
+
+  <!-- Serienbrief-Modal -->
+ <div class="modal fade" id="formletter" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Serienbrief</h4>
+        </div>
+        <div class="modal-body">
+          Upload ur CSV somehow! GL!
+          <br>....
+          <br>....
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Verwerfen</button>
+          <button type="button" class="btn btn-default">Einfügen</button>
+        </div>
+      </div>
+    </div>
+  </div> 
+

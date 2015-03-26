@@ -220,7 +220,7 @@ angular.module('textAngularSetup', [])
 		activeState: function(){ return this.$editor().queryFormatBlockState('h2'); }
 	});
 	taRegisterTool('p', {
-		buttontext: 'P',
+		buttontext: 'Paragraph',
 		tooltiptext: taTranslations.p.tooltip,
 		action: function(){
 			return this.$editor().wrapSelection("formatBlock", "<P>");
