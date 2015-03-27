@@ -3,7 +3,7 @@
 % Author : Sebastian Faase                                                     %
 % Licence: The MIT License (MIT) http://opensource.org/licenses/MIT            %
 % About  : template for juwit editor to create an article                      %
-% Version: 0.8                                                                 %
+% Version: 1.0                                                                 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \RequirePackage[utf8]{inputenc}               % use input encoding utf8

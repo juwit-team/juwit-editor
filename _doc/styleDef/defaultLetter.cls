@@ -3,7 +3,7 @@
 % Author : Sebastian Faase                                                     %
 % Licence: The MIT License (MIT) http://opensource.org/licenses/MIT            %
 % About  : default letter template for juwit editor                            %
-% Version: 0.1                                                                 %
+% Version: 1.0                                                                 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \RequirePackage[utf8]{inputenc}               % use input encoding utf8
@@ -130,7 +130,7 @@
 \renewcommand{\headrulewidth}{0.5pt}          % draw header lineseperator
 
 % footer
-\cfoot{Page \thepage}                         % show pagenumber centered
+\cfoot{\thepage\ / \pageref{LastPage}}        % show pagenumber centered
 \lfoot{creadet with\juwit}                    % unused
 \rfoot{}                                      % unused
 \renewcommand{\footrulewidth}{0.5pt}          % draw footer lineseperator
