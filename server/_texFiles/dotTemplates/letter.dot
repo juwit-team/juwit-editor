@@ -1,0 +1,6 @@
+\date{ {{= it.date }}}
+\signature{ {{= it.sender.name }} }
+\address{ {{= it.sender.name }} \\ {{= it.sender.address}} \\ {{= it.sender.zip }} {{= it.sender.city }} }
+\begin{document}
+\begin{letter}{  {{= it.receiver.name }} \\ {{= it.receiver.address}} \\ {{= it.receiver.zip }} {{= it.receiver.city }} }%
+\opening{Dear {= it.receiver.name }},}

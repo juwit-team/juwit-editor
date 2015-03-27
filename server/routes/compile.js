@@ -1,5 +1,6 @@
 var Compiler = require(__server + 'models/compiler');
 var Parser = require('angular-latex-parser');
+var latexTemplates = require('dot').process({path: __server + '_texFiles/dotTemplates'})
 
 module.exports = function(app) {
   // Return a list of available node types
@@ -12,13 +13,16 @@ module.exports = function(app) {
     console.log(globalLatex);
     console.log('post');
 
-    var latexCode;
+    var latexCode = '';
     var latexType = request.body.type;
-    if (latexType === 'article') {
+    
+    if (latexType === 'letter') {
+      latexCode = latexTemplates.letter({sender: request.body.sender, receiver: request.body.receiver});
+    } else  {
       latexCode = '\\documentclass{defaultArticle} \\begin{document}';
-    } else if 
+    }
 
-    var latexCode = '\\documentclass{juwit} \\begin{document}' + globalLatex + ' \\end{document}';
+    latexCode +=  globalLatex + ' \\end{document}';
 
 
     Compiler.compile(group, filename, latexCode, function (jsonResponse) {

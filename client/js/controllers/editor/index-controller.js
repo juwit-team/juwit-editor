@@ -4,7 +4,7 @@ angular.module('LatexEditor').controller('EditorIndexController', ['$scope', 'te
   $scope.canEdit = true;
   
   $scope.sender = {
-    "name"  : 'Horst', 
+    "name"  : 'Horst2', 
     "address": 'test', 
     "city"  : 'asdf'
   };
@@ -16,8 +16,14 @@ angular.module('LatexEditor').controller('EditorIndexController', ['$scope', 'te
   */
   $scope.download = function() {
 
+    var postData = {
+      "htmlCode": $scope.data.htmlContent, 
+      "type": $scope.selectedTemplate.type,
+      "sender": $scope.sender
+    }
+
     //var latexString = latexParser.html2latex(htmlString);
-    $http.post("/company/document/compile", {"htmlCode": $scope.data.htmlContent, "template": $scope.selectedTemplate.type})
+    $http.post("/company/document/compile", postData)
     .success(function(data, status, headers, config) {
       if (data.error) {
         alert(data.error);
