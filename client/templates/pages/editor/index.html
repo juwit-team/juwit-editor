@@ -84,20 +84,20 @@
         <div class="modal-body row">
           <div class="col-sm-6">
             <h4>Empfänger</h4>
-            Name Vorname:<br><input type="text"><br>
+            Name:<br><input type="text"><br>
             Straße Hausnummer:<input type="text"><br>
             PLZ Wohnort:<p><input type="text"><p>
           </div>
           <div class="col-sm-6">
             <h4>Sender</h4>
-            Name Vorname:<br><input type="text"><br>
-            Straße Hausnummer:<input type="text"><br>
-            PLZ Wohnort:<p><input type="text"></p>
+            Name Vorname:<br><input type="text" ng-model="sender.name"><br>
+            Straße Hausnummer:<input type="text" ng-model="sender.address"><br>
+            PLZ Wohnort:<p><input type="text" ng-model="sender.city"></p>
           </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Verwerfen</button>
-          <button type="button" class="btn btn-default">Einfügen</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="updateLetterInfo()">Einfügen</button>
         </div>
       </div>
     </div>

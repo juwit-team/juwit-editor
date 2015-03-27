@@ -4,9 +4,9 @@ angular.module('LatexEditor').controller('EditorIndexController', ['$scope', 'te
   $scope.canEdit = true;
   
   $scope.sender = {
-    "name"  : '', 
-    "adress": '', 
-    "city"  : ''
+    "name"  : 'Horst', 
+    "address": 'test', 
+    "city"  : 'asdf'
   };
 
   /**
@@ -17,7 +17,7 @@ angular.module('LatexEditor').controller('EditorIndexController', ['$scope', 'te
   $scope.download = function() {
 
     //var latexString = latexParser.html2latex(htmlString);
-    $http.post("/company/document/compile", {"latexCode": $scope.data.htmlContent})
+    $http.post("/company/document/compile", {"htmlCode": $scope.data.htmlContent, "template": $scope.selectedTemplate.type})
     .success(function(data, status, headers, config) {
       if (data.error) {
         alert(data.error);
@@ -34,11 +34,11 @@ angular.module('LatexEditor').controller('EditorIndexController', ['$scope', 'te
     });
   };
 
-  $scope.submit = function() {
-    $http.post("/company/document/info", {"sender": $scope.sender, "recipient": $scope.recipient})
+  $scope.updateLetterInfo = function() {
+    $http.post("/company/document/updateLetterInfo", {"sender": $scope.sender, "recipient": $scope.recipient})
     .success(function(data, status, headers, config){
-      if (data.error) {
-        console.log("wrong variballs!");
+      if (data.variballs) {
+        alert(data);
       }
     })
     .error(function(data, status, headers, config) {
@@ -50,9 +50,9 @@ angular.module('LatexEditor').controller('EditorIndexController', ['$scope', 'te
 
   //function for selecting a template
   $scope.templates = [
-      {name: 'Artikel', editable: false},
-      {name: 'Brief', editable: true, modaltarget: '#letter'},
-      {name: 'Serienbrief', editable: true, modaltarget: '#formletter'}
+      {typ: 'article', name: 'Artikel', editable: false},
+      {typ: 'letter', name: 'Brief', editable: true, modaltarget: '#letter'},
+      {typ: 'bulk-letter', name: 'Serienbrief', editable: true, modaltarget: '#formletter'}
     ];
 
   $scope.selectedTemplate = $scope.templates[0]; //Artikel is default selected

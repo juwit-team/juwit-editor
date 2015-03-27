@@ -7,10 +7,16 @@ module.exports = function(app) {
     var filename = request.params.document.split('.')[0];
     var group  = request.params.group.split('.')[0];
 
-    Parser.parseComplete(request.body.latexCode)
+    Parser.parseComplete(request.body.htmlCode)
     console.log('pre');
     console.log(globalLatex);
     console.log('post');
+
+    var latexCode;
+    var latexType = request.body.type;
+    if (latexType === 'article') {
+      latexCode = '\\documentclass{defaultArticle} \\begin{document}';
+    } else if 
 
     var latexCode = '\\documentclass{juwit} \\begin{document}' + globalLatex + ' \\end{document}';
 
