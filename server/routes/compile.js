@@ -24,8 +24,9 @@ module.exports = function(app) {
 
     latexCode +=  globalLatex;
 
-    if (latexType === 'letter') { 
-      latexCode += ' \\end{letter} ';
+    if (latexType === 'letter') {
+
+      latexCode += '\\vfill \\closing{Sincerely} \\vfill \\end{letter} ';
     }
 
     latexCode += ' \\end{document}'
