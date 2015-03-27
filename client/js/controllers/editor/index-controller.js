@@ -6,10 +6,10 @@ angular.module('LatexEditor').controller('EditorIndexController', ['$scope', 'te
   $scope.sender = {
     "name"   : 'Michaela Musterfrau', 
     "address": 'Musterstraße 1', 
-    "city"   : '10713 Berlin'
-    "date"   : '21.01.1984'
-    "email"  : 'm.mu@mustermail.de'
-    "telnr"  : '000 000 000000'
+    "city"   : '10713 Berlin',
+    "date"   : '21.01.1984',
+    "email"  : 'm.mu@mustermail.de',
+    "telnr"  : '000 000 000000',
   };
 
   $scope.recipient = {
@@ -28,7 +28,8 @@ angular.module('LatexEditor').controller('EditorIndexController', ['$scope', 'te
     var postData = {
       "htmlCode": $scope.data.htmlContent, 
       "type": $scope.selectedTemplate.type,
-      "sender": $scope.sender
+      "sender": $scope.sender,
+      "recipient": $scope.recipient
     }
 
     //var latexString = latexParser.html2latex(htmlString);
@@ -65,9 +66,9 @@ angular.module('LatexEditor').controller('EditorIndexController', ['$scope', 'te
 
   //function for selecting a template
   $scope.templates = [
-      {typ: 'article', name: 'Artikel', editable: false},
-      {typ: 'letter', name: 'Brief', editable: true, modaltarget: '#letter'},
-      {typ: 'bulk-letter', name: 'Serienbrief', editable: true, modaltarget: '#formletter'}
+      {type: 'article', name: 'Artikel', editable: false},
+      {type: 'letter', name: 'Brief', editable: true, modaltarget: '#letter'},
+      {type: 'bulk-letter', name: 'Serienbrief', editable: true, modaltarget: '#formletter'}
     ];
 
   $scope.selectedTemplate = $scope.templates[0]; //Artikel is default selected

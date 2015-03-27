@@ -15,15 +15,20 @@ module.exports = function(app) {
 
     var latexCode = '';
     var latexType = request.body.type;
-    
+    console.log(request.body.type);
     if (latexType === 'letter') {
-      latexCode = latexTemplates.letter({sender: request.body.sender, receiver: request.body.receiver});
+      latexCode = latexTemplates.letter({sender: request.body.sender, recipient: request.body.recipient});
     } else  {
-      latexCode = '\\documentclass{defaultArticle} \\begin{document}';
+      latexCode = '\\documentclass{defaultArticle} \\begin{document} ';
     }
 
-    latexCode +=  globalLatex + ' \\end{document}';
+    latexCode +=  globalLatex;
 
+    if (latexType === 'letter') { 
+      latexCode += ' \\end{letter} ';
+    }
+
+    latexCode += ' \\end{document}'
 
     Compiler.compile(group, filename, latexCode, function (jsonResponse) {
       response.json(jsonResponse);
