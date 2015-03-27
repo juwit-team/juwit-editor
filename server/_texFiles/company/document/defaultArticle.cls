@@ -39,8 +39,8 @@
 \topSpace{40mm}
 \buttomSpace{20mm}
 \headerSpace{10mm}
-\corporateLogo{logo.png}
-%\corporateLogo{./server/_texFiles/logo.png}
+%\corporateLogo{logo.png}
+\corporateLogo{./server/_texFiles/company/logo.png}
 \corporateLogoSize{60mm}
 
 
