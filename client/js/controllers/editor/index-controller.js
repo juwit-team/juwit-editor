@@ -12,7 +12,7 @@ angular.module('LatexEditor').controller('EditorIndexController', ['$scope', 'te
     "telnr"  : '000 000 000000'
   };
 
-  $scope.recepient = {
+  $scope.recipient = {
     "name"   : 'Dieter Din', 
     "address": 'DIN Str. 1', 
     "city"   : '14193 Berlin'
