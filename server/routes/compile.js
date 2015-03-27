@@ -29,7 +29,7 @@ module.exports = function(app) {
       latexCode += '\\vfill \\closing{Sincerely} \\vfill \\end{letter} ';
     }
 
-    latexCode += ' \\end{document}'
+    latexCode += ' \\end{document}';
 
     Compiler.compile(group, filename, latexCode, function (jsonResponse) {
       response.json(jsonResponse);
