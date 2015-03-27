@@ -1,41 +1,74 @@
 'use strict';
 angular.module('LatexEditor').controller('EditorIndexController', ['$scope', 'textAngularManager',  '$document', '$http', 'pdfDelegate', 'latexParser', '$modal', function($scope, textAngularManager, $document, $http, pdfDelegate, latexParser, $modal) {
-    $scope.data = {orightml: ''};
-    $scope.data.htmlcontent = $scope.data.orightml;
-    $scope.disabled = false;
-    $scope.canEdit = true;
-    
+  $scope.disabled = false;
+  $scope.canEdit = true;
+  
+  $scope.sender = {
+    "name"   : 'Michaela Musterfrau', 
+    "address": 'Musterstraße 1', 
+    "city"   : '10713 Berlin',
+    "date"   : '21.01.1984',
+    "email"  : 'm.mu@mustermail.de',
+    "telnr"  : '000 000 000000',
+  };
 
-    /**
-    * Make a request to the server in order to get a pdf file.
-    *
-    * @param {string} htmlString String to generate pdf from HTML.
-    */
-    $scope.download = function(htmlString) {
+  $scope.recipient = {
+    "name"   : 'Dieter Din', 
+    "address": 'DIN Str. 1', 
+    "city"   : '14193 Berlin'
+  };
 
-      var latexString = latexParser.html2latex(htmlString);
+  /**
+  * Make a request to the server in order to get a pdf file.
+  *
+  * @param {string} htmlString String to generate pdf from HTML.
+  */
+  $scope.download = function() {
 
-      $http.post("/compile/template.tex", {"latexCode": latexString})
-      .success(function(data, status, headers, config) {
-        if (data.error) {
-          alert(data.error);scope
-        };
-        if (typeof data.redirect === 'string') {
-          pdfDelegate.$getByHandle('pdf-preview').load(data.redirect);
-          //window.open(data.redirect, '_new', 'toolbar=yes, location=yes, status=yes, menubar=yes, scrollbars=yes');
-        } 
-      }).error(function(data, status, headers, config) {
-        //TODO: Error Handling
-        console.log('nope');
-        //alert(data.error);
-      })
-    };
+    var postData = {
+      "htmlCode": $scope.data.htmlContent, 
+      "type": $scope.selectedTemplate.type,
+      "sender": $scope.sender,
+      "recipient": $scope.recipient
+    }
+
+    //var latexString = latexParser.html2latex(htmlString);
+    $http.post("/company/document/compile", postData)
+    .success(function(data, status, headers, config) {
+      if (data.error) {
+        alert(data.error);
+      };
+      if (typeof data.redirect === 'string') {
+        pdfDelegate.$getByHandle('pdf-preview').load(data.redirect);
+        //alert(data.redirect);
+        //window.open(data.redirect, '_new', 'toolbar=yes, location=yes, status=yes, menubar=yes, scrollbars=yes');
+      } 
+    }).error(function(data, status, headers, config) {
+      //TODO: Error Handling
+      console.log('nope');
+      //alert(data.error);
+    });
+  };
+
+  $scope.updateLetterInfo = function() {
+    $http.post("/company/document/updateLetterInfo", {"sender": $scope.sender, "recipient": $scope.recipient})
+    .success(function(data, status, headers, config){
+      if (data.variballs) {
+        alert(data);
+      }
+    })
+    .error(function(data, status, headers, config) {
+      if (data.error) {
+        console.log("wrong variballs!");
+      }
+    });
+  }
 
   //function for selecting a template
   $scope.templates = [
-      {name: 'Artikel', editable: false},
-      {name: 'Brief', editable: true, modaltarget: '#letter'},
-      {name: 'Serienbrief', editable: true, modaltarget: '#formletter'}
+      {type: 'article', name: 'Artikel', editable: false},
+      {type: 'letter', name: 'Brief', editable: true, modaltarget: '#letter'},
+      {type: 'bulk-letter', name: 'Serienbrief', editable: true, modaltarget: '#formletter'}
     ];
 
   $scope.selectedTemplate = $scope.templates[0]; //Artikel is default selected

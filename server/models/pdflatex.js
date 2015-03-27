@@ -11,11 +11,11 @@ var exec = require('child_process').exec;
  PDFlatex class
 */
 // constructor
-function PDFlatex(inputPath) {
+function PDFlatex(inputPath, outputDirectory, filename) {
   // default settings
-  this.outputDirectory = __server + '_texFiles';
+  this.outputDirectory = outputDirectory;
   this.inputPath = inputPath;
-  this.filename = inputPath.split('/').pop().split('.')[0];
+  this.filename = filename;
   //console.log(this.filename);
 };
 

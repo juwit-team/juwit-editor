@@ -1,0 +1,7 @@
+\documentclass{defaultLetter}
+\date{ {{= it.sender.date }}}
+\signature{ {{= it.sender.name }} }
+\address{ {{= it.sender.name }} \\ {{= it.sender.address}} \\ {{= it.sender.city }} }
+\begin{document}
+\begin{letter}{  {{= it.recipient.name }} \\ {{= it.recipient.address}} \\ {{= it.recipient.city }} }
+\opening{Dear {{= it.recipient.name }},}
