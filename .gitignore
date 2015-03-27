@@ -40,3 +40,7 @@ bower_components
 # Auto generated debug log
 *debuglog.txt*
 *.log*
+
+server/_texfiles/*/*/*.pdf
+server/_texfiles/*/*/*.aux
+server/_texfiles/*/*/*.tex

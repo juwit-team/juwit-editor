@@ -5,6 +5,7 @@ module.exports = function(app) {
   // Return a list of available node types
   app.post('/:group/:document/compile', function(request, response){
     var filename = request.params.document.split('.')[0];
+    var group  = request.params.group.split('.')[0];
 
     Parser.parseComplete(request.body.latexCode)
     console.log('pre');
@@ -14,7 +15,7 @@ module.exports = function(app) {
     var latexCode = '\\documentclass{juwit} \\begin{document}' + globalLatex + ' \\end{document}';
 
 
-    Compiler.compile(filename, latexCode, function (jsonResponse) {
+    Compiler.compile(group, filename, latexCode, function (jsonResponse) {
       response.json(jsonResponse);
     });
   });
