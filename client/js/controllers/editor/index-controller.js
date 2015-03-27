@@ -4,9 +4,18 @@ angular.module('LatexEditor').controller('EditorIndexController', ['$scope', 'te
   $scope.canEdit = true;
   
   $scope.sender = {
-    "name"  : 'Horst2', 
-    "address": 'test', 
-    "city"  : 'asdf'
+    "name"   : 'Michaela Musterfrau', 
+    "address": 'Musterstraße 1', 
+    "city"   : '10713 Berlin'
+    "date"   : '21.01.1984'
+    "email"  : 'm.mu@mustermail.de'
+    "telnr"  : '000 000 000000'
+  };
+
+  $scope.recepient = {
+    "name"   : 'Dieter Din', 
+    "address": 'DIN Str. 1', 
+    "city"   : '14193 Berlin'
   };
 
   /**
