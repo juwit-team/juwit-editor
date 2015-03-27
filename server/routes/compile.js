@@ -15,7 +15,7 @@ module.exports = function(app) {
 
     var latexCode = '';
     var latexType = request.body.type;
-    console.log(request.body.recipient);
+    console.log(request.body.type);
     if (latexType === 'letter') {
       latexCode = latexTemplates.letter({sender: request.body.sender, recipient: request.body.recipient});
     } else  {
