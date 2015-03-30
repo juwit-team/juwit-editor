@@ -1,25 +1,12 @@
 angular
   .module('LatexEditor')
   .controller('FormletterController', ['$scope', 'FileUploader', function($scope, FileUploader) {
-    $scope.uploader = new FileUploader();
-
-    // TODO: Make this work an better do it on the server site
-    // http://techslides.com/convert-csv-to-json-in-javascript
-    $scope.csvJSON = function(csvFile) {
-      var lines=csv.split("\n");
-      var result = [];        
-      var headers=lines[0].split(",");
-       
-      for(var i=1;i<lines.length;i++) {
-        var obj = {};
-        var currentline=lines[i].split(",");
-       
-        for(var j=0;j<headers.length;j++){
-          obj[headers[j]] = currentline[j];
-        }
-        result.push(obj);
-      }
-
-      alert(JSON.stringify(result));
-    };
+    var uploader = $scope.uploader = new FileUploader({
+      // execute updateCSV with :group = company and :document = document
+      // Path on the server in which this file will be uploaded
+      url: '/company/csv/updateCSV'
+      
+      //Name of the field which will contain the file, default is file
+      //alias: 'csv-file'
+    });
   }]);

@@ -17,5 +17,6 @@ app.get('/', function(req, res){
 // Load routes
 require(__server + 'routes/compile')(app);
 require(__server + 'routes/updateInfo')(app);
+require(__server + 'routes/updateCSV')(app);
 
 module.exports = app;
