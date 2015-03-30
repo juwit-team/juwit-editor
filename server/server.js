@@ -1,6 +1,6 @@
 global.__base   = process.cwd() + '/';
-global.__server = __base + '/server/';
-global.__client = __base + '/client/';
+global.__server = __base + 'server/';
+global.__client = __base + 'client/';
 
 var express = require('express');
 var app = express();

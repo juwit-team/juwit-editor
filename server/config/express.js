@@ -1,4 +1,5 @@
 var bodyParser = require('body-parser');
+var multer = require('multer');
 
 module.exports = function(app, express) {
   // Server Client-Assets the dirty way:
@@ -28,4 +29,15 @@ module.exports = function(app, express) {
 
   // parse application/json
   app.use(bodyParser.json());
+
+  // use multer for handling multipart/form-data
+  app.use(multer({
+    dest: __server + 'uploads/',
+    rename: function (fieldname, filename, req, res) {
+      return filename.replace(/\W+/g, '-').toLowerCase() + Date.now();
+    },
+    onFileUploadComplete: function (file, req, res) {
+      console.log(file.fieldname + ' uploaded to  ' + file.path)
+    }
+  }));
 }
