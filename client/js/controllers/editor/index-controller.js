@@ -1,5 +1,5 @@
 'use strict';
-angular.module('LatexEditor').controller('EditorIndexController', ['$scope', 'textAngularManager',  '$document', '$http', 'pdfDelegate', 'latexParser', '$modal', function($scope, textAngularManager, $document, $http, pdfDelegate, latexParser, $modal) {
+angular.module('LatexEditor').controller('EditorIndexController', ['$scope', 'textAngularManager',  '$document', '$http', 'pdfDelegate', '$modal', function($scope, textAngularManager, $document, $http, pdfDelegate, $modal) {
   $scope.disabled = false;
   $scope.canEdit = true;
   
@@ -54,7 +54,7 @@ angular.module('LatexEditor').controller('EditorIndexController', ['$scope', 'te
     $http.post("/company/document/updateLetterInfo", {"sender": $scope.sender, "recipient": $scope.recipient})
     .success(function(data, status, headers, config){
       if (data.variballs) {
-        alert(data);
+        console.log(data);
       }
     })
     .error(function(data, status, headers, config) {

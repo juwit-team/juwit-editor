@@ -1,5 +1,5 @@
 var Compiler = require(__server + 'models/compiler');
-var Parser = require('angular-latex-parser');
+var Parser = require('latex-parser');
 var latexTemplates = require('dot').process({path: __server + '_texFiles/dotTemplates'})
 
 module.exports = function(app) {
@@ -9,10 +9,7 @@ module.exports = function(app) {
     var group  = request.params.group.split('.')[0];
 
     Parser.parseComplete(request.body.htmlCode)
-    console.log('pre');
-    console.log(globalLatex);
-    console.log('post');
-
+    
     var latexCode = '';
     var latexType = request.body.type;
     console.log(request.body.recipient);
