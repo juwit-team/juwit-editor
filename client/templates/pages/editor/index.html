@@ -3,17 +3,21 @@
   <nav class="navbar subnav">
     <div class="container">
       <div class="row">
-        <div text-angular-toolbar name="statictoolbar" class="statictoolbar col-sm-8" ta-toolbar="[['section','subsection','p'],['bold','italics','underline','ol','ul', 'redo','undo'],['indent','outdent'],['justifyLeft','justifyCenter','justifyRight']]"></div> 
+        <div text-angular-toolbar name="statictoolbarArticle" class="statictoolbar col-sm-8" ta-toolbar="[['section','subsection','p'],['bold','italics','underline','ol','ul', 'redo','undo'],['indent','outdent'],['justifyLeft','justifyCenter','justifyRight']]" ng-show="!selectedTemplate.editable"></div> 
+
+        <div text-angular-toolbar name="statictoolbarFormLetter" class="statictoolbar col-sm-8" ta-toolbar="[['bold','italics','underline','ol','ul', 'redo','undo'],['indent','outdent'],['justifyLeft','justifyCenter','justifyRight']]" ng-show="selectedTemplate.editable" ></div> 
 
         <div class="col-sm-2">
           <select class="form-control" ng-model="selectedTemplate" data-toggle="modal" ng-options="template.name for template in templates" ng-change="modal()">
           </select> 
         </div>
-        <button name="editForm" type="button" class="btn btn-default col-sm-1" data-toggle="modal" data-target="{{selectedTemplate.modaltarget}}" ng-class="{disabled: !selectedTemplate.editable}" aria-label="Edit Formular"><i class="glyphicon glyphicon-edit" aria-hidden="true"></i> Bearbeiten</button>
+        
+        <div name="placeholder" class ="col-sm-1" ng-show="!selectedTemplate.editable"></div>
+
+        <button name="editForm" type="button" class="btn btn-default col-sm-1" data-toggle="modal" data-target="{{selectedTemplate.modaltarget}}" ng-show="selectedTemplate.editable" aria-label="Edit Formular"><i class="glyphicon glyphicon-edit" aria-hidden="true"></i> Bearbeiten</button>
 
         <div class="col-sm-1" style="padding-right:0;">
-          <button name="downloadButton" type="button" class="btn btn-default pull-right" aria-label="Download PDF" ng-click="download()">
-            <i class="glyphicon glyphicon-download" aria-hidden="true"></i> PDF
+          <button name="downloadButton" type="button" class="btn btn-default pull-right" aria-label="Download PDF" ng-click="download()"><i class="glyphicon glyphicon-download" aria-hidden="true"></i> PDF
           </button>
         </div>
       </div>
