@@ -12,7 +12,7 @@ module.exports = function(app) {
     
     var latexCode = '';
     var latexType = request.body.type;
-    console.log(request.body.recipient);
+    console.log(request.body.type);
     if (latexType === 'letter') {
       latexCode = latexTemplates.letter({sender: request.body.sender, recipient: request.body.recipient});
     } else  {
@@ -26,7 +26,7 @@ module.exports = function(app) {
       latexCode += '\\vfill \\closing{Sincerely} \\vfill \\end{letter} ';
     }
 
-    latexCode += ' \\end{document}'
+    latexCode += ' \\end{document}';
 
     Compiler.compile(group, filename, latexCode, function (jsonResponse) {
       response.json(jsonResponse);
