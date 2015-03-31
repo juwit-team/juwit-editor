@@ -98,10 +98,10 @@ describe(':::JUWIT-EDITOR TEST SUITE:::', function() {
 
     var TIMEOUT = 10000; // timeout in ms
     var filesystem = require('fs');
-    var filename = 'server/_texFiles/template.pdf';
+    var filename = 'server/_texFiles/company/document/document.pdf'; // TODO: make filename a variable
     var downloadButton = element(by.name('downloadButton'));
 
-    it('template.pdf should exist.', function() {
+    it('document.pdf document should exist.', function() {
       if (filesystem.existsSync(filename)) {
         // Delete file if it already exists.
         filesystem.unlinkSync(filename);
