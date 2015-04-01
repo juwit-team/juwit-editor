@@ -8,14 +8,16 @@ module.exports = function(app) {
     var filename = request.params.document.split('.')[0];
     var group  = request.params.group.split('.')[0];
 
-    Parser.parseComplete(request.body.htmlCode)
+    var latexType = request.body.type;
+
+    var globalLatex = Parser('parseComplete', [request.body.htmlCode], {latexType: latexType});
     
     var latexCode = '';
-    var latexType = request.body.type;
-    console.log(request.body.type);
+    
     if (latexType === 'letter') {
       latexCode = latexTemplates.letter({sender: request.body.sender, recipient: request.body.recipient});
     } else  {
+      latexType = 'article';
       latexCode = '\\documentclass{defaultArticle} \\begin{document} ';
     }
 
