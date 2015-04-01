@@ -26,7 +26,7 @@ module.exports = {
         console.log(err);
         return {};
       } else {
-        console.log("The file was saved!");
+        console.log(".tex file saved!");
         var tex = new pdflatex(fileInDirectory, outputDirectory, doc);
         
         tex.compile(function (jsonResponse) {
