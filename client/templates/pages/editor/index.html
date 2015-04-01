@@ -88,6 +88,7 @@
         </div>
         <div class="modal-body row">
           <div class="col-sm-6">
+            <h4>Empfänger</h4>
             Name Vorname:<br><input type="text" ng-model="recipient.name"><br>
             Straße Hausnummer:<input type="text" ng-model="recipient.address"><br>
             PLZ Wohnort:<p><input type="text" ng-model="recipient.city"></p>
@@ -116,10 +117,13 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="myModalLabel">Serienbrief</h4>
+          <h3 class="modal-title" id="myModalLabel">Serienbrief</h3>
         </div>
         <div class="modal-body">
-          Please select the .csv file you want to use for the formletter.
+          <h4>Please select the .csv-file you want to use for the formletter.</h4>
+          <p>The .csv-file <b>must</b> contain the following coloums:</p>
+          <p><b>rname,raddress,rcity,sname,saddress,scity,sdate,semail,stelnr,opening,closing</b></p>
+          <p>You can also add an arbitrary number of additional coloums with placeholders for amounts or anything else. Please have a look at the example .csv-file.</p>
           <div ng-controller="FormletterController">
             <input type="file" nv-file-select uploader="uploader"/>
 
@@ -164,10 +168,6 @@
             </table>
 
           </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Verwerfen</button>
-          <button type="button" class="btn btn-default">Einfügen</button>
         </div>
       </div>
     </div>

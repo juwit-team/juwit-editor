@@ -14,7 +14,6 @@ module.exports = function(app) {
     var latexCode = '';
     var latexType = request.body.type;
     var html = request.body.htmlCode;
-    console.log(request.body.recipient);
 
 	/**
 	 * Multiple pdfs will be generated from a bulk-letter and it's
@@ -25,7 +24,7 @@ module.exports = function(app) {
 	 * Article, Bulkletter, etc. classes.
 	 **/
 	if(latexType === 'bulk-letter') {		
-		var csvFilepath = __server + '_texFiles/company/document/uploads/test1427827041036.csv';
+		var csvFilepath = __server + '_texFiles/company/document/uploads/example.csv'; // TODO: this should be variable
 		var input = Filesystem.createReadStream(csvFilepath);
 		
 		// TODO: this function should be in a seperate file
@@ -45,7 +44,7 @@ module.exports = function(app) {
 				console.log(csvRecord); // Debug output
 				
 				// replace property with csvRecord[property] in htmlContent
-				html = htmlBackup; // TODO: Why is htmlToParse = html.replace(...) not working?
+				html = htmlBackup; // TODO: fix - Why is htmlToParse = html.replace(...) not working?
 				for (var property in csvRecord) {
 					if (csvRecord.hasOwnProperty(property)) {
 						searchvalue = '[[' + property + ']]'; // TODO: define escape sequence for formletter placeholder
@@ -58,12 +57,20 @@ module.exports = function(app) {
 				console.log('try to take semaphore');
 				sem.take(function() {
 					console.log('semaphore taken');
-					// TODO: create letters instead of articles
 					Parser.parseComplete(html);
-					console.log('generated LaTeX-code: ' + globalLatex);
-					latexCode += '\\documentclass{defaultArticle} \\begin{document} ';
+					console.log('generated LaTeX-code: ' + globalLatex); // TODO: fix - although globalLatex has changed the pdfs are the same
+					
+					// TODO: create sufficient template
+					latexCode += '\\documentclass{defaultLetter}';
+					latexCode += '\\date{' + csvRecord['sdate'] + '}';
+					latexCode += '\\signature{' + csvRecord['sname'] + '}';
+					latexCode += '\\address{' + csvRecord['sname'] + ' \\ ' + csvRecord['saddress'] + ' \\ ' + csvRecord['scity'] + '}';
+					latexCode += '\\begin{document}';
+					latexCode += '\\begin{letter}{' + csvRecord['rname'] + ' \\ ' + csvRecord['raddress'] + ' \\ ' + csvRecord['rcity'] + '}';
+					latexCode += '\\opening{' + csvRecord['opening'] + ' ' + csvRecord['rname'] + '}';
 					latexCode += globalLatex;
-					latexCode += ' \\end{document}';
+					latexCode += '\\vfill \\closing{' + csvRecord['closing'] + '} \\vfill \\end{letter} ';
+					latexCode += '\\end{document}';
 
 					console.log('Start compiler');
 					Compiler.compile(group, filename, latexCode, function (jsonResponse) {
