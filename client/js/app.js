@@ -4,4 +4,4 @@
 *
 * Description
 */
-angular.module('LatexEditor', ['ngRoute', 'textAngular', 'pdf', 'ui.bootstrap']);
+angular.module('LatexEditor', ['ngRoute', 'textAngular', 'pdf', 'ui.bootstrap', 'angularFileUpload']);

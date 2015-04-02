@@ -15,7 +15,10 @@
     "dot": "^1.0.3",
     "express": "^4.12.1",
     "less": "^2.4.0",
-    "textangular": "git://github.com/juwit-team/textAngular.git#master"
+    "textangular": "git://github.com/juwit-team/textAngular.git#master",
+    "multer": "^0.1.8",
+    "csv-parse": "^0.1.0",
+    "semaphore": "^1.0.2"
   },
   "devDependencies": {
     "jasmine-core": "^2.2.0",

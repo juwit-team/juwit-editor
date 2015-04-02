@@ -1,6 +1,6 @@
 global.__base   = process.cwd() + '/';
-global.__server = __base + '/server/';
-global.__client = __base + '/client/';
+global.__server = __base + 'server/';
+global.__client = __base + 'client/';
 
 var express = require('express');
 var app = express();
@@ -17,5 +17,6 @@ app.get('/', function(req, res){
 // Load routes
 require(__server + 'routes/compile')(app);
 require(__server + 'routes/updateInfo')(app);
+require(__server + 'routes/updateCSV')(app);
 
 module.exports = app;
