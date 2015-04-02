@@ -5,7 +5,7 @@ var exec = require('child_process').exec;
     var latexDocumentName = 'document'; // Pfade sind noch statisch. Ersetzten durch die allgemeinen Pfad, siehe updateCSV
    
     var changeDir = 'cd ../_texFiles/' + group + '/' + latexDocumentName + '/'; //changing to required folder
-    var directory = 'zipMe'; //name of the directory, that will be zipped
+    var directory = 'zipme'; //name of the directory, that will be zipped
   
     var zipDireCmd   = changeDir + ' && ' + 'zip -r Formletter' + Date.now() + ' ./' + directory + '/*.pdf ';
 
