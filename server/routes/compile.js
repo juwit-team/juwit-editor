@@ -15,8 +15,10 @@ module.exports = function(app) {
     var latexCode = '';
     
     if (latexType === 'letter') {
+      latexCode = '';
       latexCode = latexTemplates.letter({sender: request.body.sender, recipient: request.body.recipient});
     } else  {
+      latexCode = '';
       latexType = 'article';
       latexCode = '\\documentclass{defaultArticle} \\begin{document} ';
     }
