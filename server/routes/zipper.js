@@ -1,19 +1,17 @@
 var fs = require('fs');
 var exec = require('child_process').exec;
     
-    var group = 'company'; 
-    var latexDocumentName = 'document'; // Pfade sind noch statisch. Ersetzten durch die allgemeinen Pfad, siehe updateCSV
-   
-    var changeDir = 'cd ../_texFiles/' + group + '/' + latexDocumentName + '/'; //changing to required folder
-    var directory = 'zipme'; //name of the directory, that will be zipped
-  
-    var zipDireCmd   = changeDir + ' && ' + 'zip -r Formletter' + Date.now() + ' ./' + directory + '/*.pdf ';
+module.exports = {
+  zippdfs: function(src, dst) {      
+    var changeDir = 'cd ' + src;
+    var zipCmd   = changeDir + ' && ' + 'zip -r ' + dst + 'Formletter' + Date.now() + ' ./*.pdf ';
 
-
-exec(zipDireCmd, function(error, stdout, stderr) {
-  if (error !== null) {
-    console.log(error);
-    console.log(stdout);
-    console.log(stderr);
+    exec(zipCmd, function(error, stdout, stderr) {
+      if (error !== null) {
+        console.log(error);
+        console.log(stdout);
+        console.log(stderr);
+      }
+    });
   }
-});
+}
