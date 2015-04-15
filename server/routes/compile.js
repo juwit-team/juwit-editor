@@ -1,6 +1,7 @@
 var Compiler = require(__server + 'models/compiler');
 var FormletterCompiler = require(__server + 'models/formletter-compiler');
-var Parser = require('latex-parser');
+// var Parser = require('latex-parser');
+var Parser = require(__base + 'parser/htmlToLatex');
 var latexTemplates = require('dot').process({path: __server + '_texFiles/dotTemplates'})
 
 module.exports = function(app) {

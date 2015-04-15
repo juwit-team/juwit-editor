@@ -1,9 +1,11 @@
-var Compiler = require(__server + 'models/compiler');
-var Parser = require('latex-parser');
+// var Compiler = require(__server + 'models/compiler');
+// // var Parser = require('latex-parser');
+// var Parser = require(__base + 'parser/htmlToLatex');
 var CSVParse = require('csv-parse');
 var Filesystem = require('fs');
 var Zipper = require(__server + 'routes/zipper');
 var exec = require('child_process').exec;
+
 /**
  * We need a lock mechanism to guarantee that the pdf-build has
  * finished, before we start another build.
