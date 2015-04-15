@@ -44,3 +44,4 @@ bower_components
 server/_texfiles/*/*/*.pdf
 server/_texfiles/*/*/*.aux
 server/_texfiles/*/*/*.tex
+docs/site
