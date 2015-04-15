@@ -1,4 +1,6 @@
 site_name: Just Write It
+docs_dir: docs/docs
+site_dir: docs/site
 pages:
   - [index.md, Home]
   - [client.md, Client]
