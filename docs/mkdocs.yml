@@ -1,0 +1,6 @@
+site_name: Just Write It
+pages:
+  - [index.md, Home]
+  - [client.md, Client]
+theme: readthedocs
+markdown_extensions: [admonition]
