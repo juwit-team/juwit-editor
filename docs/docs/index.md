@@ -1,7 +1,7 @@
 !!! warning
-    This project is still in development and an alpha atmost
+    This project is still in development and an alpha at most
 
-    I would not recommend to use it in Production
+    I would not recommend to use it in production
 
 # Just Write It - Editor
 

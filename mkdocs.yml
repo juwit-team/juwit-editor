@@ -2,7 +2,10 @@ site_name: Just Write It
 docs_dir: docs/docs
 site_dir: docs/site
 pages:
-  - [index.md, Home]
-  - [client.md, Client]
+  - ['index.md', 'Home']
+  - ['install.md', 'Get Started']
+  - ['development/client.md', 'Development', 'Client']
+  - ['development/server.md', 'Development', 'Server']
+  - ['development/parser.md', 'Development', 'Parser']
 theme: readthedocs
 markdown_extensions: [admonition]
