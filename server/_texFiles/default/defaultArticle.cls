@@ -130,7 +130,7 @@
 \lhead{\includegraphics[width=                % < show corporate logo
   \@corporateLogoSize]{\@corporateLogo}}      % >
 \fi
-\rhead{NAME\\adress}                          % show Author credentials
+\rhead{}                          % show Author credentials
 \renewcommand{\headrulewidth}{0.5pt}          % draw header lineseperator
 
 % footer
