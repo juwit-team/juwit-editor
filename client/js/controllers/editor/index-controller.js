@@ -1,5 +1,5 @@
 'use strict';
-angular.module('LatexEditor').controller('EditorIndexController', ['$scope', 'textAngularManager',  '$document', '$http', 'pdfDelegate', '$modal', function($scope, textAngularManager, $document, $http, pdfDelegate, $modal) {
+angular.module('LatexEditor').controller('EditorIndexController', ['$scope', 'textAngularManager',  '$document', '$http', 'pdfDelegate', '$modal', '$timeout', function($scope, textAngularManager, $document, $http, pdfDelegate, $modal, $timeout) {
   $scope.disabled = false;
   $scope.canEdit = true;
   
@@ -18,11 +18,38 @@ angular.module('LatexEditor').controller('EditorIndexController', ['$scope', 'te
     "city"   : '14193 Berlin'
   };
 
+  $scope.fileSrc = "";
+
   /**
   * Make a request to the server in order to get a pdf file.
   *
   * @param {string} htmlString String to generate pdf from HTML.
   */
+  $scope.refresh = function() {
+
+    var postData = {
+      "htmlCode": $scope.data.htmlContent, 
+      "type": $scope.selectedTemplate.type,
+      "sender": $scope.sender,
+      "recipient": $scope.recipient
+    }
+
+    //var latexString = latexParser.html2latex(htmlString);
+    $http.post("/company/document/compile", postData)
+    .success(function(data, status, headers, config) {
+      if (data.error) {
+        alert(data.error);
+      };
+      if (typeof data.redirect === 'string') {
+        pdfDelegate.$getByHandle('pdf-preview').load(data.redirect);
+      } 
+    }).error(function(data, status, headers, config) {
+      //TODO: Error Handling
+      console.log('nope');
+      //alert(data.error);
+    });
+  };
+
   $scope.download = function() {
 
     var postData = {
@@ -40,8 +67,7 @@ angular.module('LatexEditor').controller('EditorIndexController', ['$scope', 'te
       };
       if (typeof data.redirect === 'string') {
         pdfDelegate.$getByHandle('pdf-preview').load(data.redirect);
-        //alert(data.redirect);
-        //window.open(data.redirect, '_new', 'toolbar=yes, location=yes, status=yes, menubar=yes, scrollbars=yes');
+        window.open(data.redirect, '_new', 'toolbar=yes, location=yes, status=yes, menubar=yes, scrollbars=yes');
       } 
     }).error(function(data, status, headers, config) {
       //TODO: Error Handling
@@ -64,6 +90,14 @@ angular.module('LatexEditor').controller('EditorIndexController', ['$scope', 'te
     });
   }
 
+  // Function to replicate setInterval using $timeout service.
+  $scope.intervalFunction = function(){
+    $timeout(function() {
+      $scope.refresh();
+      $scope.intervalFunction();
+    }, 10000)
+  };
+
   //function for selecting a template
   $scope.templates = [
       {type: 'article', name: 'Artikel', editable: false},
@@ -79,4 +113,7 @@ angular.module('LatexEditor').controller('EditorIndexController', ['$scope', 'te
     };
   };
 
+
+  // Kick off the interval
+  $scope.intervalFunction();
 }]);
