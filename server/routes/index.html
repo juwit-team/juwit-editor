@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Routes - Just Write It</title>
+  
+
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/highlight.css">
+
+  <script src="../../js/jquery-2.1.1.min.js"></script>
+  <script src="../../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
+  <script src="../../js/theme.js"></script> 
+
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> Just Write It</a>
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+      <ul class="current">
+    
+        
+            <li class="toctree-l1 ">
+                <a class="" href="../..">Home</a>
+                
+            </li>
+        
+
+    
+        
+            <li class="toctree-l1 ">
+                <a class="" href="../../install/">Get Started</a>
+                
+            </li>
+        
+
+    
+        
+            <span>Server</span>
+            
+                <li class="toctree-l2 ">
+                    <a class="" href="../">Overview</a>
+                    
+                </li>
+            
+                <li class="toctree-l2 current">
+                    <a class="current" href="./">Routes</a>
+                    
+                        <ul>
+                        
+                            <li class="toctree-l3"><a href="#routes">Routes</a></li>
+                            
+                                <li><a class="toctree-l4" href="#compilejs">compile.js</a></li>
+                            
+                                <li><a class="toctree-l4" href="#updatecsvjs">updateCSV.js</a></li>
+                            
+                        
+                        </ul>
+                    
+                </li>
+            
+                <li class="toctree-l2 ">
+                    <a class="" href="../models/">Models</a>
+                    
+                </li>
+            
+                <li class="toctree-l2 ">
+                    <a class="" href="../texFiles/">_texFiles</a>
+                    
+                </li>
+            
+        
+
+    
+        
+            <span>Client</span>
+            
+                <li class="toctree-l2 ">
+                    <a class="" href="../../client/">Overview</a>
+                    
+                </li>
+            
+                <li class="toctree-l2 ">
+                    <a class="" href="../../client/controller/">Controller</a>
+                    
+                </li>
+            
+                <li class="toctree-l2 ">
+                    <a class="" href="../../client/templates/">HTML Templates</a>
+                    
+                </li>
+            
+        
+
+    
+</ul>
+
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">Just Write It</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        <li>Server &raquo;</li>
+      
+    
+    <li>Routes</li>
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              <h1 id="routes">Routes</h1>
+<p>The routes get called when a matching request is send to the server. The routes are there to edit the input for the matching model. We chose a semantic URL-scheme where you first go to the document you want to edit and then call functions on that document.</p>
+<h3 id="compilejs">compile.js</h3>
+<p>The compile route only listens for post requests to compile the sent data. </p>
+<p>URL-scheme: <code>http://localhost:1338/{group_name}/{document_title}/compile</code></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Because of the scrum development process and a few changed design decisions the parser gets called in the route for now. Also the use of templates is not done/finished yet.</p>
+</div>
+<pre><code class="js">// require the models and the parser (simplified)
+var Compiler, FormletterCompiler, Parser, latexTemplates = require('...');
+
+module.exports = function(app) {
+
+  // listen for URL-scheme `http://localhost:1338/{group_name}/{document_title}/compile`
+  app.post('/:group/:document/compile', function(request, response){
+    // set local variables from request (simplified)
+    var filename, group, latexType, html, latexCode = ...;
+
+    // FormletterCompiler works differently
+    if(latexType === 'bulk-letter') {   
+      FormletterCompiler.compile(request);
+    } else {
+      // if it's a normal artice or letter parse the given latex
+      var parsedLatex = Parser('parseComplete', [html], {latexType: latexType});
+
+      // set the latex head according to the document type
+      if (latexType === 'letter') {
+        // generate from letter template
+        latexCode = latexTemplates.letter({sender: request.body.sender, recipient: request.body.recipient, latexCode: parsedLatex});
+      } else  {
+        // everything other than bulk-letter and letter are handled as article
+        latexType = 'article';
+        // generate from article template
+        latexCode = latexTemplates.article({latexCode: parsedLatex});
+      }
+
+      // compile the generated latex code
+      Compiler.compile(group, filename, latexCode, function (jsonResponse) {
+        response.json(jsonResponse);
+      });
+    }
+  });
+};
+</code></pre>
+
+<h3 id="updatecsvjs">updateCSV.js</h3>
+<p>This route allows CSV file uploads for the CSV that is used for the formletter. It only listen to post requests to the following URL-scheme.</p>
+<p>URL-scheme: <code>http://localhost:1338/{group_name}/{document_title}/updateCSV</code></p>
+<pre><code class="js">// require the filesystem and exec command (simplified)
+var fs, exec = require('...');
+
+module.exports = function(app) {
+
+  // listen for URL-scheme `http://localhost:1338/{group_name}/{document_title}/updateCSV`
+  app.post('/:group/:document/updateCSV', function(request, response) {
+
+    // set local variables from request (simplified)
+    var latexDocumentName, group, src, dst = ...;
+
+    // move file to corresponding document folder
+    var mvFileCmd = 'mkdir -p '+dst+'; mv '+src+' '+dst+'/'+request.files.file.name;
+    exec(mvFileCmd);
+
+    // answer with success
+    response.json({&quot;status&quot;: &quot;File uploaded.&quot;});
+  });
+};
+
+</code></pre>
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../models/" class="btn btn-neutral float-right" title="Models"/>Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../" class="btn btn-neutral" title="Overview"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+    <!-- Copyright etc -->
+    </p>
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+<div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+        
+      <span><a href="../" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      <span style="margin-left: 15px"><a href="../models/" style="color: #fcfcfc">Next &raquo;</a></span>
+    </span>
+</div>
+
+<!--
+MkDocs version  : 0.12.1
+Docs Build Date : 2015-05-01 12:03:53.858428
+-->
+</body>
+</html>

@@ -8,19 +8,19 @@
   <title>Overview - Just Write It</title>
   
 
-  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <link rel="shortcut icon" href="../img/favicon.ico">
 
   
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
-  <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
-  <link rel="stylesheet" href="../../css/highlight.css">
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../css/highlight.css">
 
-  <script src="../../js/jquery-2.1.1.min.js"></script>
-  <script src="../../js/modernizr-2.8.3.min.js"></script>
-  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
-  <script src="../../js/theme.js"></script> 
+  <script src="../js/jquery-2.1.1.min.js"></script>
+  <script src="../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../js/highlight.pack.js"></script>
+  <script src="../js/theme.js"></script> 
 
   
 </head>
@@ -32,7 +32,7 @@
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
       <div class="wy-side-nav-search">
-        <a href="../.." class="icon icon-home"> Just Write It</a>
+        <a href=".." class="icon icon-home"> Just Write It</a>
         
       </div>
 
@@ -41,7 +41,7 @@
     
         
             <li class="toctree-l1 ">
-                <a class="" href="../..">Home</a>
+                <a class="" href="..">Home</a>
                 
             </li>
         
@@ -49,21 +49,21 @@
     
         
             <li class="toctree-l1 ">
-                <a class="" href="../../install/">Get Started</a>
+                <a class="" href="../install/">Get Started</a>
                 
             </li>
         
 
     
         
-            <span>Client</span>
+            <span>Server</span>
             
                 <li class="toctree-l2 current">
                     <a class="current" href="./">Overview</a>
                     
                         <ul>
                         
-                            <li class="toctree-l3"><a href="#the-client">The Client</a></li>
+                            <li class="toctree-l3"><a href="#the-server">The Server</a></li>
                             
                                 <li><a class="toctree-l4" href="#filestructure">Filestructure</a></li>
                             
@@ -73,23 +73,17 @@
                 </li>
             
                 <li class="toctree-l2 ">
-                    <a class="" href="../controller/">Controller</a>
+                    <a class="" href="routes/">Routes</a>
                     
                 </li>
             
                 <li class="toctree-l2 ">
-                    <a class="" href="../templates/">HTML Templates</a>
+                    <a class="" href="models/">Models</a>
                     
                 </li>
             
-        
-
-    
-        
-            <span>Server</span>
-            
                 <li class="toctree-l2 ">
-                    <a class="" href="../../development/server/">Overview</a>
+                    <a class="" href="texFiles/">_texFiles</a>
                     
                 </li>
             
@@ -97,10 +91,20 @@
 
     
         
-            <span>Parser</span>
+            <span>Client</span>
             
                 <li class="toctree-l2 ">
-                    <a class="" href="../../development/parser/">Overview</a>
+                    <a class="" href="../client/">Overview</a>
+                    
+                </li>
+            
+                <li class="toctree-l2 ">
+                    <a class="" href="../client/controller/">Controller</a>
+                    
+                </li>
+            
+                <li class="toctree-l2 ">
+                    <a class="" href="../client/templates/">HTML Templates</a>
                     
                 </li>
             
@@ -118,7 +122,7 @@
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
         <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../..">Just Write It</a>
+        <a href="..">Just Write It</a>
       </nav>
 
       
@@ -126,10 +130,10 @@
         <div class="rst-content">
           <div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
-    <li><a href="../..">Docs</a> &raquo;</li>
+    <li><a href="..">Docs</a> &raquo;</li>
     
       
-        <li>Client &raquo;</li>
+        <li>Server &raquo;</li>
       
     
     <li>Overview</li>
@@ -141,29 +145,31 @@
 </div>
           <div role="main">
             <div class="section">
-              <h1 id="the-client">The Client</h1>
-<p>The client contains everything that will be visible in the browser window like the editor, the PDF preview and the download options. It depends on <code>angular.js</code>, <code>textAngular</code> and the <code>Mozilla pdf viewer</code> on the programming side and on <code>less</code> and <code>bootstrap</code> for the styles.</p>
+              <h1 id="the-server">The Server</h1>
+<p>The server gets the requests, starts the parser and basicly delivers the client folder to the browser.</p>
 <h3 id="filestructure">Filestructure</h3>
-<pre><code>client/
-  _less/              # addintions to the bootstrap template
-    index.less        # this file is compiled and included
-  css/                # contains the fonts and the compiled index.less
+<pre><code>server/
+  server.js                 # starting point for the server
 
-  js/                 # the angular setup
-    config/
-      routes.js       # utilizes $routeProvider to set the routes
-    controllers/
-      editor/         # the controllers for the editor interface
-    directives/
-      pdf-preview/    # the multi file pdf-preview directive
-    app.js
+  _texFiles/                # contains everything latex related
+    company/                # this is an example company with it's documents
+      logo.png              # the company logo for the letter head
+      document1/            # an example document
+        uploads/            # uploaded configs end up here
+        xyz.cls             # latex class file for type `xyz` ex. letter
+        document1.tex       # current latex file that will be compiled
 
-  templates/
-    directives/
-      pdf-preview/    # template for the multi file pdf-preview
-    pages/
-      editor/         # template for the editor
-    index.html        # the starting point for the angular app
+  config/
+    express.js              # express.js config
+
+  models/                 
+    compiler.js             # concats the .tex file, starts pdflatex.js
+    formletter-compiler.js  # like compiler + multi recepients handling
+    pdflatex.js             # wrapper for commandline `pdflatex`
+
+  routes/
+    compile.js              # `/:group/:document/compile`
+    updateCSV.js            # `/:group/:document/updateCSV`
 </code></pre>
             </div>
           </div>
@@ -171,10 +177,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../controller/" class="btn btn-neutral float-right" title="Controller"/>Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="routes/" class="btn btn-neutral float-right" title="Routes"/>Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href="../../install/" class="btn btn-neutral" title="Get Started"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../install/" class="btn btn-neutral" title="Get Started"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -200,14 +206,14 @@
 <div class="rst-versions" role="note" style="cursor: pointer">
     <span class="rst-current-version" data-toggle="rst-current-version">
         
-      <span><a href="../../install/" style="color: #fcfcfc;">&laquo; Previous</a></span>
-      <span style="margin-left: 15px"><a href="../controller/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../install/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      <span style="margin-left: 15px"><a href="routes/" style="color: #fcfcfc">Next &raquo;</a></span>
     </span>
 </div>
 
 <!--
 MkDocs version  : 0.12.1
-Docs Build Date : 2015-04-30 19:13:18.614063
+Docs Build Date : 2015-05-01 12:03:53.851279
 -->
 </body>
 </html>
