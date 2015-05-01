@@ -63,7 +63,7 @@
                             <li><a class="toctree-l4" href="#frontend-controller-code-involved-simplified">Frontend controller code involved (simplified)</a></li>
                         
                     
-                        <li class="toctree-l3"><a href="#step-3-server-recieves-post-request">Step 3: Server recieves post request</a></li>
+                        <li class="toctree-l3"><a href="#step-3-server-receives-post-request">Step 3: Server receives post request</a></li>
                         
                     
                         <li class="toctree-l3"><a href="#step-4-parse-the-html-string-to-a-dom-object">Step 4: Parse the HTML string to a DOM object</a></li>
@@ -204,8 +204,8 @@
 </code></pre>
 
 <h2 id="step-2-html-is-sent-to-server">Step 2: HTML is sent to server</h2>
-<p>See <a href=".././client/controller/">Client &gt; Controller</a> for more information.</p>
-<p>While typing angular.js keeps <code>$scope.data.htmlContent</code> updated</p>
+<p><em>See <a href=".././client/controller/">Client &gt; Controller</a> for more information.</em></p>
+<p>While typing keeps <code>angular.js</code> the variable <code>$scope.data.htmlContent</code> updated.</p>
 <pre><code class="js">$scope.data.htmlContent = '&lt;ol&gt;&lt;li&gt;list item&lt;/li&gt;&lt;li&gt;another list item&lt;/li&gt;&lt;/ol&gt;';
 </code></pre>
 
@@ -226,27 +226,26 @@
 };
 </code></pre>
 
-<h2 id="step-3-server-recieves-post-request">Step 3: Server recieves post request</h2>
-<p>See <a href=".././server/routes/#routes">Server &gt; Routes</a> for more information.</p>
-<p>The request <code>$http.post("/company/document/compile", postData)</code> triggers <code>app.post('/:group/:document/compile', function(request, response){}</code> where the postData now is in <code>request.params</code>. </p>
-<pre><code class="javascript">app.post('/:group/:document/compile', function(request, response){
+<h2 id="step-3-server-receives-post-request">Step 3: Server receives post request</h2>
+<p><em>See <a href=".././server/routes/#routes">Server &gt; Routes</a> for more information.</em></p>
+<p>The request <code>$http.post("/company/document/compile", postData)</code> triggers <code>app.post('/:group/:document/compile', function(request, response){}</code>. The postData now is in <code>request.params</code>. </p>
+<pre><code class="js">app.post('/:group/:document/compile', function(request, response){
   var filename = request.params.document.split('.')[0];
   var group  = request.params.group.split('.')[0];
 
   var latexType = request.body.type;
   var html = request.body.htmlCode;
   var latexCode = '';
-
 }
 </code></pre>
 
-<p>With that new input the parser gets called.</p>
+<p>The parser gets called with that new input.</p>
 <pre><code class="js">var parsedLatex = Parser('parseComplete', ['&lt;ol&gt;&lt;li&gt;list item&lt;/li&gt;&lt;li&gt;another list item&lt;/li&gt;&lt;/ol&gt;'], {latexType: 'article'});
 </code></pre>
 
 <h2 id="step-4-parse-the-html-string-to-a-dom-object">Step 4: Parse the HTML string to a DOM object</h2>
-<p>See <a href=".././parser/code">Parser &gt; Code</a> for more information.</p>
-<p>The <code>htmlparser2.parseComplete</code> call first generates a DOM object from the html input</p>
+<p><em>See <a href=".././parser/code">Parser &gt; Code</a> for more information.</em></p>
+<p>The <code>htmlparser2.parseComplete</code> call generates a DOM object from the html input</p>
 <pre><code class="js">[{
   type: 'tag'
   name: 'ol'
@@ -318,9 +317,9 @@
 \end{enumerate}
 </code></pre>
 
-<p>This latex string is now returned back into the <a href=".././server/routes/#compilejs">compile route</a>.</p>
+<p>This latex string is now returned back to the <a href=".././server/routes/#compilejs">compile route</a>.</p>
 <h2 id="step-6-include-generated-latex-in-article-template">Step 6: Include generated latex in article template</h2>
-<p>See <a href=".././server/texFiles/#dotjs-files">Server &gt; _texFiles</a> for more information about the article template.</p>
+<p><em>See <a href=".././server/texFiles/#dotjs-files">Server &gt; _texFiles</a> for more information about the article template.</em></p>
 <p>With the line <code>latexCode = latexTemplates.article({latexCode: parsedLatex})</code> the latex string is now:</p>
 <pre><code class="latex">\documentclass{defaultArticle}
 \begin{document}
@@ -348,7 +347,7 @@ exec(command);
 </code></pre>
 
 <h2 id="step-9-send-result-back-to-client">Step 9: Send result back to client</h2>
-<p>If <code>pdflatex</code> is successful the url to the new pdf is sent back. Otherwise an error is sent to the client.</p>
+<p>If <code>pdflatex</code> is succeds is the url to the new pdf sent back. Otherwise an error is sent to the client.</p>
 <pre><code class="javascript">if (error !== null) {
   // if pdflatex fails call _callback with an error
   _callback({error: 'Could not create ' + parent.filename + '.pdf'});
@@ -404,7 +403,7 @@ exec(command);
 
 <!--
 MkDocs version  : 0.12.1
-Docs Build Date : 2015-05-01 21:01:22.447445
+Docs Build Date : 2015-05-01 21:45:52.755700
 -->
 </body>
 </html>

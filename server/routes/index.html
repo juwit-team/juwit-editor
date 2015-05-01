@@ -167,10 +167,10 @@
 </div>
           <div role="main">
             <div class="section">
-              <p>The <strong>routes</strong> get called when a matching request is send to the server. The routes are there to edit the input for the matching model. We chose a semantic URL-scheme where you first go to the document you want to edit and then call functions on that document.</p>
+              <p>The <strong>routes</strong> are called when a matching request is send to the server. The routes are there to prepare the input for the matching model. We chose a semantic url-scheme where you first go to the document you want to edit and then call functions on that document.</p>
 <h3 id="compilejs">compile.js</h3>
 <p>The compile route only listens for post requests to compile the sent data. </p>
-<p>URL-scheme: <code>http://localhost:1338/{group_name}/{document_title}/compile</code></p>
+<p>url-scheme: <code>http://localhost:1338/{group_name}/{document_title}/compile</code></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Because of the scrum development process and a few changed design decisions the parser gets called in the route for now. Also the use of templates is not done/finished yet.</p>
@@ -180,7 +180,7 @@ var Compiler, FormletterCompiler, Parser, latexTemplates = require('...');
 
 module.exports = function(app) {
 
-  // listen for URL-scheme `http://localhost:1338/{group_name}/{document_title}/compile`
+  // listen for url-scheme `http://localhost:1338/{group_name}/{document_title}/compile`
   app.post('/:group/:document/compile', function(request, response){
     // set local variables from request (simplified)
     var filename, group, latexType, html, latexCode = ...;
@@ -213,14 +213,14 @@ module.exports = function(app) {
 </code></pre>
 
 <h3 id="updatecsvjs">updateCSV.js</h3>
-<p>This route allows CSV file uploads for the CSV that is used for the formletter. It only listen to post requests to the following URL-scheme.</p>
-<p>URL-scheme: <code>http://localhost:1338/{group_name}/{document_title}/updateCSV</code></p>
+<p>This route allows CSV file uploads for the CSV that is used for the formletter. It only listen to post requests to the following url-scheme.</p>
+<p>url-scheme: <code>http://localhost:1338/{group_name}/{document_title}/updateCSV</code></p>
 <pre><code class="js">// require the filesystem and exec command (simplified)
 var fs, exec = require('...');
 
 module.exports = function(app) {
 
-  // listen for URL-scheme `http://localhost:1338/{group_name}/{document_title}/updateCSV`
+  // listen for url-scheme `http://localhost:1338/{group_name}/{document_title}/updateCSV`
   app.post('/:group/:document/updateCSV', function(request, response) {
 
     // set local variables from request (simplified)
@@ -278,7 +278,7 @@ module.exports = function(app) {
 
 <!--
 MkDocs version  : 0.12.1
-Docs Build Date : 2015-05-01 21:01:22.458432
+Docs Build Date : 2015-05-01 21:45:52.763167
 -->
 </body>
 </html>

@@ -170,13 +170,13 @@
 </div>
           <div role="main">
             <div class="section">
-              <p>The idea is to have for every view one <strong>controller</strong>. So because there is only the editor view at this point there is also only one controller.</p>
+              <p>The idea is to have one <strong>controller</strong> for every view. Because there is only the editor view at this point there is also only one controller.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The <code>formletter-controller</code> is designated to be integrated into the <code>index-controller</code></p>
 </div>
 <h2 id="editor-index-controller">Editor Index Controller</h2>
-<p>This controller handles the user input, syncs it with the server, refreshes the preview and downloads the file to the users hard drive.</p>
+<p>This controller handles the user input, syncs it with the server, refreshes the preview, and downloads the file to the users hard drive.</p>
 <h3 id="angular-dependencies">Angular dependencies</h3>
 <ul>
 <li>$http (to make requests to the server)</li>
@@ -187,13 +187,13 @@
 <li>textAngularManager (from textAngular)</li>
 </ul>
 <h3 id="scope-variables">Scope variables</h3>
-<p><code>$scope.templates</code> is a list of possible templates the server can compile to PDFs also they may load a different toolbar in the subnavigation</p>
+<p><code>$scope.templates</code> is a list of possible templates the server can compile to PDFs. Also they may load a different toolbar in the subnavigation.</p>
 <ul>
 <li>article</li>
 <li>letter</li>
 <li>bulk-letter</li>
 </ul>
-<p><code>$scope.sender</code> contains (default) sender information. When the <code>letter</code> or <code>bulk-letter</code> template is selected those values are editable.</p>
+<p><code>$scope.sender</code> contains (default) sender information. When <code>letter</code> or <code>bulk-letter</code> template is selected those values are editable.</p>
 <p><code>$scope.recipient</code> contains (default) recipient information.</p>
 <p><code>$scope.selectedTemplate</code> marks the active template and applies its options to the toolbar and editor.</p>
 <h3 id="scope-functions">Scope functions</h3>
@@ -210,7 +210,7 @@
   $http.post(&quot;/company/document/compile&quot;, postData)
   .success(function(data, status, headers, config) {
     if (data.error) {
-      alert(data.error);  // right now errors are only alerted
+      alert(data.error);  // right now errors are an alert
     };
     if (typeof data.redirect === 'string') {
       // refresh the preview
@@ -220,13 +220,13 @@
       window.open(data.redirect, '_new', 'toolbar=yes, location=yes, status=yes, menubar=yes, scrollbars=yes');
     } 
   }).error(function(data, status, headers, config) {
-    alert(data.error);  // right now errors are only alerted
+    alert(data.error);  // right now errors are only an alert
   });
 };
 </code></pre>
 
 <p><code>$scope.refresh</code> does exactly the same only that no new window is opened. </p>
-<p><code>$scope.updateLetterInfo</code> sets the sender and recipient information on the server-side. In future revisions this should eliminate <code>postData.sender</code> and <code>postData.recipient</code> and reduce the data sent.</p>
+<p><code>$scope.updateLetterInfo</code> sets the sender and recipient information on the server-side. In future revisions this should eliminate <code>postData.sender</code> and <code>postData.recipient</code> and reduce the data sent. Right now it only contacts an echo server.</p>
 <p><code>$scope.intervalFunction</code> is responsible for the refresh of the pdf-preview every 10 seconds.</p>
 <pre><code class="js">$scope.intervalFunction = function(){
   $timeout(function() {             // wait 10s then do the following:
@@ -277,7 +277,7 @@
 
 <!--
 MkDocs version  : 0.12.1
-Docs Build Date : 2015-05-01 21:01:22.505077
+Docs Build Date : 2015-05-01 21:45:52.800373
 -->
 </body>
 </html>
