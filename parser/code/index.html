@@ -94,11 +94,10 @@
                     
                         <ul>
                         
-                            <li class="toctree-l3"><a href="#code">Code</a></li>
+                            <li class="toctree-l3"><a href="#htmltolatexjs">htmlToLatex.js</a></li>
                             
-                                <li><a class="toctree-l4" href="#htmltolatexjs">htmlToLatex.js</a></li>
-                            
-                                <li><a class="toctree-l4" href="#domtolatexjs">domToLatex.js</a></li>
+                        
+                            <li class="toctree-l3"><a href="#domtolatexjs">domToLatex.js</a></li>
                             
                         
                         </ul>
@@ -168,8 +167,7 @@
 </div>
           <div role="main">
             <div class="section">
-              <h1 id="code">Code</h1>
-<p>The code are mainly the two files <code>htmlToLatex.js</code> and <code>domToLatex.js</code>. They depend on <a href="https://github.com/fb55/htmlparser2">htmlparser2</a> and <a href="https://github.com/maxxst/latex-sanitizer">latex-sanitizer</a> to build a compilable <code>.tex</code> document form any given <code>html</code> source code.</p>
+              <p>The <strong>code</strong> are mainly the two files <code>htmlToLatex.js</code> and <code>domToLatex.js</code>. They depend on <a href="https://github.com/fb55/htmlparser2">htmlparser2</a> and <a href="https://github.com/maxxst/latex-sanitizer">latex-sanitizer</a> to build a compilable <code>.tex</code> document form any given <code>html</code> source code.</p>
 <h3 id="htmltolatexjs">htmlToLatex.js</h3>
 <p>htmlToLatex.js sets up the htmlparser2 and uses the generated dom to convert that to latex via domToLatex.js</p>
 <div class="admonition note">
@@ -271,7 +269,7 @@ var parseStyles = function(inlineStyle, tag_name, classType){
 
 /**
  * Semi-recursivly parses the htmlparser2-domTree by searching for matches between tags and templates
- * @param  {json}   node      the node with all it's info and children
+ * @param  {json}   node      the node with all its info and children
  * @param  {String} classType option what template set-up to use
  * @return {String}           A latex string all parsed and escaped
  */
@@ -360,7 +358,7 @@ var domToLatex = function(node, classType){
 
 <!--
 MkDocs version  : 0.12.1
-Docs Build Date : 2015-05-01 18:56:35.835368
+Docs Build Date : 2015-05-01 21:01:22.484790
 -->
 </body>
 </html>

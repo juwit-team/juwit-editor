@@ -115,9 +115,13 @@
                     
                         <ul>
                         
-                            <li class="toctree-l3"><a href="#controller">Controller</a></li>
+                            <li class="toctree-l3"><a href="#editor-index-controller">Editor Index Controller</a></li>
                             
-                                <li><a class="toctree-l4" href="#editor-index-controller">Editor Index Controller</a></li>
+                                <li><a class="toctree-l4" href="#angular-dependencies">Angular dependencies</a></li>
+                            
+                                <li><a class="toctree-l4" href="#scope-variables">Scope variables</a></li>
+                            
+                                <li><a class="toctree-l4" href="#scope-functions">Scope functions</a></li>
                             
                         
                         </ul>
@@ -166,8 +170,7 @@
 </div>
           <div role="main">
             <div class="section">
-              <h1 id="controller">Controller</h1>
-<p>The idea is to have for every view one controller. So because there is only the editor view at this point there is also only one controller.</p>
+              <p>The idea is to have for every view one <strong>controller</strong>. So because there is only the editor view at this point there is also only one controller.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The <code>formletter-controller</code> is designated to be integrated into the <code>index-controller</code></p>
@@ -192,7 +195,7 @@
 </ul>
 <p><code>$scope.sender</code> contains (default) sender information. When the <code>letter</code> or <code>bulk-letter</code> template is selected those values are editable.</p>
 <p><code>$scope.recipient</code> contains (default) recipient information.</p>
-<p><code>$scope.selectedTemplate</code> marks the active template and applies it's options to the toolbar and editor.</p>
+<p><code>$scope.selectedTemplate</code> marks the active template and applies its options to the toolbar and editor.</p>
 <h3 id="scope-functions">Scope functions</h3>
 <p><code>$scope.download</code> sends the entered data and text to the server, waits for it to compile and opens the PDF in a new window.</p>
 <pre><code class="js">$scope.download = function() {
@@ -274,7 +277,7 @@
 
 <!--
 MkDocs version  : 0.12.1
-Docs Build Date : 2015-05-01 18:56:35.860739
+Docs Build Date : 2015-05-01 21:01:22.505077
 -->
 </body>
 </html>

@@ -68,11 +68,10 @@
                     
                         <ul>
                         
-                            <li class="toctree-l3"><a href="#routes">Routes</a></li>
+                            <li class="toctree-l3"><a href="#compilejs">compile.js</a></li>
                             
-                                <li><a class="toctree-l4" href="#compilejs">compile.js</a></li>
-                            
-                                <li><a class="toctree-l4" href="#updatecsvjs">updateCSV.js</a></li>
+                        
+                            <li class="toctree-l3"><a href="#updatecsvjs">updateCSV.js</a></li>
                             
                         
                         </ul>
@@ -168,8 +167,7 @@
 </div>
           <div role="main">
             <div class="section">
-              <h1 id="routes">Routes</h1>
-<p>The routes get called when a matching request is send to the server. The routes are there to edit the input for the matching model. We chose a semantic URL-scheme where you first go to the document you want to edit and then call functions on that document.</p>
+              <p>The <strong>routes</strong> get called when a matching request is send to the server. The routes are there to edit the input for the matching model. We chose a semantic URL-scheme where you first go to the document you want to edit and then call functions on that document.</p>
 <h3 id="compilejs">compile.js</h3>
 <p>The compile route only listens for post requests to compile the sent data. </p>
 <p>URL-scheme: <code>http://localhost:1338/{group_name}/{document_title}/compile</code></p>
@@ -191,7 +189,7 @@ module.exports = function(app) {
     if(latexType === 'bulk-letter') {   
       FormletterCompiler.compile(request);
     } else {
-      // if it's a normal artice or letter parse the given latex
+      // if it is a normal artice or letter parse the given latex
       var parsedLatex = Parser('parseComplete', [html], {latexType: latexType});
 
       // set the latex head according to the document type
@@ -280,7 +278,7 @@ module.exports = function(app) {
 
 <!--
 MkDocs version  : 0.12.1
-Docs Build Date : 2015-05-01 18:56:35.807540
+Docs Build Date : 2015-05-01 21:01:22.458432
 -->
 </body>
 </html>

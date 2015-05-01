@@ -89,11 +89,16 @@
                     
                         <ul>
                         
-                            <li class="toctree-l3"><a href="#parser">Parser</a></li>
+                            <li class="toctree-l3"><a href="#filestructure">Filestructure</a></li>
                             
-                                <li><a class="toctree-l4" href="#filestructure">Filestructure</a></li>
+                        
+                            <li class="toctree-l3"><a href="#configurations">Configurations</a></li>
                             
-                                <li><a class="toctree-l4" href="#configurations">Configurations</a></li>
+                                <li><a class="toctree-l4" href="#tags">tags</a></li>
+                            
+                                <li><a class="toctree-l4" href="#allowedstyles">allowedStyles</a></li>
+                            
+                                <li><a class="toctree-l4" href="#styles">styles</a></li>
                             
                         
                         </ul>
@@ -168,9 +173,8 @@
 </div>
           <div role="main">
             <div class="section">
-              <h1 id="parser">Parser</h1>
-<p>The parser once was it's own repository but we realized, that at this point it's not configurable enough to use it anywhere else. So it got moved back into the main repository. Maybe in the future it will be on it's own again.</p>
-<h3 id="filestructure">Filestructure</h3>
+              <p>The <strong>parser</strong> once was its own repository. But we realized, that at this point its not configurable enough to use it anywhere else. So it got moved back into the main repository. Maybe in the future it will be on its own again.</p>
+<h2 id="filestructure">Filestructure</h2>
 <pre><code>parser/
   htmlToLatex.js            # builds a dom from given html and starts domToLatex
 
@@ -215,8 +219,8 @@ tags: {
 <pre><code class="js">// styles not listed are not allowed and not parsed
 // tags not listed are not allowed for this style and this style is not parsed
 allowedStyles: {
-    &quot;text-align&quot;: ['h1','h2', 'p'], // for h1, h2 and p tags it's allowed to set a text align
-    &quot;color&quot;: ['p']                  // only for p it's allowed to set a text color
+    &quot;text-align&quot;: ['h1','h2', 'p'], // for h1, h2 and p tags its allowed to set a text align
+    &quot;color&quot;: ['p']                  // only for p its allowed to set a text color
 },
 </code></pre>
 
@@ -276,7 +280,7 @@ styles: {
 
 <!--
 MkDocs version  : 0.12.1
-Docs Build Date : 2015-05-01 18:56:35.829046
+Docs Build Date : 2015-05-01 21:01:22.477969
 -->
 </body>
 </html>

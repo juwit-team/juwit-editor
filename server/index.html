@@ -63,11 +63,12 @@
                     
                         <ul>
                         
-                            <li class="toctree-l3"><a href="#the-server">The Server</a></li>
+                            <li class="toctree-l3"><a href="#filestructure">Filestructure</a></li>
                             
-                                <li><a class="toctree-l4" href="#filestructure">Filestructure</a></li>
+                        
+                            <li class="toctree-l3"><a href="#configuration">Configuration</a></li>
                             
-                                <li><a class="toctree-l4" href="#configuration">Configuration</a></li>
+                                <li><a class="toctree-l4" href="#expressjs">express.js</a></li>
                             
                         
                         </ul>
@@ -168,14 +169,13 @@
 </div>
           <div role="main">
             <div class="section">
-              <h1 id="the-server">The Server</h1>
-<p>The server gets the requests, starts the parser and basicly delivers the client folder to the browser.</p>
-<h3 id="filestructure">Filestructure</h3>
+              <p>The <strong>server</strong> gets the requests, starts the parser and basicly delivers the client folder to the browser.</p>
+<h2 id="filestructure">Filestructure</h2>
 <pre><code>server/
   server.js                 # starting point for the server
 
   _texFiles/                # contains everything latex related
-    company/                # this is an example company with it's documents
+    company/                # this is an example company with its documents
       logo.png              # the company logo for the letter head
       document1/            # an example document
         uploads/            # uploaded configs end up here
@@ -249,7 +249,7 @@ multer              # to handle multiple file uploads at once
 
 <!--
 MkDocs version  : 0.12.1
-Docs Build Date : 2015-05-01 18:56:35.801471
+Docs Build Date : 2015-05-01 21:01:22.452776
 -->
 </body>
 </html>

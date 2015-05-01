@@ -54,10 +54,11 @@
                     
                         <li class="toctree-l3"><a href="#how-to-get-started">How to get started</a></li>
                         
-                            <li><a class="toctree-l4" href="#linux-mac-and-windows">Linux, Mac and Windows</a></li>
+                            <li><a class="toctree-l4" href="#install-on-linux-mac-and-windows">Install on Linux, Mac and Windows</a></li>
                         
-                    
-                        <li class="toctree-l3"><a href="#filestructure">Filestructure</a></li>
+                            <li><a class="toctree-l4" href="#start-the-server">Start the server</a></li>
+                        
+                            <li><a class="toctree-l4" href="#filestructure">Filestructure</a></li>
                         
                     
                     </ul>
@@ -178,26 +179,43 @@
 <p>I would not recommend to use it in production</p>
 </div>
 <h1 id="just-write-it-editor">Just Write It - Editor</h1>
-<p>The almost what you see is what you get latex editor.</p>
+<p>The almost <strong>what you see is what you get</strong> latex editor.</p>
 <h2 id="what-is-it">What is it?</h2>
 <p>An editor for writing text that compiles beautifully to latex and therefore always looks professional in the generated PDF.</p>
 <h2 id="who-is-it-for">Who is it for?</h2>
-<p>The main target are users that are not familiar with markup languages in genaral and latex in specific. To enable them to write
-professinal company letters without any learning curve.</p>
+<p>The main target are users that are not familiar with markup languages in general and latex in specific. The goal is to enable those users to write professinal company letters without any learning curve.</p>
 <h1 id="how-to-get-started">How to get started</h1>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>At this point it is only tested on lokal machines working as server and client</p>
 </div>
-<h2 id="linux-mac-and-windows">Linux, Mac and Windows</h2>
+<h2 id="install-on-linux-mac-and-windows">Install on Linux, Mac and Windows</h2>
 <ol>
-<li>install <code>Latex</code></li>
-<li>install <code>node.js</code></li>
-<li>download this editor from https:...</li>
+<li>install <a href="http://latex-project.org/ftp.html">latex</a></li>
+<li>install <a href="https://nodejs.org/download/">node.js</a></li>
+<li>install <a href="http://bower.io/">bower</a> with <code>npm install -g bower</code></li>
+<li>download the <a href="https://github.com/juwit-team/juwit-editor/releases/tag/0.7.3">juwit-editor</a> and unzip it</li>
 </ol>
-<h1 id="filestructure">Filestructure</h1>
+<h3 id="additional-dependencies">Additional dependencies</h3>
+<ul>
+<li>to edit the styles you should <code>npm install -g less</code></li>
+<li>to edit this documentation you will need <a href="https://www.python.org/downloads/">python</a> &amp; <a href="http://www.mkdocs.org/#installation">mkdocs</a></li>
+</ul>
+<h2 id="start-the-server">Start the server</h2>
+<ol>
+<li><code>cd path/to/juwit/editor</code></li>
+<li><code>npm start</code></li>
+<li>open browser with <a href="http://localhost:1338">http://localhost:1338</a></li>
+</ol>
+<h3 id="run-the-test">Run the test</h3>
+<p>After you installed everything just use <code>npm test</code> to start the test suite.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The test suite is not complete and more like a proof of concept</p>
+</div>
+<h2 id="filestructure">Filestructure</h2>
 <pre><code>client/         # everything that will end up in the clients browser
-parser/         # the parse (will probably be it's own repository some day)
+parser/         # the parse (will probably be its own repository some day)
 server/         # the backend (except for the parser)
 app.js          # the starting point for this app
 </code></pre>
@@ -241,7 +259,7 @@ app.js          # the starting point for this app
 
 <!--
 MkDocs version  : 0.12.1
-Docs Build Date : 2015-05-01 18:56:35.752368
+Docs Build Date : 2015-05-01 21:01:22.400067
 -->
 </body>
 </html>

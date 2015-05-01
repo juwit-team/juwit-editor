@@ -53,19 +53,41 @@
                 
                     <ul>
                     
-                        <li class="toctree-l3"><a href="#how-the-conversion-works">How the conversion works</a></li>
+                        <li class="toctree-l3"><a href="#step-1-generate-html-with-textangular">Step 1: Generate HTML with textAngular</a></li>
                         
-                            <li><a class="toctree-l4" href="#step-1-generate-html-with-textangular">Step 1: Generate HTML with textAngular</a></li>
+                            <li><a class="toctree-l4" href="#generated-html">Generated HTML</a></li>
                         
-                            <li><a class="toctree-l4" href="#step-2-html-is-sent-to-server">Step 2: HTML is sent to server</a></li>
+                    
+                        <li class="toctree-l3"><a href="#step-2-html-is-sent-to-server">Step 2: HTML is sent to server</a></li>
                         
-                            <li><a class="toctree-l4" href="#step-3-server-recieves-post-request">Step 3: Server recieves post request</a></li>
+                            <li><a class="toctree-l4" href="#frontend-controller-code-involved-simplified">Frontend controller code involved (simplified)</a></li>
                         
-                            <li><a class="toctree-l4" href="#step-4-parse-the-html-string-to-a-dom-object">Step 4: Parse the HTML string to a DOM object</a></li>
+                    
+                        <li class="toctree-l3"><a href="#step-3-server-recieves-post-request">Step 3: Server recieves post request</a></li>
                         
-                            <li><a class="toctree-l4" href="#step-5-parse-the-dom-object-to-a-latex-string">Step 5: Parse the DOM object to a latex string</a></li>
+                    
+                        <li class="toctree-l3"><a href="#step-4-parse-the-html-string-to-a-dom-object">Step 4: Parse the HTML string to a DOM object</a></li>
                         
-                            <li><a class="toctree-l4" href="#step-6">Step 6:</a></li>
+                    
+                        <li class="toctree-l3"><a href="#step-5-parse-the-dom-object-to-a-latex-string">Step 5: Parse the DOM object to a latex string</a></li>
+                        
+                    
+                        <li class="toctree-l3"><a href="#step-6-include-generated-latex-in-article-template">Step 6: Include generated latex in article template</a></li>
+                        
+                    
+                        <li class="toctree-l3"><a href="#step-7-write-latex-string-to-file">Step 7: Write latex string to file</a></li>
+                        
+                    
+                        <li class="toctree-l3"><a href="#step-8-compile-documenttex">Step 8: Compile document.tex</a></li>
+                        
+                    
+                        <li class="toctree-l3"><a href="#step-9-send-result-back-to-client">Step 9: Send result back to client</a></li>
+                        
+                    
+                        <li class="toctree-l3"><a href="#step-10-client-handles-the-return">Step 10: Client handles the return</a></li>
+                        
+                    
+                        <li class="toctree-l3"><a href="#step-11-repeat-the-refresh-every-10-seconds">Step 11: Repeat the refresh every 10 seconds</a></li>
                         
                     
                     </ul>
@@ -172,9 +194,7 @@
 </div>
           <div role="main">
             <div class="section">
-              <h1 id="how-the-conversion-works">How the conversion works</h1>
-<p><img alt="Final form" src=".././img/simple-list.gif" title="Article with ordered list" /></p>
-<h2 id="step-1-generate-html-with-textangular">Step 1: Generate HTML with textAngular</h2>
+              <h2 id="step-1-generate-html-with-textangular">Step 1: Generate HTML with textAngular</h2>
 <p><img alt="textAngular view" src=".././img/textAngular.png" /></p>
 <h3 id="generated-html">Generated HTML</h3>
 <pre><code class="html">&lt;ol&gt;
@@ -291,7 +311,57 @@
 }
 </code></pre>
 
-<h2 id="step-6">Step 6:</h2>
+<p>With that <code>&lt;ol&gt;&lt;li&gt;list item&lt;/li&gt;&lt;li&gt;another list item&lt;/li&gt;&lt;/ol&gt;</code> becomes </p>
+<pre><code class="latex">\begin{enumerate}
+  \item list item
+  \item another list item
+\end{enumerate}
+</code></pre>
+
+<p>This latex string is now returned back into the <a href=".././server/routes/#compilejs">compile route</a>.</p>
+<h2 id="step-6-include-generated-latex-in-article-template">Step 6: Include generated latex in article template</h2>
+<p>See <a href=".././server/texFiles/#dotjs-files">Server &gt; _texFiles</a> for more information about the article template.</p>
+<p>With the line <code>latexCode = latexTemplates.article({latexCode: parsedLatex})</code> the latex string is now:</p>
+<pre><code class="latex">\documentclass{defaultArticle}
+\begin{document}
+
+\begin{enumerate}
+  \item list item
+  \item another list item
+\end{enumerate}
+
+\end{document}
+</code></pre>
+
+<h2 id="step-7-write-latex-string-to-file">Step 7: Write latex string to file</h2>
+<p>The new latex string is passed to the <a href=".././server/models/#compilerjs">Server &gt; Models &gt; compiler.js</a> where it is saved to <code>document.tex</code>.</p>
+<pre><code class="js">fs.writeFile(fileInDirectory, latexCode, function(err){
+  var tex = new pdflatex(fileInDirectory, outputDirectory, doc);
+  tex.compile();
+}
+</code></pre>
+
+<h2 id="step-8-compile-documenttex">Step 8: Compile document.tex</h2>
+<p>The <code>document.tex</code> is now handed over to <a href=".././server/models/#pdflatexjs">Server &gt; Models &gt; pdflatex.js</a> where the pdflatex command is started.</p>
+<pre><code class="javascript">var command = &quot;pdflatex -interaction nonstopmode -output-directory &quot; + this.outputDirectory + &quot; &quot; + this.inputPath;
+exec(command);
+</code></pre>
+
+<h2 id="step-9-send-result-back-to-client">Step 9: Send result back to client</h2>
+<p>If <code>pdflatex</code> is successful the url to the new pdf is sent back. Otherwise an error is sent to the client.</p>
+<pre><code class="javascript">if (error !== null) {
+  // if pdflatex fails call _callback with an error
+  _callback({error: 'Could not create ' + parent.filename + '.pdf'});
+} else {
+  // if pdflatex succeds call _callback with the new path to pdf
+  _callback({filePath: __server + '_texFiles/' + parent.filename +'.pdf'});
+}
+</code></pre>
+
+<h2 id="step-10-client-handles-the-return">Step 10: Client handles the return</h2>
+<p>In this given example the <code>refresh</code> call started the whole chain. Therefore <code>pdfDelegate.$getByHandle('pdf-preview').load(data.redirect);</code> is called in <a href=".././client/controller/#editor-index-controller">Client &gt; Controller</a>. That reloads the pdf-preview.</p>
+<h2 id="step-11-repeat-the-refresh-every-10-seconds">Step 11: Repeat the refresh every 10 seconds</h2>
+<p>The refresh call is repeated every 10 seconds.</p>
             </div>
           </div>
           <footer>
@@ -334,7 +404,7 @@
 
 <!--
 MkDocs version  : 0.12.1
-Docs Build Date : 2015-05-01 18:56:35.795108
+Docs Build Date : 2015-05-01 21:01:22.447445
 -->
 </body>
 </html>
