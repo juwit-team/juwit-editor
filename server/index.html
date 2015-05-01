@@ -49,7 +49,7 @@
     
         
             <li class="toctree-l1 ">
-                <a class="" href="../install/">Get Started</a>
+                <a class="" href="../step-by-step/">How it works</a>
                 
             </li>
         
@@ -66,6 +66,8 @@
                             <li class="toctree-l3"><a href="#the-server">The Server</a></li>
                             
                                 <li><a class="toctree-l4" href="#filestructure">Filestructure</a></li>
+                            
+                                <li><a class="toctree-l4" href="#configuration">Configuration</a></li>
                             
                         
                         </ul>
@@ -84,6 +86,27 @@
             
                 <li class="toctree-l2 ">
                     <a class="" href="texFiles/">_texFiles</a>
+                    
+                </li>
+            
+        
+
+    
+        
+            <span>Parser</span>
+            
+                <li class="toctree-l2 ">
+                    <a class="" href="../parser/">Overview</a>
+                    
+                </li>
+            
+                <li class="toctree-l2 ">
+                    <a class="" href="../parser/code/">Code</a>
+                    
+                </li>
+            
+                <li class="toctree-l2 ">
+                    <a class="" href="../parser/templates/">Templates</a>
                     
                 </li>
             
@@ -171,6 +194,19 @@
     compile.js              # `/:group/:document/compile`
     updateCSV.js            # `/:group/:document/updateCSV`
 </code></pre>
+<h2 id="configuration">Configuration</h2>
+<h3 id="expressjs">express.js</h3>
+<p>The following static routes are set for express.js </p>
+<pre><code>/js                 # access javascript files
+/node_modules       # access node components
+/bower_components   # access bower components
+
+/dl                 # a nice way to download the generated PDFs
+</code></pre>
+<p>also uses express.js </p>
+<pre><code>bodyparser.json     # to parse posted json data
+multer              # to handle multiple file uploads at once
+</code></pre>
             </div>
           </div>
           <footer>
@@ -180,7 +216,7 @@
         <a href="routes/" class="btn btn-neutral float-right" title="Routes"/>Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href="../install/" class="btn btn-neutral" title="Get Started"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../step-by-step/" class="btn btn-neutral" title="How it works"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -206,14 +242,14 @@
 <div class="rst-versions" role="note" style="cursor: pointer">
     <span class="rst-current-version" data-toggle="rst-current-version">
         
-      <span><a href="../install/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      <span><a href="../step-by-step/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       <span style="margin-left: 15px"><a href="routes/" style="color: #fcfcfc">Next &raquo;</a></span>
     </span>
 </div>
 
 <!--
 MkDocs version  : 0.12.1
-Docs Build Date : 2015-05-01 12:03:53.851279
+Docs Build Date : 2015-05-01 17:50:43.348330
 -->
 </body>
 </html>

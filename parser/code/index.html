@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Code - Just Write It</title>
+  
+
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/highlight.css">
+
+  <script src="../../js/jquery-2.1.1.min.js"></script>
+  <script src="../../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
+  <script src="../../js/theme.js"></script> 
+
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> Just Write It</a>
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+      <ul class="current">
+    
+        
+            <li class="toctree-l1 ">
+                <a class="" href="../..">Home</a>
+                
+            </li>
+        
+
+    
+        
+            <li class="toctree-l1 ">
+                <a class="" href="../../step-by-step/">How it works</a>
+                
+            </li>
+        
+
+    
+        
+            <span>Server</span>
+            
+                <li class="toctree-l2 ">
+                    <a class="" href="../../server/">Overview</a>
+                    
+                </li>
+            
+                <li class="toctree-l2 ">
+                    <a class="" href="../../server/routes/">Routes</a>
+                    
+                </li>
+            
+                <li class="toctree-l2 ">
+                    <a class="" href="../../server/models/">Models</a>
+                    
+                </li>
+            
+                <li class="toctree-l2 ">
+                    <a class="" href="../../server/texFiles/">_texFiles</a>
+                    
+                </li>
+            
+        
+
+    
+        
+            <span>Parser</span>
+            
+                <li class="toctree-l2 ">
+                    <a class="" href="../">Overview</a>
+                    
+                </li>
+            
+                <li class="toctree-l2 current">
+                    <a class="current" href="./">Code</a>
+                    
+                        <ul>
+                        
+                            <li class="toctree-l3"><a href="#code">Code</a></li>
+                            
+                                <li><a class="toctree-l4" href="#htmltolatexjs">htmlToLatex.js</a></li>
+                            
+                                <li><a class="toctree-l4" href="#domtolatexjs">domToLatex.js</a></li>
+                            
+                        
+                        </ul>
+                    
+                </li>
+            
+                <li class="toctree-l2 ">
+                    <a class="" href="../templates/">Templates</a>
+                    
+                </li>
+            
+        
+
+    
+        
+            <span>Client</span>
+            
+                <li class="toctree-l2 ">
+                    <a class="" href="../../client/">Overview</a>
+                    
+                </li>
+            
+                <li class="toctree-l2 ">
+                    <a class="" href="../../client/controller/">Controller</a>
+                    
+                </li>
+            
+                <li class="toctree-l2 ">
+                    <a class="" href="../../client/templates/">HTML Templates</a>
+                    
+                </li>
+            
+        
+
+    
+</ul>
+
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">Just Write It</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        <li>Parser &raquo;</li>
+      
+    
+    <li>Code</li>
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              <h1 id="code">Code</h1>
+<p>The code are mainly the two files <code>htmlToLatex.js</code> and <code>domToLatex.js</code>. They depend on <a href="https://github.com/fb55/htmlparser2">htmlparser2</a> and <a href="https://github.com/maxxst/latex-sanitizer">latex-sanitizer</a> to build a compilable <code>.tex</code> document form any given <code>html</code> source code.</p>
+<h3 id="htmltolatexjs">htmlToLatex.js</h3>
+<p>htmlToLatex.js sets up the htmlparser2 and uses the generated dom to convert that to latex via domToLatex.js</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>At this point htmlToLatex.js only supports htmlparser2's <code>parseComplete</code> function.</p>
+</div>
+<pre><code class="js">var htmlparser = require('htmlparser2');
+var domToLatex = require('./lib/domToLatex');
+
+/**
+ * wrapper for
+ * @param  {function name} parserCall         function to call on the parser
+ * @param  {object}        parserOptions      options to call the parserCall with
+ * @param  {string}        options.latexType  given latexType to use to parse      
+ * @return {string}                           string with built latex code
+ */
+module.exports = function(parserCall, parserOptions, options) {
+
+  var parsedLatex = '';
+
+  // define dom handler for htmlparser2
+  // the handler get called after the html code was parsed to a dom object
+  var handler = new htmlparser.DomHandler(function (error, dom) {
+    if (!error) {
+      parsedLatex = '';
+
+      // convert every dom element its latex equivalent with domToLatex
+      for (var i = 0; i &lt; dom.length; i++) {
+        // see domToLatex.js for that function
+        parsedLatex += domToLatex(dom[i], options.latexType);
+      }
+      return parsedLatex;
+    }
+  });
+
+  // create htmlparser with handler
+  var htmlToLatex = new htmlparser.Parser(handler);
+
+  // take the parserCall
+  switch (parserCall) {
+
+    // only parseComplete is needed for now
+    case 'parseComplete': 
+      if(parserOptions.length === 1) {
+        // use parseComplete
+        htmlToLatex.parseComplete(parserOptions[0]);
+      } else {
+        return null;
+      }
+    break;
+  }
+  return parsedLatex;
+}
+</code></pre>
+
+<h3 id="domtolatexjs">domToLatex.js</h3>
+<p>The domToLatex function recursivly converts a dom element to latex code by using given <a href=".././templates/">templates</a>. Every text (that is not part of the markup) is escaped and sanitized using <a href="https://github.com/maxxst/latex-sanitizer">latex-sanitizer</a>.</p>
+<pre><code class="js">// load the latex-sanitizer
+var sanitizeLatex    = require('latex-sanitizer');
+
+// load the templates
+var templates        = {};
+templates['article'] = require(&quot;dot&quot;).process({path: &quot;./parser/templates/defaultArticle&quot;});
+templates['letter']  = require(&quot;dot&quot;).process({path: &quot;./parser/templates/defaultLetter&quot;});
+
+// load the configurations
+var config           = {};
+config['article']    = require('./articleConfig');
+config['letter']     = require('./letterConfig');
+
+/**
+ * Looks if given style is part of that classtype
+ * @param  {string} inlineStyle inline CSS string
+ * @param  {string} tag_name    tag that style belongs to
+ * @param  {string} classType   type of document i.e. article
+ * @return {[string]}           list of template names to use
+ */
+var parseStyles = function(inlineStyle, tag_name, classType){
+
+  // Parses styles like text-align: center to 
+  //    style[1] = text-align
+  //    style[2] = center
+  var CSS_REGEX = /([\w-]+)\s*:\s*([^;]+)\s*;?/g;
+  var style;
+
+  var styleTemplates = [];
+  while ((style = CSS_REGEX.exec(inlineStyle)) !== null) {
+    // check if found style is allowed and defined for this tag
+    if (typeof config[classType]['allowedStyles'][style[1]] !== 'undefined' &amp;&amp; config[classType]['allowedStyles'][style[1]].indexOf(tag_name) !== -1) {
+      // check if there is a template for that style option
+      if (typeof config[classType]['styles'][style[1]][style[2]] !== 'undefined') {
+        styleTemplates.push(config[classType]['styles'][style[1]][style[2]]);
+      }
+    }
+  }
+
+  return styleTemplates;
+}
+
+/**
+ * Semi-recursivly parses the htmlparser2-domTree by searching for matches between tags and templates
+ * @param  {json}   node      the node with all it's info and children
+ * @param  {String} classType option what template set-up to use
+ * @return {String}           A latex string all parsed and escaped
+ */
+var domToLatex = function(node, classType){
+  // make sure classType is set
+  classType = classType || 'article';
+
+  // end of recursion when there is just text
+  if (node.type === 'text') {
+    return sanitizeLatex(node.data);
+  }
+
+  // if a tag is found
+  if (node.type === 'tag') {
+    // get the tag_name to use
+    var tag_name = config[classType].tags[node.name] || node.name;
+
+    // convert all children to latex first
+    var text = '';
+    for (var i = 0; i &lt; node.children.length; i++) {
+      text += domToLatex(node.children[i], classType);
+    };
+
+    // add style templates if necessary
+    if(typeof node.attribs.style !== 'undefined'){
+      // call above defined function
+      var styleTemplates = parseStyles(node.attribs.style, tag_name, classType);
+
+      // use every returned template name (if possible)
+      for (var i = 0; i &lt; styleTemplates.length; i++) {
+        if(typeof templates[classType][styleTemplates[i]] !== 'undefined'){
+          text = templates[classType][styleTemplates[i]]({&quot;content&quot;: text});
+        }
+      };
+    }
+
+    // use tag templates (if possible)
+    if(typeof templates[classType][tag_name] !== 'undefined'){
+      return templates[classType][tag_name]({&quot;content&quot;: text});
+    } else {
+      return text;
+    }
+  }
+}
+
+</code></pre>
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../templates/" class="btn btn-neutral float-right" title="Templates"/>Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../" class="btn btn-neutral" title="Overview"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+    <!-- Copyright etc -->
+    </p>
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+<div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+        
+      <span><a href="../" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      <span style="margin-left: 15px"><a href="../templates/" style="color: #fcfcfc">Next &raquo;</a></span>
+    </span>
+</div>
+
+<!--
+MkDocs version  : 0.12.1
+Docs Build Date : 2015-05-01 17:50:43.389453
+-->
+</body>
+</html>

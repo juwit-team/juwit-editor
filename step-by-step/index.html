@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Overview - Just Write It</title>
+  <title>How it works - Just Write It</title>
   
 
   <link rel="shortcut icon" href="../img/favicon.ico">
@@ -48,8 +48,21 @@
 
     
         
-            <li class="toctree-l1 ">
-                <a class="" href="../step-by-step/">How it works</a>
+            <li class="toctree-l1 current">
+                <a class="current" href="./">How it works</a>
+                
+                    <ul>
+                    
+                        <li class="toctree-l3"><a href="#how-the-conversion-works">How the conversion works</a></li>
+                        
+                            <li><a class="toctree-l4" href="#step-1-generate-html-with-textangular">Step 1: Generate HTML with textAngular</a></li>
+                        
+                            <li><a class="toctree-l4" href="#step-2-html-is-sent-to-server">Step 2: HTML is sent to server</a></li>
+                        
+                            <li><a class="toctree-l4" href="#step-3-server-recieves-post-request">Step 3: Server recieves post request</a></li>
+                        
+                    
+                    </ul>
                 
             </li>
         
@@ -105,27 +118,18 @@
         
             <span>Client</span>
             
-                <li class="toctree-l2 current">
-                    <a class="current" href="./">Overview</a>
-                    
-                        <ul>
-                        
-                            <li class="toctree-l3"><a href="#the-client">The Client</a></li>
-                            
-                                <li><a class="toctree-l4" href="#filestructure">Filestructure</a></li>
-                            
-                        
-                        </ul>
+                <li class="toctree-l2 ">
+                    <a class="" href="../client/">Overview</a>
                     
                 </li>
             
                 <li class="toctree-l2 ">
-                    <a class="" href="controller/">Controller</a>
+                    <a class="" href="../client/controller/">Controller</a>
                     
                 </li>
             
                 <li class="toctree-l2 ">
-                    <a class="" href="templates/">HTML Templates</a>
+                    <a class="" href="../client/templates/">HTML Templates</a>
                     
                 </li>
             
@@ -153,11 +157,7 @@
   <ul class="wy-breadcrumbs">
     <li><a href="..">Docs</a> &raquo;</li>
     
-      
-        <li>Client &raquo;</li>
-      
-    
-    <li>Overview</li>
+    <li>How it works</li>
       <li class="wy-breadcrumbs-aside">
         
       </li>
@@ -166,29 +166,57 @@
 </div>
           <div role="main">
             <div class="section">
-              <h1 id="the-client">The Client</h1>
-<p>The client contains everything that will be visible in the browser window like the editor, the PDF preview and the download options. It depends on <code>angular.js</code>, <code>textAngular</code> and the <code>Mozilla pdf viewer</code> on the programming side and on <code>less</code> and <code>bootstrap</code> for the styles.</p>
-<h3 id="filestructure">Filestructure</h3>
-<pre><code>client/
-  _less/              # addintions to the bootstrap template
-    index.less        # this file is compiled and included
-  css/                # contains the fonts and the compiled index.less
+              <h1 id="how-the-conversion-works">How the conversion works</h1>
+<p><img alt="Final form" src=".././img/simple-list.gif" title="Article with ordered list" /></p>
+<h2 id="step-1-generate-html-with-textangular">Step 1: Generate HTML with textAngular</h2>
+<p><img alt="textAngular view" src=".././img/textAngular.png" /></p>
+<h3 id="generated-html">Generated HTML</h3>
+<pre><code class="html">&lt;ol&gt;
+  &lt;li&gt;list item&lt;/li&gt;
+  &lt;li&gt;another list item&lt;/li&gt;
+&lt;/ol&gt;
+</code></pre>
 
-  js/                 # the angular setup
-    config/
-      routes.js       # utilizes $routeProvider to set the routes
-    controllers/
-      editor/         # the controllers for the editor interface
-    directives/
-      pdf-preview/    # the multi file pdf-preview directive
-    app.js
+<h2 id="step-2-html-is-sent-to-server">Step 2: HTML is sent to server</h2>
+<p>See <a href=".././client/controller/">Client &gt; Controller</a> for more information.</p>
+<p>While typing angular.js keeps <code>$scope.data.htmlContent</code> updated</p>
+<pre><code class="js">$scope.data.htmlContent = '&lt;ol&gt;&lt;li&gt;list item&lt;/li&gt;&lt;li&gt;another list item&lt;/li&gt;/ol&gt;';
+</code></pre>
 
-  templates/
-    directives/
-      pdf-preview/    # template for the multi file pdf-preview
-    pages/
-      editor/         # template for the editor
-    index.html        # the starting point for the angular app
+<h3 id="frontend-controller-code-involved-simplified">Frontend controller code involved (simplified)</h3>
+<pre><code class="js">function refresh() {
+
+  var postData = {
+    &quot;htmlCode&quot;: '&lt;ol&gt;&lt;li&gt;list item&lt;/li&gt;&lt;li&gt;another list item&lt;/li&gt;/ol&gt;', 
+    &quot;type&quot;: 'article',
+  }
+
+  $http.post(&quot;/company/document/compile&quot;, postData)
+  .success(function(data, status, headers, config) {
+    if (status === 'success') {
+      // update preview
+    } 
+  });
+};
+</code></pre>
+
+<h2 id="step-3-server-recieves-post-request">Step 3: Server recieves post request</h2>
+<p>Seeserver/routes/#routes</p>
+<p>The request <code>$http.post("/company/document/compile", postData)</code> triggers <code>app.post('/:group/:document/compile', function(request, response){}</code> where the postData now is in <code>request.params</code>. </p>
+<pre><code class="js">app.post('/:group/:document/compile', function(request, response){
+  var filename = request.params.document.split('.')[0];
+  var group  = request.params.group.split('.')[0];
+
+  var latexType = request.body.type;
+  var html = request.body.htmlCode;
+  var latexCode = '';
+
+  // ...
+} 
+</code></pre>
+
+<p>With that new input the parser gets called</p>
+<pre><code class="js">var parsed = Parser('parseComplete', ['&lt;ol&gt;&lt;li&gt;list item&lt;/li&gt;&lt;li&gt;another list item&lt;/li&gt;/ol&gt;'], {latexType: 'article'});
 </code></pre>
             </div>
           </div>
@@ -196,10 +224,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="controller/" class="btn btn-neutral float-right" title="Controller"/>Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../server/" class="btn btn-neutral float-right" title="Overview"/>Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href="../parser/templates/" class="btn btn-neutral" title="Templates"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href=".." class="btn btn-neutral" title="Home"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -225,14 +253,14 @@
 <div class="rst-versions" role="note" style="cursor: pointer">
     <span class="rst-current-version" data-toggle="rst-current-version">
         
-      <span><a href="../parser/templates/" style="color: #fcfcfc;">&laquo; Previous</a></span>
-      <span style="margin-left: 15px"><a href="controller/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href=".." style="color: #fcfcfc;">&laquo; Previous</a></span>
+      <span style="margin-left: 15px"><a href="../server/" style="color: #fcfcfc">Next &raquo;</a></span>
     </span>
 </div>
 
 <!--
 MkDocs version  : 0.12.1
-Docs Build Date : 2015-05-01 17:50:43.403692
+Docs Build Date : 2015-05-01 17:50:43.343721
 -->
 </body>
 </html>

@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>HTML Templates - Just Write It</title>
+  <title>Templates - Just Write It</title>
   
 
   <link rel="shortcut icon" href="../../img/favicon.ico">
@@ -85,17 +85,26 @@
             <span>Parser</span>
             
                 <li class="toctree-l2 ">
-                    <a class="" href="../../parser/">Overview</a>
+                    <a class="" href="../">Overview</a>
                     
                 </li>
             
                 <li class="toctree-l2 ">
-                    <a class="" href="../../parser/code/">Code</a>
+                    <a class="" href="../code/">Code</a>
                     
                 </li>
             
-                <li class="toctree-l2 ">
-                    <a class="" href="../../parser/templates/">Templates</a>
+                <li class="toctree-l2 current">
+                    <a class="current" href="./">Templates</a>
+                    
+                        <ul>
+                        
+                            <li class="toctree-l3"><a href="#templates">Templates</a></li>
+                            
+                                <li><a class="toctree-l4" href="#basic-structure">Basic structure</a></li>
+                            
+                        
+                        </ul>
                     
                 </li>
             
@@ -106,26 +115,17 @@
             <span>Client</span>
             
                 <li class="toctree-l2 ">
-                    <a class="" href="../">Overview</a>
+                    <a class="" href="../../client/">Overview</a>
                     
                 </li>
             
                 <li class="toctree-l2 ">
-                    <a class="" href="../controller/">Controller</a>
+                    <a class="" href="../../client/controller/">Controller</a>
                     
                 </li>
             
-                <li class="toctree-l2 current">
-                    <a class="current" href="./">HTML Templates</a>
-                    
-                        <ul>
-                        
-                            <li class="toctree-l3"><a href="#templates">Templates</a></li>
-                            
-                                <li><a class="toctree-l4" href="#editor">Editor</a></li>
-                            
-                        
-                        </ul>
+                <li class="toctree-l2 ">
+                    <a class="" href="../../client/templates/">HTML Templates</a>
                     
                 </li>
             
@@ -154,10 +154,10 @@
     <li><a href="../..">Docs</a> &raquo;</li>
     
       
-        <li>Client &raquo;</li>
+        <li>Parser &raquo;</li>
       
     
-    <li>HTML Templates</li>
+    <li>Templates</li>
       <li class="wy-breadcrumbs-aside">
         
       </li>
@@ -167,83 +167,35 @@
           <div role="main">
             <div class="section">
               <h1 id="templates">Templates</h1>
-<p>The starting point for the Frontend is the <code>/client/templates/index.html</code> it includes all styles and javascript dependencies, contains 
-the main navigation and the <code>ngView</code>.</p>
-<pre><code class="html">&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-&lt;head&gt;
-  &lt;!-- styles --&gt;
-&lt;/head&gt;
-&lt;body ng-app=&quot;LatexEditor&quot;&gt;
-
-  &lt;!-- static navigation --&gt;
-  &lt;nav class=&quot;navbar navbar-inverse navbar-fixed-top&quot;&gt;
-    &lt;!-- .. --&gt;
-  &lt;/nav&gt;
-
-  &lt;!-- entrypont for ngRoutes: --&gt;
-  &lt;div ng-view&gt;&lt;/div&gt;
-
-  &lt;!-- JS dependencies --&gt;
-  &lt;script src='/bower_components/angular/angular.js'&gt;&lt;/script&gt;
-  &lt;!-- .. --&gt;
-
-
-&lt;/body&gt;
-&lt;/html&gt;
+<p>Using the doT.js templating engine the parser is easily extendable and robust. All the templates itself can be found in the <a href="https://github.com/juwit-team/juwit-editor/tree/mx/parser/templates">github repository</a>.</p>
+<h2 id="basic-structure">Basic structure</h2>
+<p>To convert a html tag to latex code the template has to follow a few rules.</p>
+<ol>
+<li>the tag has to be declared in the <a href=".././#configurations">configuration</a> </li>
+<li>a file <code>tag_name.dot</code> has to be present in the matching templates folder </li>
+<li>inside the template has to be a <code>{{= it.content }}</code></li>
+</ol>
+<h3 id="example-templates">Example templates</h3>
+<h4 id="ordered-list-ol">ordered list (ol)</h4>
+<pre><code class="latex">\begin{enumerate}
+  % every child tag will be part of `it.content`
+  {{= it.content }}
+\end{enumerate}
 </code></pre>
 
-<h2 id="editor">Editor</h2>
-<p>The only available route at this point is the editor. When the server is running http://localhost:1338/#editor will render <code>/client/templates/editor/index.html</code> between the <code>ngView</code> tag. This template adds the textAngular-editor and the pdf-preview to the user view.</p>
-<pre><code class="html">&lt;div class=&quot;app&quot;&gt;
-
-  &lt;!-- second navbar right under the static top bar --&gt;
-  &lt;nav class=&quot;navbar subnav&quot;&gt;
-    &lt;div class=&quot;container&quot;&gt;
-      &lt;div class=&quot;row&quot;&gt;
-        &lt;!-- toolbar for article --&gt;
-        &lt;div text-angular-toolbar ... &gt;&lt;/div&gt; 
-        &lt;!-- toolbar for letter --&gt;
-        &lt;div text-angular-toolbar ... &gt;&lt;/div&gt; 
-
-        &lt;!-- switch article to letter or even form letter --&gt;
-        &lt;select class=&quot;form-control&quot; ng-model=&quot;selectedTemplate&quot; ng-options=&quot;template.name for template in templates&quot; ng-change=&quot;modal()&quot;&gt;
-          &lt;/select&gt; 
-
-        &lt;!-- edit options for selected template --&gt;
-        &lt;button name=&quot;editForm&quot; data-target=&quot;{{selectedTemplate.modaltarget}}&quot; ng-show=&quot;selectedTemplate.editable&quot;&gt;Edit&lt;/button&gt;
-
-        &lt;!-- download button to save the pdf --&gt;
-        &lt;button name=&quot;downloadButton&quot; ng-click=&quot;download()&quot;&gt;Download&lt;/button&gt;
-      &lt;/div&gt;
-    &lt;/div&gt;
-  &lt;/nav&gt;
-
-  &lt;!-- editor and preview --&gt;
-  &lt;div class=&quot;container&quot;&gt;  
-    &lt;div class=&quot;row&quot;&gt;
-      &lt;div class=&quot;col-sm-7&quot;&gt;
-        &lt;!-- textangular area --&gt;
-        &lt;div class=&quot;wysiwyg&quot; text-angular=&quot;text-angular&quot; name=&quot;htmlcontent&quot; ng-model=&quot;data.htmlContent&quot; ta-target-toolbars='statictoolbarArticle,statictoolbarFormLetter'&gt;
-        &lt;/div&gt;
-      &lt;/div&gt;
-      &lt;div class=&quot;col-sm-5&quot;&gt;
-        &lt;!-- preview !with hard coded default! --&gt;
-        &lt;pdf-preview url=&quot;/dl/company/document/document.pdf&quot;&gt;&lt;/pdf-preview&gt;
-    &lt;/div&gt;  
-  &lt;/div&gt;
-&lt;/div&gt;
+<h4 id="list-item-li">list item (li)</h4>
+<pre><code class="latex">\item {{= it.content }}
 </code></pre>
-
-<p>To see how the editor view interacts with the server look at the <code>editor/index-controller</code></p>
             </div>
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
+        <a href="../../client/" class="btn btn-neutral float-right" title="Overview"/>Next <span class="icon icon-circle-arrow-right"></span></a>
       
-        <a href="../controller/" class="btn btn-neutral" title="Controller"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+        <a href="../code/" class="btn btn-neutral" title="Code"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -269,14 +221,14 @@ the main navigation and the <code>ngView</code>.</p>
 <div class="rst-versions" role="note" style="cursor: pointer">
     <span class="rst-current-version" data-toggle="rst-current-version">
         
-      <span><a href="../controller/" style="color: #fcfcfc;">&laquo; Previous</a></span>
-      <span style="margin-left: 15px"><a href="" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../code/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      <span style="margin-left: 15px"><a href="../../client/" style="color: #fcfcfc">Next &raquo;</a></span>
     </span>
 </div>
 
 <!--
 MkDocs version  : 0.12.1
-Docs Build Date : 2015-05-01 17:50:43.423157
+Docs Build Date : 2015-05-01 17:50:43.397964
 -->
 </body>
 </html>
