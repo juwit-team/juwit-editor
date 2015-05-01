@@ -61,6 +61,12 @@
                         
                             <li><a class="toctree-l4" href="#step-3-server-recieves-post-request">Step 3: Server recieves post request</a></li>
                         
+                            <li><a class="toctree-l4" href="#step-4-parse-the-html-string-to-a-dom-object">Step 4: Parse the HTML string to a DOM object</a></li>
+                        
+                            <li><a class="toctree-l4" href="#step-5-parse-the-dom-object-to-a-latex-string">Step 5: Parse the DOM object to a latex string</a></li>
+                        
+                            <li><a class="toctree-l4" href="#step-6">Step 6:</a></li>
+                        
                     
                     </ul>
                 
@@ -180,14 +186,14 @@
 <h2 id="step-2-html-is-sent-to-server">Step 2: HTML is sent to server</h2>
 <p>See <a href=".././client/controller/">Client &gt; Controller</a> for more information.</p>
 <p>While typing angular.js keeps <code>$scope.data.htmlContent</code> updated</p>
-<pre><code class="js">$scope.data.htmlContent = '&lt;ol&gt;&lt;li&gt;list item&lt;/li&gt;&lt;li&gt;another list item&lt;/li&gt;/ol&gt;';
+<pre><code class="js">$scope.data.htmlContent = '&lt;ol&gt;&lt;li&gt;list item&lt;/li&gt;&lt;li&gt;another list item&lt;/li&gt;&lt;/ol&gt;';
 </code></pre>
 
 <h3 id="frontend-controller-code-involved-simplified">Frontend controller code involved (simplified)</h3>
 <pre><code class="js">function refresh() {
 
   var postData = {
-    &quot;htmlCode&quot;: '&lt;ol&gt;&lt;li&gt;list item&lt;/li&gt;&lt;li&gt;another list item&lt;/li&gt;/ol&gt;', 
+    &quot;htmlCode&quot;: '&lt;ol&gt;&lt;li&gt;list item&lt;/li&gt;&lt;li&gt;another list item&lt;/li&gt;&lt;/ol&gt;', 
     &quot;type&quot;: 'article',
   }
 
@@ -201,9 +207,9 @@
 </code></pre>
 
 <h2 id="step-3-server-recieves-post-request">Step 3: Server recieves post request</h2>
-<p>Seeserver/routes/#routes</p>
+<p>See <a href=".././server/routes/#routes">Server &gt; Routes</a> for more information.</p>
 <p>The request <code>$http.post("/company/document/compile", postData)</code> triggers <code>app.post('/:group/:document/compile', function(request, response){}</code> where the postData now is in <code>request.params</code>. </p>
-<pre><code class="js">app.post('/:group/:document/compile', function(request, response){
+<pre><code class="javascript">app.post('/:group/:document/compile', function(request, response){
   var filename = request.params.document.split('.')[0];
   var group  = request.params.group.split('.')[0];
 
@@ -211,13 +217,81 @@
   var html = request.body.htmlCode;
   var latexCode = '';
 
-  // ...
-} 
+}
 </code></pre>
 
-<p>With that new input the parser gets called</p>
-<pre><code class="js">var parsed = Parser('parseComplete', ['&lt;ol&gt;&lt;li&gt;list item&lt;/li&gt;&lt;li&gt;another list item&lt;/li&gt;/ol&gt;'], {latexType: 'article'});
+<p>With that new input the parser gets called.</p>
+<pre><code class="js">var parsedLatex = Parser('parseComplete', ['&lt;ol&gt;&lt;li&gt;list item&lt;/li&gt;&lt;li&gt;another list item&lt;/li&gt;&lt;/ol&gt;'], {latexType: 'article'});
 </code></pre>
+
+<h2 id="step-4-parse-the-html-string-to-a-dom-object">Step 4: Parse the HTML string to a DOM object</h2>
+<p>See <a href=".././parser/code">Parser &gt; Code</a> for more information.</p>
+<p>The <code>htmlparser2.parseComplete</code> call first generates a DOM object from the html input</p>
+<pre><code class="js">[{
+  type: 'tag'
+  name: 'ol'
+  attribs: {}
+  children: [
+    {
+        type: 'tag'
+        name: 'li'
+        attribs: {}
+        children: [
+          {
+            data: 'list item'
+            type: 'text'
+            next: null
+            prev: null
+            parent: {+}
+          }
+        ]
+        next: {+}
+        prev: {+}
+        parent: {+}
+    },{
+        type: 'tag'
+        name: 'li'
+        attribs: {}
+        children: [
+          {
+            data: 'another list item'
+            type: 'text'
+            next: null
+            prev: null
+            parent: {+}
+          }
+        ]
+        next: {+}
+        prev: {+}
+        parent: {+}
+    }
+  ]
+  next: null
+  prev: null
+  parent: null
+}]
+</code></pre>
+
+<h2 id="step-5-parse-the-dom-object-to-a-latex-string">Step 5: Parse the DOM object to a latex string</h2>
+<p>The simplified recursive call uses <a href="https://github.com/maxxst/latex-sanitizer">sanitizeLatex</a> and the <a href=".././parser/templates/">templates</a></p>
+<pre><code class="js">function domToLatex(node, classType) {
+  // end of recursion
+  if (node.type === 'text') {
+    return sanitizeLatex(node.data);
+  }
+
+  if (node.type === 'tag') {
+    for (var i = 0; i &lt; node.children.length; i++) {
+      text += domToLatex(node.children[i], classType);
+    };
+
+    // use tag templates
+    return templates[article][tag_name]({&quot;content&quot;: text});
+  }
+}
+</code></pre>
+
+<h2 id="step-6">Step 6:</h2>
             </div>
           </div>
           <footer>
@@ -260,7 +334,7 @@
 
 <!--
 MkDocs version  : 0.12.1
-Docs Build Date : 2015-05-01 17:50:43.343721
+Docs Build Date : 2015-05-01 18:56:35.795108
 -->
 </body>
 </html>
